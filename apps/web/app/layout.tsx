@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import '@repo/ui/globals.css'
+import NavBar from "./lib/components/navbar";
+import {Inter} from "next/font/google";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-sans",
-});
+const inter = Inter({
+  weight:"variable",
+  variable:"--font-sans"
+})
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} font-sans`}>
+      <body className={`${inter.variable} font-sans`}>
+        <NavBar/>
         {children}
       </body>
     </html>
