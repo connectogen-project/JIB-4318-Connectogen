@@ -1,9 +1,11 @@
 import LogItem from "../models/logs.models.js"
+import mongoose from "mongoose";
+
 
 export const getLogs = async (req, res) => {
     try {
         const logs = await LogItem.find({});
-        res.status(200).json({ success: true, data: products });
+        res.status(200).json({ success: true, data: logs });
     } catch (error) {
         console.log("Error", error.message)
         res.status(500).json({ success: false, message: "Server error" });
@@ -20,7 +22,7 @@ export const createLog = async (req, res) => {
 
     try {
         await newLog.save();
-        res.status(201).json({ success: true, data: newProduct});
+        res.status(201).json({ success: true, data: newLog});
     } catch (error) {
         console.error("Error in Creating Log:", error.message);
         return res.status(500).json({ success:false, message: "Server Error" })
