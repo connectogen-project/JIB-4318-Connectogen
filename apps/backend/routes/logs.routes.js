@@ -2,6 +2,7 @@ import express from 'express';
 
 import { getLogs, createLog, logUpdate, logDelete } from "../controllers/logs.controllers.js";
 
+
 const router = express.Router();
 
 router.get("/", getLogs);
