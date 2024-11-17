@@ -2,7 +2,13 @@
     "extends": "@repo/typescript-config/base.json",
     "compilerOptions": {
       "lib": ["ES2015"],
-      "outDir": "./dist"
+      "outDir": "./dist",
+      "baseUrl": ".",
+      "paths": {
+        "@/lib/*": ["packages/ui/src/lib/*"],
+        "@/components/*": ["packages/ui/src/components/*"],
+        "@/utils/*": ["packages/ui/src/lib/*"]
+      }
     },
     "exclude": ["node_modules"],
     "include": ["."]
