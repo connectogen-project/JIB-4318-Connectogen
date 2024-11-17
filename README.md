@@ -35,7 +35,7 @@ Not applicable.
 To build all apps and packages, run the following command:
 
 ```
-npm build
+npm run build
 ```
 
 ### Develop
@@ -43,7 +43,7 @@ npm build
 To develop all apps and packages, run the following command:
 
 ```
-npm dev
+npm run dev
 ```
 
 ### Prerequisites
@@ -51,7 +51,7 @@ npm dev
 To develop locally:
 
 - must have Node.js installed
-- must have Docker Desktop or MongoDB installed
+- must have MongoDB installed and configuration of Docker Desktop
 
 ## Useful Links
 

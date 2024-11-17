@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+"use client"; // Using this because components in Next.js are server-side
+
+import React, { useEffect, useState } from 'react'; // <-- These are the components
 import axios from 'axios';
 
 interface Log {
@@ -23,8 +25,9 @@ const LogsList: React.FC = () => {
         // This will retrieve the logs from the backend
         const fetchLogs = async () => {
             try {
-                const response = await axios.get('/logs');
-                setLogs(response.data.data); // Assuming the logs are in the 'data' field of the response
+                // The localhost value here is the one set for me (AJ)
+                const response = await axios.get('http://localhost:3000/logs');
+                setLogs(response.data.data); // This assumes Logs are present in the data field
             } catch (error) {
                 console.error('Error fetching logs:', error);
             }
