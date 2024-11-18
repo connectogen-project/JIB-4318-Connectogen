@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
 
 const logSchema = new mongoose.Schema({
-    menteeName: {
+    title: {
         type: String,
-        required: true 
+        required: true
+    },
+    date: {
+        type: String,
+        required: true
     },
     mentorName: {
         type: String,
         required: true
     },
-    interaction: {
-        type: String,
-        required: true
-    },
-    summary: {
+    description: {
         type: String,
         required: true
     },

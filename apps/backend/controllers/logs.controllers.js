@@ -14,7 +14,7 @@ export const getLogs = async (req, res) => {
 
 export const createLog = async (req, res) => {
     const log = req.body;
-    if(!log.mentorName || !log.menteeName || !log.interaction || !log.summary) {
+    if(!log.title || !log.date || !log.mentorName || !log.description) {
         return res.status(400).json({ success:false, message: "Please Provide All Fields" })
     }
 
