@@ -1,4 +1,6 @@
+
 'use client';
+
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -28,7 +30,9 @@ function Log({ title, date, mentorName, isSelected, onClick }: LogProps) {
     });
 
     return (
+
         <div
+
             onClick={onClick}
             className={`py-2 px-6 rounded-sm cursor-pointer ${
                 isSelected ? 'bg-muted' : 'hover:bg-muted/50'
@@ -43,7 +47,9 @@ function Log({ title, date, mentorName, isSelected, onClick }: LogProps) {
     );
 }
 
+
 import { Suspense } from 'react';
+
 const LogsList: React.FC = () => {
     const [logs, setLogs] = useState<LogDetails[]>([]);
     const router = useRouter();
