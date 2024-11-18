@@ -4,6 +4,7 @@ import NavBar from "./lib/components/navbar";
 import {Inter} from "next/font/google";
 
 const inter = Inter({
+  subsets: ['cyrillic'],
   weight:"variable",
   variable:"--font-sans",
   subsets: ['latin']

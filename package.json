@@ -5,9 +5,11 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "devdate": "nodemon backend/server.js"
   },
   "devDependencies": {
+    "nodemon": "^3.1.7",
     "prettier": "^3.2.5",
     "turbo": "^2.2.3",
     "typescript": "5.5.4"
@@ -21,6 +23,7 @@
     "packages/*"
   ],
   "dependencies": {
+
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
@@ -29,5 +32,11 @@
     "react-hook-form": "^7.53.2",
     "tailwind-merge": "^2.5.4",
     "zod": "^3.23.8"
+
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.1"
+
   }
 }

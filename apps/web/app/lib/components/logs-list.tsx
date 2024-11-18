@@ -1,23 +1,17 @@
-'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
+"use client"; // Using this because components in Next.js are server-side
 
-interface LogProps {
-    id: string;
+import React, { useEffect, useState } from 'react'; // <-- These are the components
+import axios from 'axios';
+
+interface Log {
+    _id: string;
     title: string;
-    date: string;
-    mentorName: string;
-    isSelected: boolean;
-    onClick: () => void;
 }
 
-function Log({ id, title, date, mentorName, isSelected, onClick }: LogProps) {
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: '2-digit'
-    });
-
+function Log(
+    { title }: { title: string }
+) {
     return (
         <div 
             onClick={onClick}
@@ -34,64 +28,49 @@ function Log({ id, title, date, mentorName, isSelected, onClick }: LogProps) {
     );
 }
 
-// Temporary data
-const SAMPLE_INTERACTIONS = [
-    {
-        id: '1',
-        title: 'Super great interaction',
-        date: '2024-03-20',
-        mentorName: 'John Doe',
-        description: 'This was a really productive session where we discussed...'
-    },
-    {
-        id: '2',
-        title: 'Mega awesome interaction with a very long title that should truncate',
-        date: '2024-03-19',
-        mentorName: 'Jane Smith',
-        description: 'During this meeting, we covered...'
-    },
-    {
-        id: '3',
-        title: 'Career planning session',
-        date: '2024-03-18',
-        mentorName: 'Sarah Wilson',
-        description: 'Had an in-depth discussion about long-term career goals and created a 5-year development plan.'
-    },
-    {
-        id: '4',
-        title: 'Technical skills review',
-        date: '2024-03-15', 
-        mentorName: 'Mike Johnson',
-        description: 'Reviewed recent technical projects and identified areas for improvement in system design and architecture.'
-    },
-    {
-        id: '5',
-        title: 'Leadership development',
-        date: '2024-03-12',
-        mentorName: 'Emily Chen',
-        description: 'Focused on developing leadership capabilities and discussed strategies for leading cross-functional teams effectively.'
-    }
-];
 
-export default function LogsList() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const selectedId = searchParams.get('id');
+const LogsList: React.FC = () => {
+    const [logs, setLogs] = useState<Log[]>([]);
 
-    const handleLogClick = (id: string) => {
-        router.push(`/mentorship/logs?id=${id}`);
-    };
+    useEffect(() => {
+        // This will retrieve the logs from the backend
+        const fetchLogs = async () => {
+            try {
+                // The localhost value here is the one set for me (AJ)
+                const response = await axios.get('http://localhost:3000/logs');
+                setLogs(response.data.data); // This assumes Logs are present in the data field
+            } catch (error) {
+                console.error('Error fetching logs:', error);
+            }
+        };
+
+        fetchLogs();
+    }, []);
 
     return (
-        <div className="space-y-1">
-            {SAMPLE_INTERACTIONS.map((interaction) => (
-                <Log 
-                    key={interaction.id}
-                    {...interaction}
-                    isSelected={selectedId === interaction.id}
-                    onClick={() => handleLogClick(interaction.id)}
-                />
-            ))}
+        <div>
+            <h1>Logs List</h1>
+            <div>
+                {logs.length > 0 ? (
+                    logs.map((log) => (
+                        <Log key={log._id} title={log.title} />
+                    ))
+                ) : (
+                    <p>No logs available</p>
+                )}
+            </div>
         </div>
     );
-}
+};
+
+// export default function LogsList() {
+//     return (
+//         <div>
+//             <Log title="Super great interaction"></Log>
+//             <Log title="Mega awesome interaction"></Log>
+//             <Log title="Best interaction ever"></Log>
+//             <Log title="Best interaction ever with overflow"></Log>
+//         </div>
+//     );
+// }
+export default LogsList;
