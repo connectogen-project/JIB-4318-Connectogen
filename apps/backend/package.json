@@ -13,7 +13,9 @@
     "dependencies": {
         "dotenv": "^16.4.5",
         "express": "^4.21.1",
-        "mongoose": "^8.8.1"
+        "extreme": "^0.0.8",
+        "mongoose": "^8.8.1",
+        "mongosh": "^2.3.3"
     },
     "devDependencies": {
         "@repo/eslint-config": "*",

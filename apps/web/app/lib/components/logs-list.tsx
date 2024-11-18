@@ -1,9 +1,5 @@
-
-'use client';
-
-
 import React, { useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 interface LogDetails {
@@ -30,9 +26,7 @@ function Log({ title, date, mentorName, isSelected, onClick }: LogProps) {
     });
 
     return (
-
         <div
-
             onClick={onClick}
             className={`py-2 px-6 rounded-sm cursor-pointer ${
                 isSelected ? 'bg-muted' : 'hover:bg-muted/50'
@@ -47,20 +41,21 @@ function Log({ title, date, mentorName, isSelected, onClick }: LogProps) {
     );
 }
 
-
-import { Suspense } from 'react';
-
 const LogsList: React.FC = () => {
     const [logs, setLogs] = useState<LogDetails[]>([]);
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const selectedId = searchParams.get('id');
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
     useEffect(() => {
+        // Get query param from URL manually when component loads
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        setSelectedId(id);
+
         // Fetch logs from the backend
         const fetchLogs = async () => {
             try {
-                const response = await axios.get('http://localhost:2999/logs');
+                const response = await axios.get('http://localhost:2999/mentorship/logs');
                 setLogs(response.data.data); // Assuming the logs are in the 'data' field of the response
             } catch (error) {
                 console.error('Error fetching logs:', error);
@@ -71,6 +66,7 @@ const LogsList: React.FC = () => {
     }, []);
 
     const handleLogClick = (id: string) => {
+        setSelectedId(id);
         router.push(`/mentorship/logs?id=${id}`);
     };
 
@@ -95,13 +91,4 @@ const LogsList: React.FC = () => {
     );
 };
 
-export default function LogsListWithSuspense() {
-    return (
-        <Suspense fallback={<div>Loading logs...</div>}>
-            <LogsList />
-        </Suspense>
-    );
-}
-
-// Temp code
-//again
+export default LogsList;
