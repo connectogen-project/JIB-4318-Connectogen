@@ -1,19 +1,38 @@
 
-"use client"; // Using this because components in Next.js are server-side
+'use client';
 
-import React, { useEffect, useState } from 'react'; // <-- These are the components
+
+import React, { useEffect, useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 
-interface Log {
+interface LogDetails {
     _id: string;
     title: string;
+    date: string;
+    mentorName: string;
 }
 
-function Log(
-    { title }: { title: string }
-) {
+interface LogProps {
+    id: string;
+    title: string;
+    date: string;
+    mentorName: string;
+    isSelected: boolean;
+    onClick: () => void;
+}
+
+function Log({ title, date, mentorName, isSelected, onClick }: LogProps) {
+    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: '2-digit'
+    });
+
     return (
-        <div 
+
+        <div
+
             onClick={onClick}
             className={`py-2 px-6 rounded-sm cursor-pointer ${
                 isSelected ? 'bg-muted' : 'hover:bg-muted/50'
@@ -29,16 +48,20 @@ function Log(
 }
 
 
+import { Suspense } from 'react';
+
 const LogsList: React.FC = () => {
-    const [logs, setLogs] = useState<Log[]>([]);
+    const [logs, setLogs] = useState<LogDetails[]>([]);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const selectedId = searchParams.get('id');
 
     useEffect(() => {
-        // This will retrieve the logs from the backend
+        // Fetch logs from the backend
         const fetchLogs = async () => {
             try {
-                // The localhost value here is the one set for me (AJ)
-                const response = await axios.get('http://localhost:3000/logs');
-                setLogs(response.data.data); // This assumes Logs are present in the data field
+                const response = await axios.get('http://localhost:2999/logs');
+                setLogs(response.data.data); // Assuming the logs are in the 'data' field of the response
             } catch (error) {
                 console.error('Error fetching logs:', error);
             }
@@ -47,30 +70,35 @@ const LogsList: React.FC = () => {
         fetchLogs();
     }, []);
 
+    const handleLogClick = (id: string) => {
+        router.push(`/mentorship/logs?id=${id}`);
+    };
+
     return (
-        <div>
-            <h1>Logs List</h1>
-            <div>
-                {logs.length > 0 ? (
-                    logs.map((log) => (
-                        <Log key={log._id} title={log.title} />
-                    ))
-                ) : (
-                    <p>No logs available</p>
-                )}
-            </div>
+        <div className="space-y-1">
+            {logs.length > 0 ? (
+                logs.map((log) => (
+                    <Log
+                        key={log._id}
+                        id={log._id}
+                        title={log.title}
+                        date={log.date}
+                        mentorName={log.mentorName}
+                        isSelected={selectedId === log._id}
+                        onClick={() => handleLogClick(log._id)}
+                    />
+                ))
+            ) : (
+                <p>No logs available</p>
+            )}
         </div>
     );
 };
 
-// export default function LogsList() {
-//     return (
-//         <div>
-//             <Log title="Super great interaction"></Log>
-//             <Log title="Mega awesome interaction"></Log>
-//             <Log title="Best interaction ever"></Log>
-//             <Log title="Best interaction ever with overflow"></Log>
-//         </div>
-//     );
-// }
-export default LogsList;
+export default function LogsListWithSuspense() {
+    return (
+        <Suspense fallback={<div>Loading logs...</div>}>
+            <LogsList />
+        </Suspense>
+    );
+}
