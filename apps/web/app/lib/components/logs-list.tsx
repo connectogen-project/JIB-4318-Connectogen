@@ -55,7 +55,7 @@ const LogsList: React.FC = () => {
         // Fetch logs from the backend
         const fetchLogs = async () => {
             try {
-                const response = await axios.get('http://localhost:2999/logs');
+                const response = await axios.get('http://localhost:2999/mentorship/logs');
                 setLogs(response.data.data); // Assuming the logs are in the 'data' field of the response
             } catch (error) {
                 console.error('Error fetching logs:', error);
