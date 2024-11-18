@@ -6,7 +6,8 @@ import {Inter} from "next/font/google";
 const inter = Inter({
   subsets: ['cyrillic'],
   weight:"variable",
-  variable:"--font-sans"
+  variable:"--font-sans",
+  subsets: ['latin']
 })
 
 

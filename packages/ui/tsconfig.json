@@ -6,6 +6,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "tailwind.config.ts", "postcss.config.mjs"],
+  "include": ["src", "tailwind.config.ts", "postcss.config.mjs", "../../apps/web/app/lib/components/form.tsx"],
   "exclude": ["node_modules", "dist"]
 }

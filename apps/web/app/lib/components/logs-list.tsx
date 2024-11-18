@@ -1,3 +1,4 @@
+
 "use client"; // Using this because components in Next.js are server-side
 
 import React, { useEffect, useState } from 'react'; // <-- These are the components
@@ -12,11 +13,21 @@ function Log(
     { title }: { title: string }
 ) {
     return (
-        <div className="hover:bg-muted py-2 px-6 rounded-sm truncate text-sm">
-            <span>{title}</span>
+        <div 
+            onClick={onClick}
+            className={`py-2 px-6 rounded-sm cursor-pointer ${
+                isSelected ? 'bg-muted' : 'hover:bg-muted/50'
+            }`}
+        >
+            <div className="font-medium text-sm truncate">{title}</div>
+            <div className="text-sm">
+                <span>{formattedDate}</span>
+                <span className="text-muted-foreground ml-2">{mentorName}</span>
+            </div>
         </div>
-    )
+    );
 }
+
 
 const LogsList: React.FC = () => {
     const [logs, setLogs] = useState<Log[]>([]);
