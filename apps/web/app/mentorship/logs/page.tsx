@@ -8,7 +8,9 @@ export default async function Logs({ searchParams }: { searchParams: { [key: str
   if (!searchParams) return null;
   const showForm = searchParams['new'] === 'true';
   const selectedId = searchParams['id'];
-  const allLogs = await fetch("http://localhost:2999/mentorship/logs").then((res) => res.json()) as any
+    const allLogs = await fetch("http://localhost:2999/mentorship/logs", {
+        cache: 'no-store',
+    }).then((res) => res.json()) as any;
 
   const selectedInteraction = allLogs.data.find(
     (interaction: any) => {
