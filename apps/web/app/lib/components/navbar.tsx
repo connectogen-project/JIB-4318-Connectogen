@@ -7,7 +7,7 @@ import { InboxIcon, UserCircle } from "lucide-react";
 export default function NavBar() {
     const pathname = usePathname()
     return (
-        <div className="flex items-center border-b border-border h-[68px] sticky top-0">
+        <div className="flex items-center border-b border-border h-[68px] sticky top-0 z-10">
             <nav className="flex w-full px-9">
                 <div className="mr-9"><Logo/></div>
                 <ul className="flex gap-x-4 grow">
