@@ -20,20 +20,24 @@ export default async function Logs({ searchParams }: { searchParams: { [key: str
   );
   console.log(selectedInteraction)
 
-  return (
-    <div className="flex h-screen">
-      <div className="w-64 border-r">
-        <LogsSidebar />
-      </div>
-      <div className="flex-1 overflow-y-auto">
-        {showForm ? (
-          <NewInteractionForm />
-        ) : selectedInteraction ? (
-          <InteractionDetails {...selectedInteraction} />
-        ) : (
-          <LogsContent />
-        )}
-      </div>
-    </div>
-  );
+    return (
+        <div className="flex h-[calc(100vh-68px)]">
+
+            <div className="w-64 border-r h-full">
+                <LogsSidebar />
+            </div>
+
+            <div className="flex-1 h-full flex flex-col">
+                <div className="flex-1 overflow-y-auto">
+                    {showForm ? (
+                        <NewInteractionForm />
+                    ) : selectedInteraction ? (
+                        <InteractionDetails {...selectedInteraction} />
+                    ) : (
+                        <LogsContent />
+                    )}
+                </div>
+            </div>
+        </div>
+    );
 }
