@@ -44,6 +44,19 @@ To develop all apps and packages, run the following command:
 npm run dev
 ```
 
+To ensure backend and front end compatibility, run the following command:
+
+```
+npm install cors
+```
+
+### UI
+To install the necessary libraries for UI implementations, run the following command:
+
+```
+npm install react-toastify swr framer-motion
+```
+
 ### Prerequisites
 
 To develop locally:
