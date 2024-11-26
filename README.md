@@ -10,13 +10,11 @@ For the Connectogen rebuild, we have decided to go with the MERN tech stack whic
 
 ## Features
 
-Our team will implement two main features: the Mentorship Interaction List and Mentorship Interaction Creation.
+Our team will implement two main features: the Mentorship Interaction List and Extended View.
 
-The Mentorship Interaction List presents users with a user-friendly interface where they can view a history of logged mentorship interactions, each displaying relevant details such as interaction date, meeting title, mentor, and topics discussed. The list is designed for easy navigation and allows users to quickly access and review past mentorship sessions.
-The Mentorship Interaction Creation feature enables users to log new mentorship interactions via a form-based interface. Users can input text details, including the interaction date, meeting title, mentor, and topics discussed. Upon submission, the interaction data is stored and automatically added to the Mentorship Interaction List.
-These features require backend functionality, including database integration for data storage and retrieval, as well as efficient querying mechanisms to support fast loading and real-time updates. The system architecture will focus on a seamless user experience, with data consistently synchronized between the front end and back end.
+The Mentorship Interaction List presents users with a user-friendly interface where they can view a history of logged mentorship interactions, each displaying relevant details such as interaction date, meeting title, mentor, and description. The list is designed for easy navigation and allows users to quickly access and review past mentorship sessions.
 
-We chose to implement the Mentorship Interaction List and Mentorship Interaction Creation for our first semester Project Artifact Implementation because these two features would allow us to test our full range of development (database, frontend, backend, and server framework) while being relatively straightforward. These features should give us an idea of whether or not our proposed tech stack is the correct implementation approach for the project. 
+We chose to implement the Mentorship Interaction List and Extended View for our first semester Project Artifact Implementation because these two features would allow us to test our full range of development (database, frontend, backend, and server framework) while being relatively straightforward. These features should give us an idea of whether or not our proposed tech stack is the correct implementation approach for the project. 
 
 ## v0.0.0
 
@@ -44,6 +42,19 @@ To develop all apps and packages, run the following command:
 
 ```
 npm run dev
+```
+
+To ensure backend and front end compatibility, run the following command:
+
+```
+npm install cors
+```
+
+### UI
+To install the necessary libraries for UI implementations, run the following command:
+
+```
+npm install react-toastify swr framer-motion
 ```
 
 ### Prerequisites
