@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import Navbarish from "./NavigationBar";
+import NavBar from "./navbar";
 
 export type Navigation1Type = {
   className?: string;
@@ -12,7 +12,7 @@ const Navigation1: FunctionComponent<Navigation1Type> = ({
     <div
       className={`w-[1440px] bg-background-color-primary max-w-full overflow-hidden flex flex-row items-start justify-start leading-[normal] tracking-[normal] ${className}`}
     >
-      <Navbarish breakpoint="Desktop" />
+      <NavBar breakpoint="Desktop" />
     </div>
   );
 };

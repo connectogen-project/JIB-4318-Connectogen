@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import '@repo/ui/globals.css'
 
-import Navbarish from "./lib/components/NavigationBar";
+import NavBar from "./lib/components/navbar";
 import {Inter} from "next/font/google";
 
 const inter = Inter({
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans`}>
-        <Navbarish/>
+      <NavBar/>
       
         {children}
       </body>
