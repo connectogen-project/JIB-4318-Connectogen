@@ -75,5 +75,3 @@ Learn more about the power of Turborepo:
 - [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
 - [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
 
-THIS IS A TEST TO SEE IF PUSHING TO CLIENT WORKS!
-THIS IS A TEST TO SEE IF PUSHING TO ENTERPRISE REPO WORKS!
