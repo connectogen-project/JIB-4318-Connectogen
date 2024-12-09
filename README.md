@@ -28,12 +28,31 @@ Not applicable.
 
 # Developer Documentation
 
+### Setting Up For The First Time
+Please run the following command to ensure you've downloaded all the required dependencies:
+```
+npm install
+``` 
+
+
+To ensure backend and front end compatibility, run the following command:
+
+```
+npm install cors
+```
+To install the necessary libraries for UI implementations, run the following command:
+
+```
+npm install react-toastify swr framer-motion
+```
+
+
 ### Build
 
 To build all apps and packages, run the following command:
 
 ```
-npm run build
+turbo build
 ```
 
 ### Develop
@@ -41,20 +60,7 @@ npm run build
 To develop all apps and packages, run the following command:
 
 ```
-npm run dev
-```
-
-To ensure backend and front end compatibility, run the following command:
-
-```
-npm install cors
-```
-
-### UI
-To install the necessary libraries for UI implementations, run the following command:
-
-```
-npm install react-toastify swr framer-motion
+turbo dev
 ```
 
 ### Prerequisites
