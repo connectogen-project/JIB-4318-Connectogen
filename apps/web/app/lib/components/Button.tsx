@@ -1,72 +1,56 @@
-'use client';
-import {
-  FunctionComponent,
-  useMemo,
-  type CSSProperties,
-  useCallback,
-} from "react";
-import { useRouter } from "next/navigation";
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
 
-export type ButtonType = {
-  className?: string;
-  button?: string;
+import { cn } from "../utils"
 
-  /** Variant props */
-  alternate?: boolean;
-  iconPosition?: string;
-  small?: boolean;
-  style?: "Primary" | "Secondary";
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
 
-  /** Style props */
-  buttonAlignSelf?: CSSProperties["alignSelf"];
-  buttonFlex?: CSSProperties["flex"];
-  buttonHeight?: CSSProperties["height"];
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
 
-  /** Action props */
-  onButtonClick?: () => void;
-};
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Button.displayName = "Button"
 
-const Button: FunctionComponent<ButtonType> = ({
-  className = "",
-  alternate = false,
-  iconPosition = "No icon",
-  small = false,
-  style = "Primary",
-  buttonAlignSelf,
-  button,
-  buttonFlex,
-  buttonHeight,
-  onButtonClick,
-}) => {
-  const buttonStyle: CSSProperties = useMemo(() => {
-    return {
-      alignSelf: buttonAlignSelf,
-      flex: buttonFlex,
-      height: buttonHeight,
-    };
-  }, [buttonAlignSelf, buttonFlex, buttonHeight]);
-
-  const router = useRouter();
-
-  const onButtonClick1 = useCallback(() => {
-    router.push("/about");
-  }, [router]);
-
-  return (
-    <button
-      className={`cursor-pointer border-color-neutral-black border-[1px] border-solid py-3 px-6 bg-color-neutral-black h-[50px] box-border flex flex-row items-center justify-center [&_icon']:data-[small='false']:data-[style='Secondary']]:data-[alternate='false']:data-[iconPosition='No:bg-[transparent] [&_icon']:data-[small='false']:data-[style='Secondary']]:data-[alternate='false']:data-[iconPosition='No:text-color-neutral-black [&_icon']:data-[small='false']:data-[style='Secondary']]:data-[alternate='false']:data-[iconPosition='No:h-6 [&_icon']:data-[small='false']:data-[style='Secondary']]:data-[alternate='false']:data-[iconPosition='No:w-12 [&_icon']:data-[small='false']:data-[style='Secondary']]:data-[alternate='false']:data-[iconPosition='No:inline-block ${className}`}
-      onClick={onButtonClick}
-      data-alternate={alternate}
-      data-iconposition={iconPosition}
-      data-small={small}
-      data-style={style}
-      style={buttonStyle}
-    >
-      <div className="button relative text-base leading-[150%] font-heading-desktop-h1 text-background-color-primary text-left">
-        {button}
-      </div>
-    </button>
-  );
-};
-
-export default Button;
+export { Button, buttonVariants }
