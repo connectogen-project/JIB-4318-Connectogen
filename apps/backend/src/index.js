@@ -6,6 +6,7 @@ import cors from 'cors';
 import { connectDB } from '../config/db.js';
 
 import logRoutes from "../routes/logs.routes.js";
+import userRoutes from "../routes/users.routes.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use("/mentorship/logs", logRoutes)
+app.use("/auth", userRoutes)
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
