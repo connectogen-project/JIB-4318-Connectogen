@@ -65,6 +65,7 @@ export default function NavBar() {
                             Register
                         </Link>
                     </Button>
+                    {/* need to add backend functionality to logout user */}
                     <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
                         <Link href="/login">
                             Logout
