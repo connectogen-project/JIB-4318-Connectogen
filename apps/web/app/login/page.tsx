@@ -5,20 +5,20 @@ import Link from "next/link"
 import { Input } from "../lib/components/Input"
 import { Button } from "../lib/components/Button"
 import { Mail, Lock } from "lucide-react"
-import { useFormState } from "react-dom"
-import { verifyEmail, verifyEmailState } from "./VerifyEmail"
-import { useState } from "react"
+// import { useFormState } from "react-dom"
+// import { verifyEmail, verifyEmailState } from "./VerifyEmail"
+// import { useState } from "react"
 
-const initialState = {
-  email: '',
-  message: '',
-}
+// const initialState = {
+//   email: '',
+//   message: '',
+// }
 
 export default function LoginPage() {
-  const [state, formAction] = useFormState(verifyEmail, initialState)
-  const [currState, setCurrState] = useState(initialState.email)
+  // const [state, formAction] = useFormState(verifyEmail, initialState)
+  // const [currState, setCurrState] = useState(initialState.email)
 
-  console.log(state, currState)
+  // console.log(state, currState)
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-[400px] space-y-6">
@@ -27,12 +27,11 @@ export default function LoginPage() {
           <p className="text-gray-500">Log in to your account</p>
         </div>
 
-        <form className="space-y-4" action={formAction}>
+        <form className="space-y-4">
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-            <Input type="email" placeholder="Email" className="pl-10" onChange={(e) => setCurrState(e.currentTarget.value)} />
+            <Input type="email" placeholder="Email" className="pl-10" />
           </div>
-          <span aria-live="polite" className="text-xs text-destructive">{currState === state?.email && state?.message}</span>
 
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
