@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Logo from "@repo/ui/components/logo";
+import { Button } from "./Button";
 import { InboxIcon, UserCircle } from "lucide-react";
 
 export default function NavBar() {
@@ -54,14 +55,22 @@ export default function NavBar() {
                     </li>
                 </ul>
                 <div className="flex gap-x-6 items-center">
-                    <Link href="/login">
-                        <button className="text-muted-foreground hover:text-foreground">Login</button>
-                    </Link>
-                    <Link href="/signup">
-                        <button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
+                    <Button className="bg-foreground text-background hover:text-foreground">
+                        <Link href="/login">
+                            Login
+                        </Link>
+                    </Button>
+                    <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
+                        <Link href="/signup">
                             Register
-                        </button>
-                    </Link>
+                        </Link>
+                    </Button>
+                    {/* need to add backend functionality to logout user */}
+                    <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
+                        <Link href="/login">
+                            Logout
+                        </Link>
+                    </Button>
                     <InboxIcon />
                     <UserCircle />
                 </div>
