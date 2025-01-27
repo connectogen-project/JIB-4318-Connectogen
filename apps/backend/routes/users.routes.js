@@ -1,14 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, getUser, deleteUser, updateUser } = require('../controllers/users.controllers.js');
-const {logUpdate, logDelete} = require("../controllers/logs.controllers");
+const {
+  registerUser,
+  loginUser,
+  getUser,
+  deleteUser,
+  updateUser,
+  forgotPassword,
+  resetPassword,
+} = require('../controllers/users.controllers.js');
+const { logUpdate, logDelete } = require('../controllers/logs.controllers');
 const authMiddleware = require('../middlewares/auth.middleware.js');
 
-router.post('/register', registerUser);
+// Public Routes (No Authentication Required)
+router.post('/register', registerUser); // Register a new user
+router.post('/login', loginUser); // Login a user
+router.post('/forgot-password', forgotPassword); // Forgot password (generate reset token)
+router.post('/reset-password', resetPassword); // Reset password (validate token and update password)
 
-router.post('/login', loginUser);
-
-router.get('/', getUser);
+// Protected Routes (Authentication Required)
+router.get('/', getUser); // Get user details
 
 // Only an authenticated user can update their own profile after revalidating password
 router.put('/:id', authMiddleware, async (req, res, next) => {
@@ -38,7 +49,7 @@ router.put('/:id', authMiddleware, async (req, res, next) => {
 
   // If all checks pass, proceed to the real update handler
   next();
-}, updateUser);
+}, updateUser, logUpdate);
 
 // Only an authenticated user can delete their own profile after revalidating password
 router.delete('/:id', authMiddleware, async (req, res, next) => {
@@ -67,6 +78,6 @@ router.delete('/:id', authMiddleware, async (req, res, next) => {
 
   // If all checks pass, proceed to the real delete handler
   next();
-}, deleteUser);
+}, deleteUser, logDelete);
 
 module.exports = router;
