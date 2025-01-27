@@ -42,7 +42,7 @@ export default function LoginPage() {
         </form>
 
         <div className="space-y-4 text-center text-sm">
-          <Link href="/forgot-password" className="text-gray-500 hover:text-gray-800">
+          <Link href="/login/reset-password" className="text-gray-500 hover:text-gray-800">
             Forgot password
           </Link>
 
