@@ -2,8 +2,8 @@
 
 import Link from "next/link"
 
-import { Input } from "../lib/components/Input"
-import { Button } from "../lib/components/Button"
+import { Input } from "@repo/ui/components/ui/input"
+import { Button } from "@repo/ui/components/ui/button"
 import { Mail, Lock } from "lucide-react"
 // import { useFormState } from "react-dom"
 // import { verifyEmail, verifyEmailState } from "./VerifyEmail"
