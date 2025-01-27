@@ -9,6 +9,7 @@
     "devdate": "nodemon backend/server.js"
   },
   "devDependencies": {
+    "bcryptjs": "^2.4.3",
     "nodemon": "^3.1.7",
     "prettier": "^3.2.5",
     "turbo": "^2.2.3",
@@ -34,7 +35,7 @@
     "express": "^4.21.1",
     "extreme": "^0.0.8",
     "framer-motion": "^11.13.1",
-    "lucide-react": "^0.473.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1",
     "next": "^15.0.3",
     "react-hook-form": "^7.53.2",
