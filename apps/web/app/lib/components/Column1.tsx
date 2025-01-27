@@ -1,7 +1,7 @@
 'use client';
 import { FunctionComponent, useCallback } from "react";
 import TextInput from "./TextInput";
-import Button from "./Button";
+import Button from "./Button-Legacy";
 import { useRouter } from "next/navigation";
 
 export type Column1Type = {

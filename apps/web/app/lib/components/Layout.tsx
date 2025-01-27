@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import Button from "./Button";
+import Button from "./Button-Legacy";
 
 export type LayoutType = {
   className?: string;

@@ -1,7 +1,7 @@
 'use client';
 import { FunctionComponent, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import Button from "./Button";
+import Button from "./Button-Legacy";
 
 export type HeaderType = {
   className?: string;
