@@ -1,6 +1,7 @@
 const User = require('../models/users.models.js');
 const jwt = require('jsonwebtoken');
 
+
 const getUser = async (req, res) => {
     try {
         const { email } = req.query; // User ID is their email address
@@ -123,12 +124,66 @@ const deleteUser = async (req, res) => {
     }
 };
 
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Generate a reset token
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+        await user.save();
+
+        res.status(200).json({ message: 'Reset token generated', resetToken });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+const resetPassword = async (req, res) => {
+    try {
+      const { resetToken, newPassword, confirmPassword } = req.body;
+  
+      // Check if passwords match
+      if (newPassword !== confirmPassword) {
+        return res.status(400).json({ message: 'Passwords do not match' });
+      }
+  
+      // Find user by reset token and check expiration
+      const user = await User.findOne({
+        resetPasswordToken: resetToken,
+        resetPasswordExpires: { $gt: Date.now() },
+      });
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid or expired reset token' });
+      }
+  
+      // Update password and clear reset token fields
+      user.password = newPassword;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+  
+      await user.save();
+  
+      res.status(200).json({ message: 'Password reset successful' });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  };
+
 module.exports = {
     registerUser,
     loginUser,
     updateUser,
     deleteUser,
-    getUser
+    getUser,
+    forgotPassword,
+    resetPassword
 };
-
-//test
