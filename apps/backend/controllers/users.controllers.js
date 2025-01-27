@@ -82,7 +82,7 @@ const loginUser = async (req, res) => {
 
 const logoutUser = async (req, res) => {
     try {
-        res.cokkie('jwt', '', { maxAge: 1 });
+        res.cookie('jwt', '', { maxAge: 1 });
         res.status(200).json({ success: true, message: "Logged out successfully" });
         res.redirect('/');
     } catch (error) {
