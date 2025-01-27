@@ -1,5 +1,8 @@
+const crypto = require('node:crypto')
+
 const User = require('../models/users.models.js');
 const jwt = require('jsonwebtoken');
+
 
 
 const getUser = async (req, res) => {
@@ -71,7 +74,7 @@ const loginUser = async (req, res) => {
             isMentee: user.isMentee
         };
 
-        const token = jwt.sign(payload, process.env.JWT_TOKEN, {expiresIn: '1h'});
+        const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: '1h' });
 
         // Success results in 400 code
         res.status(200).json({ message: 'Login successful', token });
@@ -125,8 +128,11 @@ const deleteUser = async (req, res) => {
 };
 
 const forgotPassword = async (req, res) => {
+
     try {
         const { email } = req.body;
+
+        console.log(email)
 
         const user = await User.findOne({ email });
         if (!user) {
@@ -148,35 +154,35 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
     try {
-      const { resetToken, newPassword, confirmPassword } = req.body;
-  
-      // Check if passwords match
-      if (newPassword !== confirmPassword) {
-        return res.status(400).json({ message: 'Passwords do not match' });
-      }
-  
-      // Find user by reset token and check expiration
-      const user = await User.findOne({
-        resetPasswordToken: resetToken,
-        resetPasswordExpires: { $gt: Date.now() },
-      });
-  
-      if (!user) {
-        return res.status(400).json({ message: 'Invalid or expired reset token' });
-      }
-  
-      // Update password and clear reset token fields
-      user.password = newPassword;
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpires = undefined;
-  
-      await user.save();
-  
-      res.status(200).json({ message: 'Password reset successful' });
+        const { resetToken, newPassword, confirmPassword } = req.body;
+
+        // Check if passwords match
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({ message: 'Passwords do not match' });
+        }
+
+        // Find user by reset token and check expiration
+        const user = await User.findOne({
+            resetPasswordToken: resetToken,
+            resetPasswordExpires: { $gt: Date.now() },
+        });
+
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid or expired reset token' });
+        }
+
+        // Update password and clear reset token fields
+        user.password = newPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+
+        await user.save();
+
+        res.status(200).json({ message: 'Password reset successful' });
     } catch (error) {
-      res.status(500).json({ message: 'Server error', error: error.message });
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
-  };
+};
 
 module.exports = {
     registerUser,

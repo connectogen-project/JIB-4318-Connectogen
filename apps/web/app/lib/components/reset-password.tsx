@@ -8,8 +8,14 @@ import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
 
+interface ResetPasswordProps {
+    resetToken: string,
+}
 
-export default function ResetPassword() {
+
+export default function ResetPassword({
+    resetToken
+}: ResetPasswordProps) {
 
     const [formData, setFormData] = useState({
         password: '',
@@ -23,12 +29,16 @@ export default function ResetPassword() {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('http://localhost:2999/login/reset-password', {
+            const response = await fetch('http://localhost:2999/auth/reset-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    resetToken: resetToken,
+                    newPassword: formData.password,
+                    confirmPassword: formData.confirmPassword
+                }),
             });
 
             if (!response.ok) {
@@ -71,8 +81,8 @@ export default function ResetPassword() {
                     <div className="relative">
                         <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                         <Input
-                            type="email"
-                            placeholder="New Email"
+                            type="string"
+                            placeholder="New Password"
                             id="password"
                             className="pl-10"
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -84,8 +94,8 @@ export default function ResetPassword() {
                     <div className="relative">
                         <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                         <Input
-                            type="email"
-                            placeholder="Confirm Email"
+                            type="string"
+                            placeholder="Confirm Password"
                             id="confirmPassword"
                             className="pl-10"
                             onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}

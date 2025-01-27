@@ -2,11 +2,11 @@
 
 import { Mail } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
-import { mutate } from "swr";
 import { Input } from "./Input";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 export default function ForgotPassword() {
@@ -17,18 +17,22 @@ export default function ForgotPassword() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const router = useRouter();
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('http://localhost:2999/login/reset-password', {
+            const response = await fetch('http://localhost:2999/auth/forgot-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ email: formData.email }),
             });
+
+            console.log(response)
 
             if (!response.ok) {
                 const errorData = await response.json();
@@ -37,17 +41,13 @@ export default function ForgotPassword() {
             } else {
                 const result = await response.json();
                 console.log('Email Sent', result);
+                router.push(`http://localhost:3000/login/reset-password/?resetToken=${result.resetToken}`)
 
                 setFormData({
                     email: '',
                 });
 
                 toast.success('Your email was sent!');
-
-                mutate('http://localhost:2999/login/reset-password');
-
-                setTimeout(() => {
-                }, 6000);
             }
         } catch (error) {
             console.error('Uh oh! Something went wrong, we had an error verifying your email:', error);
