@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   registerUser,
   loginUser,
+  logoutUser,
   getUser,
   deleteUser,
   updateUser,
@@ -14,8 +15,13 @@ const authMiddleware = require('../middlewares/auth.middleware.js');
 
 // Public Routes (No Authentication Required)
 router.post('/register', registerUser); // Register a new user
+
 router.post('/login', loginUser); // Login a user
+
+router.post('/logout', logoutUser); // Logout a user
+
 router.post('/forgot-password', forgotPassword); // Forgot password (generate reset token)
+
 router.post('/reset-password', resetPassword); // Reset password (validate token and update password)
 
 // Protected Routes (Authentication Required)
