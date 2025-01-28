@@ -4,16 +4,20 @@ import Link from "next/link";
 import Logo from "@repo/ui/components/logo";
 import { Button } from "./Button";
 import { InboxIcon, UserCircle } from "lucide-react";
-import { logoutUser } from "../../../../backend/controllers/users.controllers"
-import { useRouter } from 'next/router';
 
 export default function NavBar() {
     const pathname = usePathname();
-    const router = useRouter();
 
-    const onLogoutClick = async () => {
-        await logoutUser();
-        router.push('/login');
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('api/users/logout', { method: 'POST'});
+            if (response.ok) {
+            } else {
+                console.error('Failed to log out');
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
     };
 
     return (
@@ -75,7 +79,7 @@ export default function NavBar() {
                     </Button>
                     {/* need to add backend functionality to logout user */}
                     <Button
-                        onClick={onLogoutClick}
+                        onClick={handleLogout}
                         className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
                     >
                         <Link href="/login">

@@ -23,10 +23,10 @@ export default function LoginPage() {
 
   // console.log(state, currState)
 
-  const onLoginClick = async () => {
-    await loginUser();
-    router.push('/')
-  };
+  // const handleLogin = async () => {
+  //   await loginUser();
+  //   router.push('/')
+  // };
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
@@ -49,7 +49,6 @@ export default function LoginPage() {
 
           <Button 
             type="submit"
-            onClick={onLoginClick}
             className="w-full bg-black text-white hover:bg-black/90"
           >
             Login
