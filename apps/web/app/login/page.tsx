@@ -5,6 +5,8 @@ import Link from "next/link"
 import { Input } from "@repo/ui/components/ui/input"
 import { Button } from "@repo/ui/components/ui/button"
 import { Mail, Lock } from "lucide-react"
+import { loginUser } from "../../../backend/controllers/users.controllers"
+import { useRouter } from "next/router"
 // import { useFormState } from "react-dom"
 // import { verifyEmail, verifyEmailState } from "./VerifyEmail"
 // import { useState } from "react"
@@ -15,10 +17,17 @@ import { Mail, Lock } from "lucide-react"
 // }
 
 export default function LoginPage() {
+  const router = useRouter();
   // const [state, formAction] = useFormState(verifyEmail, initialState)
   // const [currState, setCurrState] = useState(initialState.email)
 
   // console.log(state, currState)
+
+  const onLoginClick = async () => {
+    await loginUser();
+    router.push('/')
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-[400px] space-y-6">
@@ -38,7 +47,13 @@ export default function LoginPage() {
             <Input type="password" placeholder="Password" className="pl-10" />
           </div>
 
-          <Button type="submit" className="w-full bg-black text-white hover:bg-black/90">Login</Button>
+          <Button 
+            type="submit"
+            onClick={onLoginClick}
+            className="w-full bg-black text-white hover:bg-black/90"
+          >
+            Login
+          </Button>
         </form>
 
         <div className="space-y-4 text-center text-sm">
