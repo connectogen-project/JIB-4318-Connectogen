@@ -8,6 +8,18 @@ import { InboxIcon, UserCircle } from "lucide-react";
 export default function NavBar() {
     const pathname = usePathname();
 
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('api/users/logout', { method: 'POST'});
+            if (response.ok) {
+            } else {
+                console.error('Failed to log out');
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
+
     return (
         <div className="flex items-center border-b border-border h-[68px] sticky top-0 z-10">
             <nav className="flex w-full px-9">
@@ -66,7 +78,10 @@ export default function NavBar() {
                         </Link>
                     </Button>
                     {/* need to add backend functionality to logout user */}
-                    <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
+                    <Button
+                        onClick={handleLogout}
+                        className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
+                    >
                         <Link href="/login">
                             Logout
                         </Link>
