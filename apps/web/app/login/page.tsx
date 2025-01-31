@@ -5,29 +5,11 @@ import Link from "next/link"
 import { Input } from "@repo/ui/components/ui/input"
 import { Button } from "@repo/ui/components/ui/button"
 import { Mail, Lock } from "lucide-react"
-import { loginUser } from "../../../backend/controllers/users.controllers"
-import { useRouter } from "next/router"
-// import { useFormState } from "react-dom"
-// import { verifyEmail, verifyEmailState } from "./VerifyEmail"
-// import { useState } from "react"
+import { useRouter } from "next/navigation"
 
-// const initialState = {
-//   email: '',
-//   message: '',
-// }
 
 export default function LoginPage() {
   const router = useRouter();
-  // const [state, formAction] = useFormState(verifyEmail, initialState)
-  // const [currState, setCurrState] = useState(initialState.email)
-
-  // console.log(state, currState)
-
-  // const handleLogin = async () => {
-  //   await loginUser();
-  //   router.push('/')
-  // };
-
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-[400px] space-y-6">

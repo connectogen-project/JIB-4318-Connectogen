@@ -2,7 +2,6 @@
 
 import ResetPassword from "@/app/lib/components/reset-password"
 import ForgotPassword from "@/app/lib/components/forgot-password"
-import { url } from "inspector"
 
 export default function ResetPasswordPage({
     searchParams,
