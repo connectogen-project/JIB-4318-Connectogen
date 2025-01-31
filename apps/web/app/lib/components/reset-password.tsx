@@ -3,7 +3,7 @@
 import { Mail } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import { mutate } from "swr";
-import { Input } from "./Input";
+import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
