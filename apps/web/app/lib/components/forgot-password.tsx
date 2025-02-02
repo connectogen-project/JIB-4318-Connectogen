@@ -32,8 +32,6 @@ export default function ForgotPassword() {
                 body: JSON.stringify({ email: formData.email }),
             });
 
-            console.log(response)
-
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Server error:', errorData);
