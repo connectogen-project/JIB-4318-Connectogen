@@ -1,7 +1,8 @@
 'use client'
 
 import { Mail } from "lucide-react";
-import { toast, ToastContainer } from "react-toastify";
+import { useToast } from "@repo/ui/hooks/use-toast";
+import { ToastAction } from "@repo/ui/components/ui/toast";
 import { mutate } from "swr";
 import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/ui/button";
@@ -24,6 +25,8 @@ export default function ResetPassword({
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const { toast } = useToast();
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -44,7 +47,12 @@ export default function ResetPassword({
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Server error:', errorData);
-                toast.error('Uh oh! We failed to save your new password. If this error persists, please try again later.');
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: "We failed to save your new password.",
+                    action: <ToastAction altText="Try again">Try again</ToastAction>,
+                })
             } else {
                 const result = await response.json();
                 console.log('New Password Created', result);
@@ -54,7 +62,10 @@ export default function ResetPassword({
                     confirmPassword: '',
                 });
 
-                toast.success('Your password was successfully saved!');
+                toast({
+                    title: "Success!",
+                    description: "Your password was successfully saved.",
+                })
 
                 mutate('http://localhost:2999/login/reset-password');
 
@@ -63,7 +74,12 @@ export default function ResetPassword({
             }
         } catch (error) {
             console.error('Uh oh! Something went wrong, we had an error saving your password:', error);
-            toast.error('An error occurred while saving the password');
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "We failed to save your new password.",
+                action: <ToastAction altText="Try again">Try again</ToastAction>,
+            })
         } finally {
             setIsSubmitting(false);
         }
@@ -114,18 +130,6 @@ export default function ResetPassword({
                 </div>
 
             </div>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
         </div>
     )
 

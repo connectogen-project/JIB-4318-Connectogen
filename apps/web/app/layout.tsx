@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import '@repo/ui/globals.css'
 
 import NavBar from "./lib/components/navbar";
-import {Inter} from "next/font/google";
+import { Inter } from "next/font/google";
+import { Toaster } from "@repo/ui/components/ui/toaster";
 
 const inter = Inter({
-  weight:"variable",
-  variable:"--font-sans",
+  weight: "variable",
+  variable: "--font-sans",
   subsets: ['latin']
 })
 
@@ -25,9 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans`}>
-      <NavBar/>
-      
+        <NavBar />
+
         {children}
+        <Toaster />
       </body>
     </html>
   );
