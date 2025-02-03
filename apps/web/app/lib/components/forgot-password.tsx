@@ -1,7 +1,8 @@
 'use client'
 
 import { Mail } from "lucide-react";
-import { toast, ToastContainer } from "react-toastify";
+import { useToast } from "@repo/ui/hooks/use-toast";
+import { ToastAction } from "@repo/ui/components/ui/toast";
 import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
@@ -19,6 +20,8 @@ export default function ForgotPassword() {
 
     const router = useRouter();
 
+    const { toast } = useToast();
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -35,7 +38,12 @@ export default function ForgotPassword() {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Server error:', errorData);
-                toast.error('Uh oh! We failed to verify your email address. If this error persists, please try again later.');
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: "We failed to verify your email address.",
+                    action: <ToastAction altText="Try again">Try again</ToastAction>,
+                })
             } else {
                 const result = await response.json();
                 console.log('Email Sent', result);
@@ -45,11 +53,19 @@ export default function ForgotPassword() {
                     email: '',
                 });
 
-                toast.success('Your email was sent!');
+                toast({
+                    title: "Success!",
+                    description: "Your email was sent.",
+                })
             }
         } catch (error) {
             console.error('Uh oh! Something went wrong, we had an error verifying your email:', error);
-            toast.error('An error occurred while verifying your email');
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "We failed to verify your email address.",
+                action: <ToastAction altText="Try again">Try again</ToastAction>,
+            })
         } finally {
             setIsSubmitting(false);
         }
@@ -87,18 +103,6 @@ export default function ForgotPassword() {
                 </div>
 
             </div>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
         </div>
 
     )
