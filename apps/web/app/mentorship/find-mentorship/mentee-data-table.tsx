@@ -24,7 +24,7 @@ interface DataTableProps<TData, TValue> {
     data: TData[]
 }
 
-export function MentorDataTable<TData, TValue>({
+export function MenteeDataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {

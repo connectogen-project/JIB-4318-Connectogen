@@ -153,7 +153,7 @@ export default function LogsList() {
 
 
 
-    console.log("response:", response);
+    // console.log("response:", response);
     return (
         <div className="flex flex-col h-screen">
             {/* Search Bar and Filter Icon */}
