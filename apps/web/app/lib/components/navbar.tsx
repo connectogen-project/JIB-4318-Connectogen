@@ -10,7 +10,7 @@ export default function NavBar() {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('api/users/logout', { method: 'POST'});
+            const response = await fetch('api/users/logout', { method: 'POST' });
             if (response.ok) {
             } else {
                 console.error('Failed to log out');
@@ -21,9 +21,9 @@ export default function NavBar() {
     };
 
     return (
-        <div className="flex items-center border-b border-border h-[68px] sticky top-0 z-10">
-            <nav className="flex w-full px-9">
-                <div className="mr-9"><Logo /></div>
+        <div className="flex w-full items-center border-b border-border h-[68px] sticky top-0 z-50 bg-white">
+            <div className="flex flex-grow">
+                <div className="mx-9"><Logo /></div>
                 <ul className="flex gap-x-4 grow">
                     <li>
                         <Link
@@ -50,30 +50,31 @@ export default function NavBar() {
                         </Link>
                     </li>
                 </ul>
-                <div className="flex gap-x-6 items-center">
-                    <Button className="bg-foreground text-background hover:text-foreground">
-                        <Link href="/login">
-                            Login
-                        </Link>
-                    </Button>
-                    <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
-                        <Link href="/signup">
-                            Register
-                        </Link>
-                    </Button>
-                    {/* need to add backend functionality to logout user */}
-                    <Button
-                        onClick={handleLogout}
-                        className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
-                    >
-                        <Link href="/login">
-                            Logout
-                        </Link>
-                    </Button>
-                    <InboxIcon />
-                    <UserCircle />
-                </div>
-            </nav>
+
+            </div>
+            <div className="flex mx-6 gap-x-6 items-center">
+                <Button className="bg-foreground text-background hover:text-foreground">
+                    <Link href="/login">
+                        Login
+                    </Link>
+                </Button>
+                <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
+                    <Link href="/signup">
+                        Register
+                    </Link>
+                </Button>
+                {/* need to add backend functionality to logout user */}
+                <Button
+                    onClick={handleLogout}
+                    className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
+                >
+                    <Link href="/login">
+                        Logout
+                    </Link>
+                </Button>
+                <InboxIcon />
+                <UserCircle />
+            </div>
         </div>
     );
 }

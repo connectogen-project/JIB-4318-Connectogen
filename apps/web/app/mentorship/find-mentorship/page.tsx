@@ -4,6 +4,7 @@ import { MentorDataTable } from "./mentor-data-table"
 import { MenteeDataTable } from "./mentee-data-table"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/ui/tabs"
+import FindMentorsSidebar from "@/app/lib/components/find-mentors-sidebar"
 
 
 async function getMentorData(): Promise<Mentor[]> {
@@ -38,8 +39,8 @@ export default async function FindMentorshipPage() {
 
     return (
         <div className="flex">
-            <div className="w-1/5">
-                <h1>Customization Here</h1>
+            <div className="w-1/5 border-r h-screen">
+                <FindMentorsSidebar />
             </div>
             <div className="flex-grow container mx-auto py-10">
                 <Tabs defaultValue={"mentors"}>
