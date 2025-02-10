@@ -8,6 +8,63 @@ Connectogen is a platform designed to enhance collaboration among healthcare and
 
 For the Connectogen rebuild, we have decided to go with the MERN tech stack which consists of MongoDB for databases, Express as a framework, React for frontend, and Node.js for backend. Not only is MERN a very popular tech stack that has plenty of documentation, but MERN fits our needs for the Connectogen rebuild.
 
+## v0.2.0  
+We're excited to introduce version **0.2.0** of our mentorship platform! This update brings foundational features that enhance user interactions, including browsing mentors and mentees, filtering and sorting capabilities, sending connection requests, and real-time notifications.  
+
+### Features Implemented  
+We’ve added core functionalities to help users seamlessly discover and connect with mentors and mentees. These features ensure a structured and intuitive mentorship experience.  
+
+- **Browse Mentors and Mentees**:  
+  Users can now explore available mentors and mentees through a structured list with sorting and filtering options.  
+  - **Backend Enhancements**:  
+    - Updated the `Users` schema to include `isMentor` and `isMentee` flags.  
+    - Integrated **dynamic search, pagination, filtering, and sorting**.  
+    - Added **unit tests** for filtering and sorting functionalities.  
+  - **Frontend Features**:  
+    - Created **Mentors List** with fields: Name, Institution, Affiliation, Field, Subspecialty, Position.  
+    - Designed **Mentees List** using ShadCN Data Table.  
+    - Implemented a **Sidebar Component** for sorting and filtering.  
+    - Developed a **Mentorship Page** with tabs for easy navigation.  
+
+- **Filter and Sort Mentors/Mentees**:  
+  Users can refine their search using advanced sorting and filtering options.  
+  - **Backend Enhancements**:  
+    - `/api/users` now supports **sorting and filtering** based on user preferences.  
+  - **Frontend Features**:  
+    - Integrated **dynamic search functionality** from `logs-list.tsx`.  
+    - Arranged all components for a streamlined user experience.  
+
+- **Send Connection Requests**:  
+  Users can now send and manage mentorship requests directly within the platform.  
+  - **Backend Enhancements**:  
+    - Created `ConnectionRequests` schema to store connection requests.  
+  - **Frontend Features**:  
+    - Added **"Send Connection Request"** button next to each mentor/mentee entry.  
+    - Implemented a **Pop-up Form** for users to include a personalized message.  
+    - Designed an **Expanded Profile View** for more user details.  
+
+- **Notifications for Connection Requests and Profile Updates**:  
+  Users will now receive real-time notifications for connection requests and profile updates.  
+  - **Backend Enhancements**:  
+    - Created `Notifications` schema for tracking alerts.  
+    - Integrated **WebSockets** for real-time updates.  
+    - Implemented a **Notification Cleanup Task** for expired/read notifications.  
+  - **Frontend Features**:  
+    - Added a **Notifications Icon** in the navbar.  
+    - Designed a **Notifications Dropdown** with links and non-functional Accept/Deny buttons.  
+
+### Technical Improvements  
+To enhance performance and reliability, we introduced several backend and frontend optimizations:  
+- **Documented all API endpoints** for ease of use.  
+- Implemented **robust error handling** for all new functionalities.  
+- Added **logging and monitoring** to track system stability.  
+- **Secured all endpoints** with authentication to protect user data.  
+
+### Known Issues  
+- Some buttons may be non-functional, and are placeholders for future developments. 
+This release lays the foundation for an interactive and engaging mentorship experience. Stay tuned for more updates in the next version! 🚀  
+
+
 ## v0.1.0
 We're excited to announce the first release of our project! This version introduces foundational features and improvements to enhance user experience and functionality. Below are the details of what's included in this release:
 
