@@ -26,4 +26,8 @@ export const menteeColumns: ColumnDef<Mentee>[] = [
         accessorKey: "position",
         header: "Position",
     },
+    {
+        accessorKey: "subspecialty",
+        header: "Subspecialty",
+    },
 ]

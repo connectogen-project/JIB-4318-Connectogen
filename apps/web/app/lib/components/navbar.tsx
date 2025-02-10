@@ -12,6 +12,7 @@ export default function NavBar() {
         try {
             const response = await fetch('api/users/logout', { method: 'POST' });
             if (response.ok) {
+                console.log("Logged out.")
             } else {
                 console.error('Failed to log out');
             }

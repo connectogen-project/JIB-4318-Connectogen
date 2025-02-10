@@ -26,4 +26,8 @@ export const mentorColumns: ColumnDef<Mentor>[] = [
         accessorKey: "position",
         header: "Position",
     },
+    {
+        accessorKey: "subspecialty",
+        header: "Subspecialty",
+    },
 ]
