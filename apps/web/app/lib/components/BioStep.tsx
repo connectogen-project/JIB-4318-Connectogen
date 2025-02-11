@@ -6,10 +6,10 @@ import { FileText, ArrowLeft, ArrowRight } from "lucide-react";
 import type { OnboardingData } from "../../signup/onboarding";
 
 interface BioStepProps {
-  onNext: (data: Partial<OnboardingData>) => void;
+  onNext: (data: { bio: string }) => void;
   onBack: () => void;
-  formData: Partial<OnboardingData>;
-  setFormData: React.Dispatch<React.SetStateAction<Partial<OnboardingData>>>;
+  formData: any;
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export function BioStep({
@@ -26,6 +26,7 @@ export function BioStep({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Bio submitted:", bio);
     onNext({ bio });
   };
 
@@ -51,7 +52,7 @@ export function BioStep({
           <ArrowLeft />
         </Button>
         <Button type="submit" className="bg-black text-white hover:bg-gray-800">
-          Next
+          Submit
           <ArrowRight/>
         </Button>
       </div>

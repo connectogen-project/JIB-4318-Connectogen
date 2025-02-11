@@ -26,6 +26,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other', 'undefined'],
+        default: 'undefined'
+    },
+    institution: {
+      type: String,
+      enum: ['Emory University', 'Morehouse College', 'Morehouse School of Medicine',
+          'Georgia Institute of Technology'],
+        default: null
+    },
+    degrees: {
+        type: [String],
+        default: []
+    },
     profilePicture: {
         type: String, // URL to S3 or cloud storage
         default: null
@@ -39,12 +54,15 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    subspecialties: {
+        type: String,
+        default: undefined
+    },
 
     mentorProfile: {
         institution:  { type: String },
         affiliation:  { type: String },
         field:        { type: String },
-        subspecialty: { type: String },
         position:     { type: String }
     },
 
