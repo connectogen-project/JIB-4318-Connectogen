@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Logo from "@repo/ui/components/logo";
-import { Button } from "./Button";
+import { Button } from "@repo/ui/components/ui/button";
 import { InboxIcon, UserCircle } from "lucide-react";
 
 export default function NavBar() {
@@ -25,22 +25,6 @@ export default function NavBar() {
             <nav className="flex w-full px-9">
                 <div className="mr-9"><Logo /></div>
                 <ul className="flex gap-x-4 grow">
-                    <li>
-                        <Link
-                            className={pathname === "/home" ? "text-foreground" : "text-muted-foreground"}
-                            href="/home"
-                        >
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            className={pathname === "/about" ? "text-foreground" : "text-muted-foreground"}
-                            href="/about"
-                        >
-                            About
-                        </Link>
-                    </li>
                     <li>
                         <Link
                             className={pathname.startsWith("/projects") ? "text-foreground" : "text-muted-foreground"}

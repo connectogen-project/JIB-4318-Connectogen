@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 const bcrypt = require('bcryptjs');
 
+const options = { discriminatorKey: 'role', timestamps: true };
+
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -37,6 +39,15 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+
+    mentorProfile: {
+        institution:  { type: String },
+        affiliation:  { type: String },
+        field:        { type: String },
+        subspecialty: { type: String },
+        position:     { type: String }
+    },
+
     isMentee: {
         type: Boolean,
         default: false
