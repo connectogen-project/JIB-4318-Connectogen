@@ -4,6 +4,8 @@ import { MentorDataTable } from "./mentor-data-table"
 import { MenteeDataTable } from "./mentee-data-table"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/ui/tabs"
+import FilterMentorsSidebar from "@/app/lib/components/filter-mentors-sidebar"
+import SortMentors from "@/app/lib/components/sort-mentors"
 
 
 async function getMentorData(): Promise<Mentor[]> {
@@ -38,15 +40,18 @@ export default async function FindMentorshipPage() {
 
     return (
         <div className="flex">
-            <div className="w-1/5">
-                <h1>Customization Here</h1>
+            <div className="flex w-1/5 border-r h-screen">
+                <FilterMentorsSidebar />
             </div>
-            <div className="flex-grow container mx-auto py-10">
+            <div className="flex-grow flex flex-col container mx-auto py-10">
                 <Tabs defaultValue={"mentors"}>
-                    <TabsList>
-                        <TabsTrigger value="mentors">Mentors</TabsTrigger>
-                        <TabsTrigger value="mentees">Mentees</TabsTrigger>
-                    </TabsList>
+                    <div className="flex flex-row items-center justify-between">
+                        <TabsList className="flex">
+                            <TabsTrigger value="mentors">Mentors</TabsTrigger>
+                            <TabsTrigger value="mentees">Mentees</TabsTrigger>
+                        </TabsList>
+                        <SortMentors />
+                    </div>
                     <TabsContent value="mentors">
                         <MentorDataTable columns={mentorColumns} data={mentorData} />
                     </TabsContent>
@@ -54,6 +59,7 @@ export default async function FindMentorshipPage() {
                         <MenteeDataTable columns={menteeColumns} data={menteeData} />
                     </TabsContent>
                 </Tabs>
+
             </div>
         </div>
     )
