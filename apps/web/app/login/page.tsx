@@ -6,7 +6,7 @@ import { Input } from "@repo/ui/components/ui/input"
 import { Button } from "@repo/ui/components/ui/button"
 import { Mail, Lock } from "lucide-react"
 
-import { loginUser } from "../../../backend/controllers/users.controllers"
+
 import { useRouter } from "next/navigation"
 import { useFormState } from "react-dom"
 import { verifyEmail, verifyEmailState } from "./VerifyEmail"
