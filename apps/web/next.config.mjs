@@ -6,7 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig = {
     webpack: (config) => {
-        config.resolve.alias['@'] = resolve(__dirname, 'packages/ui/src');
+        config.resolve.alias['@'] = resolve(__dirname, '../../packages/ui/src');
         return config;
     },
 };
