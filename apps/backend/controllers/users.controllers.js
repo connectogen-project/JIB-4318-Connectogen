@@ -1,5 +1,4 @@
 const crypto = require('node:crypto')
-import Mentor from '../models/mentor.model.js';
 
 const User = require('../models/users.models.js');
 const jwt = require('jsonwebtoken');
