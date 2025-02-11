@@ -7,6 +7,7 @@ import { connectDB } from './config/db.js';
 import logRoutes from "./routes/logs.routes.js";
 import userRoutes from "./routes/users.routes.js";
 import mentorRoutes from './routes/mentor.routes.js';
+import menteeRoutes from "./routes/mentee.routes";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/api/logs", logRoutes)
 app.use("/api/users", userRoutes)
 app.use('/api', mentorRoutes);
+app.use('/api', menteeRoutes)
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));
