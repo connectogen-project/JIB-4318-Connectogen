@@ -74,26 +74,13 @@ const userSchema = new mongoose.Schema({
     //  We will make this multiple choice for now, select a few things you're experienced in
     // interests: [
     //  Twin for this as well
-    connectionRequests: [
-        {
-            from: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Mentor/Mentee requesting connection
-            status: {
-                type: String,
-                enum: ['pending', 'accepted', 'rejected'],
-                default: 'pending'
-            },
-            requestedAt: {
-                type: Date,
-                default: Date.now
-            }
-        }
-    ],
     connections: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User' // Connected mentors/mentees
         }
     ],
+    
     interactionLogs: [
         {
             type: mongoose.Schema.Types.ObjectId,
