@@ -1,6 +1,8 @@
 "use client";
 // import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { logoutUser } from "@/app/lib/api"
+import { useRouter } from "next/navigation";
 import Logo from "@repo/ui/components/logo";
 import { Button } from "@repo/ui/components/ui/button";
 import { InboxIcon, UserCircle } from "lucide-react";
@@ -19,12 +21,16 @@ import {
 
 export default function NavBar() {
     // const pathname = usePathname();
-
+    // const PORT = process.env.PORT || "2999";
+    const router = useRouter();
     const handleLogout = async () => {
+
         try {
-            const response = await fetch('api/users/logout', { method: 'POST' });
-            if (response.ok) {
+            // const response = await fetch('auth/logout/', { method: 'POST' });
+            const response = await logoutUser();
+            if (response) {
                 console.log("Logged out.")
+                router.push("/login")
             } else {
                 console.error('Failed to log out');
             }
@@ -81,14 +87,12 @@ export default function NavBar() {
                         Register
                     </Link>
                 </Button>
-                {/* need to add backend functionality to logout user */}
+
                 <Button
                     onClick={handleLogout}
                     className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
                 >
-                    <Link href="/login">
                         Logout
-                    </Link>
                 </Button>
                 <InboxIcon />
                 <UserCircle />
