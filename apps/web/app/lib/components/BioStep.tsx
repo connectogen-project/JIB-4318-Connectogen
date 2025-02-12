@@ -21,7 +21,7 @@ export function BioStep({
   const [bio, setBio] = useState(formData.bio || "");
 
   useEffect(() => {
-    setFormData((prev) => ({ ...prev, bio }));
+    setFormData((prev: Partial<OnboardingData>) => ({ ...prev, bio }));
   }, [bio, setFormData]);
 
   const handleSubmit = (e: React.FormEvent) => {
