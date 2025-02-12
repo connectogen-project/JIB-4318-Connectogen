@@ -12,16 +12,16 @@ import menteeRoutes from "./routes/mentee.routes";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 2999
 
 const __dirname = path.resolve();
 
 app.use(express.json());
 
-app.use("/api/logs", logRoutes)
-app.use("/api/users", userRoutes)
-app.use('/api', mentorRoutes);
-app.use('/api', menteeRoutes)
+app.use("/auth", logRoutes)
+app.use("/auth", userRoutes)
+app.use('/auth', mentorRoutes);
+app.use('/auth', menteeRoutes)
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));

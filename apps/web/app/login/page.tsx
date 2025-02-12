@@ -5,11 +5,19 @@ import Link from "next/link"
 import { Input } from "@repo/ui/components/ui/input"
 import { Button } from "@repo/ui/components/ui/button"
 import { Mail, Lock } from "lucide-react"
+
+
 import { useRouter } from "next/navigation"
+import { useFormState } from "react-dom"
+import { verifyEmail, verifyEmailState } from "./VerifyEmail"
+import { useState } from "react"
+import {loginUser} from "@/app/lib/api";
+
 
 
 export default function LoginPage() {
   const router = useRouter();
+
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-[400px] space-y-6">

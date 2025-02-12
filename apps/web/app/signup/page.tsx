@@ -1,5 +1,7 @@
 "use client";
 
+
+
 import { useState } from "react";
 import { ProgressBar } from "@/app/lib/components/ProgressBar";
 import { EmailStep } from "@/app/lib/components/EmailStep";
@@ -11,6 +13,7 @@ import { SubspecialtiesStep } from "@/app/lib/components/SubspecialtiesStep";
 import { BioStep } from "@/app/lib/components/BioStep";
 import type { OnboardingData, OnboardingStep } from "./onboarding";
 import Link from "next/link";
+import {registerUser} from "@/app/lib/api";
 
 const steps: OnboardingStep[] = [
   "email",
@@ -26,13 +29,30 @@ export default function Signup() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Partial<OnboardingData>>({});
 
-  const handleNext = (data: Partial<OnboardingData>) => {
-    setFormData((prev) => ({ ...prev, ...data }));
+  const handleNext = async (data: Partial<OnboardingData>) => {
+    const newFormData = { ...formData, ...data };
+    setFormData(newFormData);
+
     if (currentStep < steps.length - 1) {
       setCurrentStep((prev) => prev + 1);
     } else {
-      console.log("Onboarding complete:", { ...formData, ...data });
-      // Connect to backend here
+      console.log("Onboarding complete:", newFormData);
+      try {
+        const response = await registerUser({
+          firstName: newFormData.firstName!,
+          lastName: newFormData.lastName!,
+          email: newFormData.email!,
+          password: newFormData.password!,  // Make sure this field is captured in one of your steps
+          gender: newFormData.gender!,
+          institution: newFormData.institution!,
+          degrees: newFormData.degrees || [],
+          bio: newFormData.bio,
+        });
+        console.log("Registration successful:", response);
+        // Optionally redirect the user or show a success message here
+      } catch (error) {
+        console.error("Registration failed:", error);
+      }
     }
   };
 
