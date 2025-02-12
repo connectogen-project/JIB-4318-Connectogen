@@ -15,9 +15,9 @@ export function EmailStep({ onNext, formData, setFormData }: EmailStepProps) {
     const [email, setEmail] = useState(formData.email || "")
     const [error, setError] = useState("")
   
-    // useEffect(() => {
-    //   setFormData((prev) => ({ ...prev, email }))
-    // }, [email, setFormData])
+    useEffect(() => {
+      setFormData((prev) => ({ ...prev, email }))
+    }, [email, setFormData])
   
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault()
