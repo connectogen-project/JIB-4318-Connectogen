@@ -1,8 +1,10 @@
-import { fontFamily } from "tailwindcss/defaultTheme"
+import defaultTheme from "tailwindcss/defaultTheme"
 import type { Config } from "tailwindcss"
 
+const { fontFamily } = defaultTheme;
+
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: ["../../apps/web/{app,lib}/**/*.{ts,tsx}", "../../packages/*/src/**/*.{ts,tsx,html}"],
   theme: {
     container: {

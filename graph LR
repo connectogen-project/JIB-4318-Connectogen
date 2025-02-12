@@ -1,0 +1,50 @@
+%% Root node
+A[Repo Root]
+
+%% Apps subgraph
+subgraph Apps
+  B[apps/web<br/>(Next.js Frontend)]
+  C[apps/backend<br/>(Express API Backend)]
+end
+
+%% Packages subgraph
+subgraph Packages
+  D[packages/ui<br/>(Shared UI Library)]
+  E[packages/typescript-config<br/>(Shared TS Config)]
+  F[packages/eslint-config<br/>(Shared ESLint Config)]
+end
+
+%% Connect root to apps and packages
+A --> B
+A --> C
+A --> D
+A --> E
+A --> F
+
+%% apps/web structure
+B --> G[next.config.mjs<br/>(Webpack alias: '@' → packages/ui/src)]
+B --> H[tsconfig.json<br/>(Paths: "@/*" → packages/ui/src/*)]
+B --> I[postcss.config.mjs<br/>(Exports from UI)]
+B --> J[tailwind.config.ts<br/>(Exports from UI)]
+B --> K[app/ (Pages & Components)]
+K --> L[Signup, Login, etc.<br/>(Import UI components)]
+
+%% apps/backend structure
+C --> M[server.js<br/>(Express entry)]
+C --> N[tsconfig.json<br/>(Paths: "@/..." → packages/ui/src/*)]
+C --> O[tsup.config.ts<br/>(Build configuration)]
+C --> P[routes/ (users, logs, mentor, mentee)]
+
+%% packages/ui structure
+D --> Q[src<br/>(UI Source)]
+Q --> R[lib/utils.ts<br/>(Utility functions)]
+Q --> S[components/<br/>(checkbox.tsx, label.tsx, etc.)]
+D --> T[tailwind.config.ts]
+D --> U[postcss.config.mjs]
+D --> V[package.json<br/>(Exports & aliases)]
+
+%% Alias connections
+G -- "Webpack alias '@'" --> Q
+H -- "TypeScript paths '@/*'" --> Q
+N -- "TypeScript paths '@/...'" --> Q
+L -- "Imports UI components" --> S 

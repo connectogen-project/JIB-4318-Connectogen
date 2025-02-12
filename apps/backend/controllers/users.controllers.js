@@ -27,7 +27,7 @@ const getUser = async (req, res) => {
 
 const registerUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, isMentor, isMentee } = req.body;
+        const { firstName, lastName, email, password, isMentor, isMentee, bio, degrees, username, gender, institution, subspecialties } = req.body;
 
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -41,7 +41,13 @@ const registerUser = async (req, res) => {
             email,
             password, // pwd hash taken care of in models
             isMentor,
-            isMentee
+            isMentee,
+            bio,
+            degrees,
+            username,
+            gender,
+            institution,
+            subspecialties
         });
 
         await newUser.save();

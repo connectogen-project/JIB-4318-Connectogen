@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Backend" pattern="file[JDB-4318-Connectogen]:apps/backend//*" />
+</component>
