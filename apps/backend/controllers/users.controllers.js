@@ -90,12 +90,13 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-    try {
-        res.cookie('jwt', '', { maxAge: 1 });
-        res.status(200).json({ success: true, message: "Logged out successfully" });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message});
-    }
+    // try {
+        // res.cookie('jwt', '', { maxAge: 1 });
+    res.clearCookie("token");
+    res.status(200).json({ success: true, message: "Logged out successfully" });
+    // } catch (error) {
+    //     res.status(500).json({ message: 'Server error', error: error.message});
+    // }
 };
 
 const updateUser = async (req, res) => {

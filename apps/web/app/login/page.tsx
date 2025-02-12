@@ -15,8 +15,32 @@ import {loginUser} from "@/app/lib/api";
 
 
 
+
 export default function LoginPage() {
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    if (!email || !password || typeof email !== "string" || typeof password !== "string") {
+      setError("Email and password are required.");
+      return;
+    }
+
+    try {
+      const response = await loginUser({ email, password });
+      console.log("Login successful:", response);
+      router.push("/mentorship/find-mentorship");
+    } catch (err: any) {
+      console.error("Login failed:", err);
+      setError("Login failed. Please check your credentials.");
+    }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
@@ -26,15 +50,15 @@ export default function LoginPage() {
           <p className="text-gray-500">Log in to your account</p>
         </div>
 
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-            <Input type="email" placeholder="Email" className="pl-10" />
+            <Input name="email" type="email" placeholder="Email" className="pl-10" />
           </div>
 
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-            <Input type="password" placeholder="Password" className="pl-10" />
+            <Input name="password" type="password" placeholder="Password" className="pl-10" />
           </div>
 
           <Button 

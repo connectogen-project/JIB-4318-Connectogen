@@ -14,6 +14,7 @@ import { BioStep } from "@/app/lib/components/BioStep";
 import type { OnboardingData, OnboardingStep } from "./onboarding";
 import Link from "next/link";
 import {registerUser} from "@/app/lib/api";
+import {useRouter} from "next/navigation";
 
 const steps: OnboardingStep[] = [
   "email",
@@ -28,7 +29,7 @@ const steps: OnboardingStep[] = [
 export default function Signup() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Partial<OnboardingData>>({});
-
+  const router = useRouter();
   const handleNext = async (data: Partial<OnboardingData>) => {
     const newFormData = { ...formData, ...data };
     setFormData(newFormData);
@@ -49,7 +50,7 @@ export default function Signup() {
           bio: newFormData.bio,
         });
         console.log("Registration successful:", response);
-        // Optionally redirect the user or show a success message here
+        router.push("/login");
       } catch (error) {
         console.error("Registration failed:", error);
       }

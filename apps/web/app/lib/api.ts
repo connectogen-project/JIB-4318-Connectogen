@@ -1,10 +1,22 @@
-export const PORT = process.env.PORT || '2999';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
 
+export async function logoutUser() {
+    const res = await fetch(`${API_BASE_URL}/auth/logout`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!res.ok) {
+        throw new Error('Failed to logout');
+    }
+    return res.json();
+}
 export async function loginUser(userData: {
     email: string;
     password: string;
 }) {
-    const res = await fetch(`http://localhost:${PORT}/auth/login`, {
+    const res = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -36,7 +48,7 @@ export async function registerUser(userData: {
         position?: string;
     };
 }) {
-    const res = await fetch(`http://localhost:${PORT}/auth/register`, {
+    const res = await fetch(`${API_BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
