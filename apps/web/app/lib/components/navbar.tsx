@@ -24,8 +24,7 @@ export default function NavBar() {
     // const PORT = process.env.PORT || "2999";
     const router = useRouter();
     const handleLogout = async () => {
-    //     window.location.replace(`https://localhost:${PORT}/auth/logout`);
-    // };
+
         try {
             // const response = await fetch('auth/logout/', { method: 'POST' });
             const response = await logoutUser();
@@ -88,7 +87,7 @@ export default function NavBar() {
                         Register
                     </Link>
                 </Button>
-                {/* need to add backend functionality to logout user */}
+
                 <Button
                     onClick={handleLogout}
                     className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
