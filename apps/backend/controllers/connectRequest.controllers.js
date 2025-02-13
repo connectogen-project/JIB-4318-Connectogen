@@ -84,7 +84,7 @@ const rejectConnectionRequest = async (req, res) => {
 };
 
 // Unfriend a user
-/**const unfriendUser = async (req, res) => {
+const unfriendUser = async (req, res) => {
   try {
     const { userId } = req.tokenUser;
     const { friendId } = req.body;
@@ -104,11 +104,12 @@ const rejectConnectionRequest = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-**/
+
 module.exports = {
   sendConnectionRequest,
   getConnectionRequests,
   checkConnectionRequest,
   acceptConnectionRequest,
   rejectConnectionRequest,
+  unfriendUser,
 };
