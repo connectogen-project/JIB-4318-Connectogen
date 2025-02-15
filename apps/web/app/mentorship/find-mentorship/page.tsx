@@ -1,70 +1,15 @@
-import { Mentor, mentorColumns } from "./mentor-columns"
-import { Mentee, menteeColumns } from "./mentee-columns"
-import { MentorDataTable } from "./mentor-data-table"
-import { MenteeDataTable } from "./mentee-data-table"
-import { User } from "@/app/lib/types"
+'use client'
 
+import { SortOption } from "@/app/lib/components/sort-mentors"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/ui/tabs"
 import FilterMentorsSidebar from "@/app/lib/components/filter-mentors-sidebar"
 import SortMentors from "@/app/lib/components/sort-mentors"
+import MentorList from "./mentor-list"
+import MenteeList from "./mentee-list"
+import { useState } from "react"
 
-
-async function getMentorData(): Promise<Mentor[]> {
-    // Fetch data from your API here.
-
-    const allMentorResponse = await fetch("http://localhost:2999/auth/mentors", {
-        cache: "no-store",
-    });
-
-    if (!allMentorResponse.ok) {
-        throw new Error(`Failed to fetch mentor data: ${allMentorResponse.statusText}`);
-    }
-
-    const allMentorData: {
-        data: User[],
-    } = await allMentorResponse.json();
-    console.log(allMentorData)
-
-    const displayedData: Mentor[] = allMentorData.data.map(user => ({
-        name: user.firstName + " " + user.lastName,
-        institution: user.institution,
-        // fields: user.fields
-        // position: user.position,
-        subspecialties: user.subspecialties,
-    }))
-
-    return displayedData
-}
-
-async function getMenteeData(): Promise<Mentee[]> {
-    // Fetch data from your API here.
-    const allMenteeResponse = await fetch("http://localhost:2999/auth/mentees", {
-        cache: "no-store",
-    });
-
-    if (!allMenteeResponse.ok) {
-        throw new Error(`Failed to fetch mentor data: ${allMenteeResponse.statusText}`);
-    }
-
-    const allMenteeData: {
-        data: User[],
-    } = await allMenteeResponse.json();
-    console.log(allMenteeData)
-
-    const displayedData: Mentee[] = allMenteeData.data.map(user => ({
-        name: user.firstName + " " + user.lastName,
-        institution: user.institution,
-        // fields: mentor.fields
-        // position: mentor.position,
-        subspecialties: user.subspecialties,
-    }))
-
-    return displayedData
-}
-
-export default async function FindMentorshipPage() {
-    const mentorData = await getMentorData()
-    const menteeData = await getMenteeData()
+export default function FindMentorshipPage() {
+    const [sortOption, setSortOption] = useState<SortOption>('dateAddedDesc');
 
     return (
         <div className="flex">
@@ -78,13 +23,13 @@ export default async function FindMentorshipPage() {
                             <TabsTrigger value="mentors">Mentors</TabsTrigger>
                             <TabsTrigger value="mentees">Mentees</TabsTrigger>
                         </TabsList>
-                        <SortMentors />
+                        <SortMentors sortOption={sortOption} setSortOption={setSortOption} />
                     </div>
                     <TabsContent value="mentors">
-                        <MentorDataTable columns={mentorColumns} data={mentorData} />
+                        <MentorList sortOption={sortOption} />
                     </TabsContent>
                     <TabsContent value="mentees">
-                        <MenteeDataTable columns={menteeColumns} data={menteeData} />
+                        <MenteeList sortOption={sortOption} />
                     </TabsContent>
                 </Tabs>
 
