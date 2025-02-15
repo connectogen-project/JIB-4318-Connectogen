@@ -5,8 +5,9 @@ import { ColumnDef } from "@tanstack/react-table";
 export type Mentor = {
     name: string
     institution: string
-    fields: string
-    position: string
+    // fields: string
+    // position: string
+    subspecialties: string
 }
 
 export const mentorColumns: ColumnDef<Mentor>[] = [
@@ -18,16 +19,16 @@ export const mentorColumns: ColumnDef<Mentor>[] = [
         accessorKey: "institution",
         header: "Institution",
     },
+    // {
+    //     accessorKey: "fields",
+    //     header: "Fields",
+    // },
+    // {
+    //     accessorKey: "position",
+    //     header: "Position",
+    // },
     {
-        accessorKey: "fields",
-        header: "Fields",
-    },
-    {
-        accessorKey: "position",
-        header: "Position",
-    },
-    {
-        accessorKey: "subspecialty",
-        header: "Subspecialty",
+        accessorKey: "subspecialties",
+        header: "Subspecialties",
     },
 ]
