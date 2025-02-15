@@ -8,6 +8,7 @@ export type Mentor = {
     // fields: string
     // position: string
     subspecialties: string
+    createdAt: Date
 }
 
 export const mentorColumns: ColumnDef<Mentor>[] = [

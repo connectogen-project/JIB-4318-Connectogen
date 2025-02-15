@@ -5,17 +5,18 @@ import { ArrowDownUp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { X } from 'lucide-react';
 
+export type SortOption =
+    | 'dateAddedAsc'
+    | 'dateAddedDesc'
+    | 'nameAsc'
+    | 'nameDesc';
 
+type SortMentorsProps = {
+    sortOption: SortOption;
+    setSortOption: (option: SortOption) => void;
+}
 
-export default function SortMentors() {
-
-    type SortOption =
-        | 'dateAddedAsc'
-        | 'dateAddedDesc'
-        | 'nameAsc'
-        | 'nameDesc';
-
-    const [sortOption, setSortOption] = useState<SortOption>('dateAddedDesc');
+export default function SortMentors({ sortOption, setSortOption }: SortMentorsProps) {
     const sortRef = useRef<HTMLDivElement | null>(null);
     const [isSortPopupOpen, setIsSortPopupOpen] = useState(false);
 
@@ -59,10 +60,10 @@ export default function SortMentors() {
                         </div>
 
                         {[
-                            { value: 'dateAddedDesc', label: 'Date Added Ascending' },
-                            { value: 'dateAddedAsc', label: 'Date Added Descending' },
-                            { value: 'mentorNameAsc', label: 'Mentor Name (A-Z)' },
-                            { value: 'mentorNameDesc', label: 'Mentor Name (Z-A)' },
+                            { value: 'dateAddedDesc', label: 'Date Added (Asc)' },
+                            { value: 'dateAddedAsc', label: 'Date Added (Dsc)' },
+                            { value: 'nameAsc', label: 'Name (A-Z)' },
+                            { value: 'nameDesc', label: 'Name (Z-A)' },
                         ].map((option) => (
                             <label className="block mb-1" key={option.value}>
                                 <input

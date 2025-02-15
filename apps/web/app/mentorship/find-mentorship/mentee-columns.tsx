@@ -8,6 +8,7 @@ export type Mentee = {
     // fields: string
     // position: string
     subspecialties: string
+    createdAt: Date
 }
 
 export const menteeColumns: ColumnDef<Mentee>[] = [
