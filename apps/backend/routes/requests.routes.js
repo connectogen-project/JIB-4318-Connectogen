@@ -31,4 +31,3 @@ router.post('/reject', authMiddleware, rejectConnectionRequest);
 router.post('/unfriend', authMiddleware, unfriendUser);
 
 export default router;
-module.exports = router;
