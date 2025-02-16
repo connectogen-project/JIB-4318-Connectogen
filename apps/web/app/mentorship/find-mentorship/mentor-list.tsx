@@ -50,7 +50,17 @@ async function getMentorData(sortOption: SortOption): Promise<Mentor[]> {
 }
 
 
-export default function MentorList({ sortOption }: { sortOption: SortOption }) {
+type MentorListProps = {
+    sortOption: SortOption;
+    filters: {
+        institutions: string[];
+        fields: string[];
+        positions: string[];
+        subspecialties: string[];
+    };
+};
+
+export default function MentorList({ sortOption, filters }: MentorListProps) {
     const [mentors, setMentors] = useState<Mentor[]>([]);
 
     useEffect(() => {
@@ -59,7 +69,15 @@ export default function MentorList({ sortOption }: { sortOption: SortOption }) {
             setMentors(sortedMentors);
         }
         fetchData();
-    }, [sortOption]); // Only refetch when sorting changes
+    }, [sortOption]);
 
-    return <DataTable columns={mentorColumns} data={mentors} />;
+    // Filter mentors based on selected filters
+    const filteredMentors = mentors.filter((mentor) => {
+        return (
+            (filters.institutions.length === 0 || filters.institutions.includes(mentor.institution)) &&
+            (filters.subspecialties.length === 0 || filters.subspecialties.some(subspecialty => mentor.subspecialties.includes(subspecialty)))
+        );
+    });
+
+    return <DataTable columns={mentorColumns} data={filteredMentors} />;
 }
