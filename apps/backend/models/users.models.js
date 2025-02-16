@@ -32,10 +32,10 @@ const userSchema = new mongoose.Schema({
         default: 'undefined'
     },
     institution: {
-      type: [String],
+      type: String,
       enum: ['Emory University', 'Morehouse College', 'Morehouse School of Medicine',
           'Georgia Institute of Technology'],
-        default: []
+        default: null
     },
     degrees: {
         type: [String],
