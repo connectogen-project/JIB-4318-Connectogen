@@ -55,8 +55,9 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     subspecialties: {
-        type: String,
-        default: undefined
+        type: String, // Single string value
+        enum: ['Cardiology', 'Dermatology', 'Oncology', 'Pediatrics', 'Autonomic Disorders', 'Engineering', 'Mathematics', 'Biology'],
+        default: null // Default to null
     },
 
     mentorProfile: {

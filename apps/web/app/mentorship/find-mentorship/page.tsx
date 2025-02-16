@@ -10,11 +10,22 @@ import { useState } from "react"
 
 export default function FindMentorshipPage() {
     const [sortOption, setSortOption] = useState<SortOption>('dateAddedDesc');
+    const [filters, setFilters] = useState<{
+        institutions: string[];
+        fields: string[];
+        positions: string[];
+        subspecialties: string[];
+    }>({
+        institutions: [],
+        fields: [],
+        positions: [],
+        subspecialties: [],
+    });
 
     return (
         <div className="flex">
             <div className="flex w-1/5 border-r h-screen">
-                <FilterMentorsSidebar />
+                <FilterMentorsSidebar onFilterChange={setFilters} />
             </div>
             <div className="flex-grow flex flex-col container mx-auto py-10">
                 <Tabs defaultValue={"mentors"}>
@@ -26,7 +37,7 @@ export default function FindMentorshipPage() {
                         <SortMentors sortOption={sortOption} setSortOption={setSortOption} />
                     </div>
                     <TabsContent value="mentors">
-                        <MentorList sortOption={sortOption} />
+                        <MentorList sortOption={sortOption} filters={filters}/>
                     </TabsContent>
                     <TabsContent value="mentees">
                         <MenteeList sortOption={sortOption} />
