@@ -60,13 +60,6 @@ const userSchema = new mongoose.Schema({
         default: null // Default to null
     },
 
-    mentorProfile: {
-        institution:  { type: String },
-        affiliation:  { type: String },
-        field:        { type: String },
-        position:     { type: String }
-    },
-
     isMentee: {
         type: Boolean,
         default: false
