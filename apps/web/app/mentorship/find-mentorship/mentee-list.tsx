@@ -9,7 +9,7 @@ import { Mentee, menteeColumns } from "./mentee-columns";
 
 async function getMenteeData(sortOption: SortOption): Promise<Mentee[]> {
     // Fetch data from your API here.
-    const allMenteeResponse = await fetch("http://localhost:2999/auth/mentees", {
+    const allMenteeResponse = await fetch("http://localhost:2999/api/mentees/getMentees", {
         cache: "no-store",
     });
 

@@ -27,7 +27,7 @@ export default function ForgotPassword() {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('http://localhost:2999/auth/forgot-password', {
+            const response = await fetch('http://localhost:2999/api/users/forgot-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

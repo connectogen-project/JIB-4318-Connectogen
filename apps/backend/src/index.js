@@ -30,10 +30,10 @@ app.use(express.json());
 
 // Register routes
 app.use('/mentorship/logs', logRoutes);
-app.use('/auth', userRoutes);
-app.use('/auth', mentorRoutes);
-app.use('/auth', menteeRoutes);
-app.use('/requests', requestsRoutes); // Add connection request routes
+app.use('/api/users', userRoutes);
+app.use('/api/mentors', mentorRoutes);
+app.use('/api/mentees', menteeRoutes);
+app.use('/api/requests', requestsRoutes); // Add connection request routes
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {

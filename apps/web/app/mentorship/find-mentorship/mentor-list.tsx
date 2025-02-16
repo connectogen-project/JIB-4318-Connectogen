@@ -9,7 +9,7 @@ import { User } from "@/app/lib/types";
 async function getMentorData(sortOption: SortOption): Promise<Mentor[]> {
     // Fetch data from your API here.
 
-    const allMentorResponse = await fetch("http://localhost:2999/auth/mentors", {
+    const allMentorResponse = await fetch("http://localhost:2999/api/mentors/getMentors", {
         cache: "no-store",
     });
 
