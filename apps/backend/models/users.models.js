@@ -32,10 +32,10 @@ const userSchema = new mongoose.Schema({
         default: 'undefined'
     },
     institution: {
-      type: String,
+      type: [String],
       enum: ['Emory University', 'Morehouse College', 'Morehouse School of Medicine',
           'Georgia Institute of Technology'],
-        default: null
+        default: []
     },
     degrees: {
         type: [String],
@@ -55,8 +55,9 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     subspecialties: {
-        type: String,
-        default: undefined
+        type: String, // Single string value
+        enum: ['Cardiology', 'Dermatology', 'Oncology', 'Pediatrics', 'Autonomic Disorders', 'Engineering', 'Mathematics', 'Biology'],
+        default: null // Default to null
     },
 
     mentorProfile: {

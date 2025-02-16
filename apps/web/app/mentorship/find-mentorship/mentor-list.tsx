@@ -75,7 +75,7 @@ export default function MentorList({ sortOption, filters }: MentorListProps) {
     const filteredMentors = mentors.filter((mentor) => {
         return (
             (filters.institutions.length === 0 || filters.institutions.includes(mentor.institution)) &&
-            (filters.subspecialties.length === 0 || filters.subspecialties.some(subspecialty => mentor.subspecialties.includes(subspecialty)))
+            (filters.subspecialties.length === 0 || filters.subspecialties.includes(mentor.subspecialties))
         );
     });
 
