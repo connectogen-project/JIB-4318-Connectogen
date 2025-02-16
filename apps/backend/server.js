@@ -29,11 +29,11 @@ app.use(cors({
 app.use(express.json());
 
 // Register routes
-app.use('/auth', logRoutes);
-app.use('/auth', userRoutes);
-app.use('/auth', mentorRoutes);
-app.use('/auth', menteeRoutes);
-app.use('/requests', requestsRoutes); // Add connection requests routes
+app.use('/mentorship/logs', logRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/mentors', mentorRoutes);
+app.use('/api/mentees', menteeRoutes);
+app.use('/api/requests', requestsRoutes); // Add connection requests routes
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
