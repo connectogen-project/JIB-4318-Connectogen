@@ -12,8 +12,10 @@ type FilterMentorsSidebarProps = {
 
 export default function FilterMentorsSidebar({ onFilterChange }: FilterMentorsSidebarProps) {
     const INSTITUTION_OPTIONS: Option[] = [
-        { label: 'GT', value: 'Georgia Institute of Technology' },
+        { label: 'Georgia Tech', value: 'Georgia Institute of Technology' },
         { label: 'Emory', value: 'Emory University' },
+        { label: 'Morehouse', value: 'Morehouse College' },
+        { label: 'Morehouse Medicine', value: 'Morehouse School of Medicine' },
     ];
 
     const FIELD_OPTIONS: Option[] = [
@@ -27,8 +29,15 @@ export default function FilterMentorsSidebar({ onFilterChange }: FilterMentorsSi
     ];
 
     const SUBSPECIALTY_OPTIONS: Option[] = [
-        { label: 'nextjs', value: 'Nextjs' },
-        { label: 'React', value: 'react' },
+        { label: 'Business', value: 'Business Administration' },
+        { label: 'Math', value: 'Mathematics' },
+        { label: 'Biology', value: 'Biology' },
+        { label: 'Engineering', value: 'Engineering' },
+        { label: 'Autonomic Disorders', value: 'Autonomic Disorders' },
+        { label: 'Cardiology', value: 'Cardiology' },
+        { label: 'Dermatology', value: 'Dermatology' },
+        { label: 'Oncology', value: 'Oncology' },
+        { label: 'Pediatrics', value: 'Pediatrics' },
     ];
 
     const handleFilterChange = (value: string, selectedOptions: Option[]) => {
