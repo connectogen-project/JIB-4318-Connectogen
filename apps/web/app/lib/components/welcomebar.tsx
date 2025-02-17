@@ -17,6 +17,9 @@ export default function WelcomeBar() {
                         Login
                     </Link>
                 </Button>
+                <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
+                    <Link href="/signup">Register</Link>
+                </Button>
                 <InboxIcon />
                 <UserCircle />
             </div>

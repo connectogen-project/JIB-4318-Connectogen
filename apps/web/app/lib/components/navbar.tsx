@@ -58,7 +58,7 @@ export default function NavBar() {
       const response = await logoutUser();
       if (response) {
         console.log("Logged out.");
-        router.push("/login");
+        router.push("/");
       } else {
         console.error("Failed to log out");
       }
@@ -121,12 +121,6 @@ export default function NavBar() {
       </div>
 
       <div className="flex mx-6 gap-x-6 items-center">
-        <Button className="bg-foreground text-background hover:text-foreground">
-          <Link href="/login">Login</Link>
-        </Button>
-        <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
-          <Link href="/signup">Register</Link>
-        </Button>
 
         <Button
           onClick={handleLogout}
