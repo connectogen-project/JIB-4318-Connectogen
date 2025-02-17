@@ -6,11 +6,10 @@ const {
     readNotification,
     deleteNotification,
 } = require('../controllers/notifications.controllers');
-const authMiddleware = require("../middlewares/auth.middleware");
 
 router.post('/createNotif', createNotification);
 
-router.get('/getNotif', authMiddleware, getNotification);
+router.get('/getNotif', getNotification);
 
 router.put('/read/:id', readNotification);
 

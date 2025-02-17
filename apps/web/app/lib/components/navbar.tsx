@@ -29,7 +29,7 @@ import {
 } from "@repo/ui/components/ui/navigation-menu";
 
 // Mock data for connection requests
-const mockNotifications = [
+let mockNotifications = [
   {
     _id: "1",
     name: "Anuradha Trivedi",
@@ -60,6 +60,8 @@ export default function NavBar() {
       try {
         const data = await getNotifications();
         setNotifications(data.data);
+        mockNotifications = data.data;
+        console.log(data.data);
       } catch (error) {
         console.error("Unable to fetch notifications at this time:", error);
       }
@@ -85,13 +87,13 @@ export default function NavBar() {
   const handleAcceptRequest = (id: string) => {
     // Add your accept request logic here
     setNotifications((prev) =>
-      prev.filter((notification) => notification.id !== id)
+      prev.filter((notification) => notification !== id)
     );
   };
 
   const handleDismissRequest = (id: string) => {
     setNotifications((prev) =>
-      prev.filter((notification) => notification.id !== id)
+      prev.filter((notification) => notification !== id)
     );
   };
 

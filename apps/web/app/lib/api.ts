@@ -64,9 +64,8 @@ export async function registerUser(userData: {
 }
 
 export async function getNotifications() {
-    const res = await fetch(`${API_BASE_URL}/api/notifications/getNotif`, {
-        method: "GET",
-        credentials: "include",
+    const res = await fetch(`${API_BASE_URL}/api/notifications/getNotif/?userEmail=test@gatech.edu`, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
