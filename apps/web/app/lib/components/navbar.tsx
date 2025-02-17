@@ -58,7 +58,7 @@ export default function NavBar() {
       const response = await logoutUser();
       if (response) {
         console.log("Logged out.");
-        router.push("/login");
+        router.push("/");
       } else {
         console.error("Failed to log out");
       }
