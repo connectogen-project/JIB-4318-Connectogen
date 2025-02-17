@@ -2,7 +2,8 @@ import Notification from "../models/notifications.models.js";
 
 export const getNotification = async (req, res) => {
     try {
-        const { userEmail } = req.query;
+        // const { userEmail } = req.query;
+        const userEmail = req.user.email;
         if (!userEmail) {
             return res.status(400).json({ message: 'Email is required' });
         }
