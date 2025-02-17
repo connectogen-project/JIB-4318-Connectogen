@@ -2,7 +2,19 @@ const crypto = require('node:crypto')
 
 const User = require('../models/users.models.js');
 const jwt = require('jsonwebtoken');
+const path = require ("path");
 
+const uploadResume = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({message: "No file uploaded" });
+        }
+        const fileUrl = `http://localhost:${process.env.PORT || 2999}/uploads/${req.file.filename}`;
+        res.status(200).json({fileUrl});
+    } catch (error) {
+        res.status(500).json({message: "Error uploading, try again", error: error.message });
+    }
+};
 
 
 const getUser = async (req, res) => {
@@ -27,7 +39,7 @@ const getUser = async (req, res) => {
 
 const registerUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, isMentor, isMentee, bio, degrees, username, gender, institution, subspecialties } = req.body;
+        const { firstName, lastName, email, password, isMentor, isMentee, bio, degrees, username, gender, institution, subspecialties, resume } = req.body;
 
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -47,7 +59,8 @@ const registerUser = async (req, res) => {
             username,
             gender,
             institution,
-            subspecialties
+            subspecialties,
+            resume
         });
 
         await newUser.save();
@@ -208,6 +221,9 @@ module.exports = {
     deleteUser,
     getUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    uploadResume
 };
+
+// module.exports.uploadResume = uploadResume; test code
 // Undo deletion

@@ -90,6 +90,11 @@ const userSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
+    },
+
+    resume: {
+        type: String,
+        default: null,
     }
 });
 

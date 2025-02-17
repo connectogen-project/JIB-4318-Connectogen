@@ -15,6 +15,7 @@ import type { OnboardingData, OnboardingStep } from "./onboarding";
 import Link from "next/link";
 import {registerUser} from "@/app/lib/api";
 import {useRouter} from "next/navigation";
+import {ResumeUploadStep} from "@/app/lib/components/ResumeUploadStep";
 
 const steps: OnboardingStep[] = [
   "email",
@@ -24,6 +25,7 @@ const steps: OnboardingStep[] = [
   "degrees",
   "subspecialties",
   "bio",
+  "resume",
 ];
 
 export default function Signup() {
@@ -48,6 +50,7 @@ export default function Signup() {
           institution: newFormData.institution!,
           degrees: newFormData.degrees || [],
           bio: newFormData.bio,
+          resume: newFormData.resumeFileUrl,
         });
         console.log("Registration successful:", response);
         router.push("/login");
@@ -121,6 +124,15 @@ export default function Signup() {
       case "bio":
         return (
           <BioStep
+            onNext={handleNext}
+            onBack={handleBack}
+            formData={formData}
+            setFormData={setFormData}
+          />
+        );
+      case "resume":
+        return (
+          <ResumeUploadStep
             onNext={handleNext}
             onBack={handleBack}
             formData={formData}

@@ -9,6 +9,7 @@ export interface OnboardingData {
   degrees: string[];
   subspecialties: string[];
   bio: string;
+  resumeFileUrl?: string;
 }
 
 export type OnboardingStep =
@@ -18,4 +19,5 @@ export type OnboardingStep =
   | "institution"
   | "degrees"
   | "subspecialties"
-  | "bio";
+  | "bio"
+  | "resume";
