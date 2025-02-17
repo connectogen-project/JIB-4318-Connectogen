@@ -10,6 +10,7 @@ import userRoutes from './routes/users.routes.js';
 import mentorRoutes from './routes/mentor.routes.js';
 import menteeRoutes from './routes/mentee.routes.js';
 import requestsRoutes from './routes/requests.routes.js'; // Import connection request routes
+import notificationRoutes from './routes/notifications.routes.js';
 
 dotenv.config();
 
@@ -29,11 +30,12 @@ app.use(cors({
 app.use(express.json());
 
 // Register routes
-app.use('/auth', logRoutes);
-app.use('/auth', userRoutes);
-app.use('/auth', mentorRoutes);
-app.use('/auth', menteeRoutes);
-app.use('/requests', requestsRoutes); // Add connection requests routes
+app.use('/mentorship/logs', logRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/mentors', mentorRoutes);
+app.use('/api/mentees', menteeRoutes);
+app.use('/api/requests', requestsRoutes); // Add connection requests routes
+app.use('/api/notifications', notificationRoutes);
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
