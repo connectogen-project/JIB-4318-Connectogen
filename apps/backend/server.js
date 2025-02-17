@@ -21,7 +21,16 @@ const __dirname = path.resolve();
 
 // Enable CORS for API testing with Postman
 app.use(cors({
-  origin: '*', // Allow requests from any origin
+  // origin: 'http://localhost:3000', // Allow requests from any origin
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (origin === 'http://localhost:3000') {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,

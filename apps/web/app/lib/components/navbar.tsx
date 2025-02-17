@@ -31,18 +31,19 @@ import {
 // Mock data for connection requests
 const mockNotifications = [
   {
-    id: "1",
+    _id: "1",
     name: "Anuradha Trivedi",
     message: "Sent you a connection request.",
   },
   {
-    id: "2",
+    _id: "2",
     name: "Jacquelyn O'Banion",
     message: "Sent you a connection request.",
   },
   {
-    id: "3",
+    _id: "3",
     name: "Zofia Lasiecka",
+    userEmail: "mama@mama.edu",
     message: "Sent you a connection request.",
   },
 ];
