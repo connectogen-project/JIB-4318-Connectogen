@@ -82,7 +82,12 @@ const loginUser = async (req, res) => {
 
         const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: '1h' });
 
-        // Success results in 400 code
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 3600000, // 1 hour in milliseconds
+        });
+        res.json({ message: "Login successful" });
         res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
@@ -92,7 +97,7 @@ const loginUser = async (req, res) => {
 const logoutUser = async (req, res) => {
     // try {
         // res.cookie('jwt', '', { maxAge: 1 });
-    res.clearCookie("token");
+    res.clearCookie("jwt");
     res.status(200).json({ success: true, message: "Logged out successfully" });
     // } catch (error) {
     //     res.status(500).json({ message: 'Server error', error: error.message});

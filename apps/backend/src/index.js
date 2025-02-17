@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
 import cors from 'cors';
@@ -28,6 +29,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Register routes
 app.use('/mentorship/logs', logRoutes);
@@ -40,7 +42,7 @@ app.use('/api/notifications', notificationRoutes);
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/dist')));
-  app.get('*', (req, res) => {
+  app.get('http://localhost:3000', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
   });
 }

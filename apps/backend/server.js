@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import { connectDB } from './config/db.js';
 
@@ -11,6 +12,7 @@ import mentorRoutes from './routes/mentor.routes.js';
 import menteeRoutes from './routes/mentee.routes.js';
 import requestsRoutes from './routes/requests.routes.js'; // Import connection request routes
 import notificationRoutes from './routes/notifications.routes.js';
+
 
 dotenv.config();
 
@@ -37,6 +39,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Register routes
 app.use('/mentorship/logs', logRoutes);
