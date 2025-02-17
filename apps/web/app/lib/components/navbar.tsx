@@ -1,6 +1,6 @@
 "use client";
 // import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { logoutUser } from "@/app/lib/api";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,7 @@ import {
   SheetTrigger,
 } from "@repo/ui/components/ui/sheet";
 import { NotificationsList } from "./notifications-list";
+import { getNotifications } from "@/app/lib/api";
 
 import {
   NavigationMenu,
@@ -51,7 +52,20 @@ export default function NavBar() {
   // const PORT = process.env.PORT || "2999";
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState(mockNotifications);
+  const [notifications, setNotifications] = useState([]);
+
+useEffect(() => {
+  async function fetchNotifs() {
+    try {
+      const data = await getNotifications();
+      setNotifications(data.data);
+    } catch (error) {
+      console.error("Unable to fetch notifications at this time:", error);
+    }
+  }
+  fetchNotifs();
+}, []);
+
   const handleLogout = async () => {
     try {
       // const response = await fetch('auth/logout/', { method: 'POST' });
@@ -70,13 +84,13 @@ export default function NavBar() {
   const handleAcceptRequest = (id: string) => {
     // Add your accept request logic here
     setNotifications((prev) =>
-      prev.filter((notification) => notification.id !== id)
+      prev.filter((notification) => notification !== id)
     );
   };
 
   const handleDismissRequest = (id: string) => {
     setNotifications((prev) =>
-      prev.filter((notification) => notification.id !== id)
+      prev.filter((notification) => notification !== id)
     );
   };
 
