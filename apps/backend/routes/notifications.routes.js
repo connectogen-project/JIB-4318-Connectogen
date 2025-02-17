@@ -10,7 +10,7 @@ const authMiddleware = require("../middlewares/auth.middleware");
 
 router.post('/createNotif', createNotification);
 
-router.get('/getNotif', getNotification);
+router.get('/getNotif', authMiddleware, getNotification);
 
 router.put('/read/:id', readNotification);
 

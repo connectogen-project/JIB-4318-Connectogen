@@ -7,8 +7,8 @@ export const getNotification = async (req, res) => {
         if (!userEmail) {
             return res.status(400).json({ message: 'Email is required' });
         }
-        const notif = await Notification.find({ userEmail });
-        res.status(200).json({ success: true, data: notif});
+        const notifications = await Notification.find({ userEmail });
+        res.status(200).json({ success: true, data: notifications});
     } catch (error) {
         console.log("Error", error.message);
         res.status(500).json({ success: false, message: "Server error" });

@@ -62,3 +62,17 @@ export async function registerUser(userData: {
     }
     return res.json();
 }
+
+export async function getNotifications() {
+    const res = await fetch(`${API_BASE_URL}/api/notifications/getNotif`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!res.ok) {
+        throw new Error("Failed to get new notifications");
+    }
+    return res.json();
+}
