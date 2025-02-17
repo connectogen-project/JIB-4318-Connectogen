@@ -18,6 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 2999;
 
 const __dirname = path.resolve();
+const path = require('path');
 
 // Enable CORS for API testing with Postman
 app.use(cors({
@@ -36,6 +37,7 @@ app.use('/api/mentors', mentorRoutes);
 app.use('/api/mentees', menteeRoutes);
 app.use('/api/requests', requestsRoutes); // Add connection requests routes
 app.use('/api/notifications', notificationRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {

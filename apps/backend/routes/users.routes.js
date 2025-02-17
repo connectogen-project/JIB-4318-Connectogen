@@ -12,6 +12,10 @@ const {
 } = require('../controllers/users.controllers.js');
 const { logUpdate, logDelete } = require('../controllers/logs.controllers');
 const authMiddleware = require('../middlewares/auth.middleware.js');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
+const {uploadResume } = require("../controllers/users.controllers");
+router.post("/upload-resume", upload.single("resume"), uploadResume);
 
 // Public Routes (No Authentication Required)
 router.post('/register', registerUser); // Register a new user

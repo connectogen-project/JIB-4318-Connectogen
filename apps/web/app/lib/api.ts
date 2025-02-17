@@ -1,3 +1,4 @@
+"use client"
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
 
 export async function logoutUser() {
@@ -59,6 +60,16 @@ export async function registerUser(userData: {
     if (!res.ok) {
         // You might want to include a more detailed error message.
         throw new Error('Failed to register');
+    }
+    return res.json();
+}
+export async function uploadResume(formDataUpload: FormData): Promise<{ fileUrl: string }> {
+    const res = await fetch(`${API_BASE_URL}/api/users/upload-resume`, {
+        method: "POST",
+        body: formDataUpload,
+    });
+    if (!res.ok) {
+        throw new Error("Failed to upload resume");
     }
     return res.json();
 }

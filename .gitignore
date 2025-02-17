@@ -27,6 +27,9 @@ out/
 build
 dist
 
+# User Resume Uploads
+/uploads
+
 
 # Debug
 npm-debug.log*
