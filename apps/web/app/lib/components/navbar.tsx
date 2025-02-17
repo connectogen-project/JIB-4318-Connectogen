@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Logo from "@repo/ui/components/logo";
 import { Button } from "@repo/ui/components/ui/button";
 import { InboxIcon, UserCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 
 import {
     NavigationMenu,
@@ -17,12 +18,21 @@ import {
     NavigationMenuTrigger,
     // NavigationMenuViewport,
 } from "@repo/ui/components/ui/navigation-menu"
-
+import { useAuth } from "@/context/AuthContext";
 
 export default function NavBar() {
     // const pathname = usePathname();
     // const PORT = process.env.PORT || "2999";
     const router = useRouter();
+
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
+
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token);
+    }, [setIsLoggedIn]);
+
     const handleLogout = async () => {
 
         try {
@@ -30,6 +40,8 @@ export default function NavBar() {
             const response = await logoutUser();
             if (response) {
                 console.log("Logged out.")
+                localStorage.removeItem("token");
+                setIsLoggedIn(false);
                 router.push("/login")
             } else {
                 console.error('Failed to log out');
@@ -38,6 +50,8 @@ export default function NavBar() {
             console.error('Error during logout:', error);
         }
     };
+
+
 
     return (
         <div className="flex w-full items-center border-b border-border h-[68px] sticky top-0 z-50 bg-white">
@@ -77,25 +91,31 @@ export default function NavBar() {
             </div>
 
             <div className="flex mx-6 gap-x-6 items-center">
-                <Button className="bg-foreground text-background hover:text-foreground">
-                    <Link href="/login">
-                        Login
-                    </Link>
-                </Button>
-                <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
-                    <Link href="/signup">
-                        Register
-                    </Link>
-                </Button>
-
-                <Button
-                    onClick={handleLogout}
-                    className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
-                >
+                { !isLoggedIn ? (
+                    <>
+                        <Button className="bg-foreground text-background hover:text-foreground">
+                            <Link href="/login">Login</Link>
+                        </Button>
+                        <Button className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground">
+                            <Link href="/signup">Register</Link>
+                        </Button>
+                    </>
+                ) : (
+                    <Button
+                        onClick={() => {
+                            handleLogout();
+                        }}
+                        className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
+                    >
                         Logout
-                </Button>
-                <InboxIcon />
-                <UserCircle />
+                    </Button>
+                )}
+                {isLoggedIn && (
+                    <>
+                        <InboxIcon />
+                        <UserCircle />
+                    </>
+                )}
             </div>
         </div >
     );

@@ -12,6 +12,7 @@ import { useFormState } from "react-dom"
 import { verifyEmail, verifyEmailState } from "./VerifyEmail"
 import { useState } from "react"
 import {loginUser} from "@/app/lib/api";
+import { useAuth } from "@/context/AuthContext";
 
 
 
@@ -19,6 +20,7 @@ import {loginUser} from "@/app/lib/api";
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const { setIsLoggedIn } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,6 +37,8 @@ export default function LoginPage() {
     try {
       const response = await loginUser({ email, password });
       console.log("Login successful:", response);
+      localStorage.setItem("token", response.token);
+      setIsLoggedIn(true);
       router.push("/mentorship/find-mentorship");
     } catch (err: any) {
       console.error("Login failed:", err);
