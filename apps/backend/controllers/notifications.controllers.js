@@ -63,6 +63,16 @@ export const readNotification = async(req, res) => {
     }
 }
 
+export const deleteNotification = async(req, res) => {
+    const { id } = req.params;
+    try {    
+        await Notification.findByIdAndDelete(id);
+        res.status(200).json({ success: true, message: "Notification deleted" });
+    } catch (error) {
+        res.status(400).json({ success: false, message: "Notification not found" });
+    }
+}
+
 function generateRandomString(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
