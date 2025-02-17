@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import '@repo/ui/globals.css';
 
-import NavbarWrapper from "./lib/components/navwrapper"; // Correct import
+import NavbarWrapper from "./lib/components/navwrapper";
 import { Inter } from "next/font/google";
 import { Toaster } from "@repo/ui/components/ui/toaster";
+import { AuthProvider } from "@/context/AuthContext"; // Import AuthProvider
 
 const inter = Inter({
   weight: "variable",
@@ -24,10 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans`}>
-        <NavbarWrapper /> {/* Ensure it's rendered inside the body */}
-        {children}
+        {/* Ensure the AuthProvider wraps the entire app */}
+        <AuthProvider>  
+          <NavbarWrapper /> {/* This uses useAuth */}
+          {children} {/* Your app content */}
+        </AuthProvider>
         <Toaster />
       </body>
     </html>
   );
 }
+
