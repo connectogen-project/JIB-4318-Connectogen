@@ -9,7 +9,7 @@ import logRoutes from '../routes/logs.routes.js';
 import userRoutes from '../routes/users.routes.js';
 import mentorRoutes from '../routes/mentor.routes.js';
 import menteeRoutes from '../routes/mentee.routes.js';
-import requestsRoutes from '../routes/requests.routes.js'; // Import connection request routes
+import requestsRoutes from '../routes/connectRequest.routes.js'; // Import connection request routes
 import notificationRoutes from '../routes/notifications.routes.js';
 
 dotenv.config();
