@@ -1,8 +1,9 @@
 "use client";
 // import { usePathname } from "next/navigation";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { logoutUser } from "@/app/lib/api";
+// import { logoutUser } from "@/app/lib/api";
 import { useRouter } from "next/navigation";
 import Logo from "@repo/ui/components/logo";
 import { Button } from "@repo/ui/components/ui/button";
@@ -54,23 +55,31 @@ export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
 
-useEffect(() => {
-  async function fetchNotifs() {
-    try {
-      const data = await getNotifications();
-      setNotifications(data.data);
-    } catch (error) {
-      console.error("Unable to fetch notifications at this time:", error);
+  useEffect(() => {
+    async function fetchNotifs() {
+      try {
+        const data = await getNotifications();
+        setNotifications(data.data);
+      } catch (error) {
+        console.error("Unable to fetch notifications at this time:", error);
+      }
     }
-  }
-  fetchNotifs();
-}, []);
+    fetchNotifs();
+  }, []);
+
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
 
   const handleLogout = async () => {
     try {
       // const response = await fetch('auth/logout/', { method: 'POST' });
-      const response = await logoutUser();
-      if (response) {
+      // const response = await logoutUser();
+      const res = await fetch(`${API_BASE_URL}/api/users/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res) {
         console.log("Logged out.");
         router.push("/");
       } else {

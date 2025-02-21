@@ -1,19 +1,6 @@
 "use client"
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
 
-export async function logoutUser() {
-    
-    const res = await fetch(`${API_BASE_URL}/api/users/logout`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if (!res.ok) {
-        throw new Error('Failed to logout');
-    }
-    return res.json();
-}
 export async function loginUser(userData: {
     email: string;
     password: string;
