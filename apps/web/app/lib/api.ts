@@ -36,6 +36,7 @@ export async function registerUser(userData: {
         subspecialties?: string[];
         position?: string;
     };
+    resume?: string;
 }) {
     const res = await fetch(`${API_BASE_URL}/api/users/register`, {
         method: 'POST',
