@@ -3,19 +3,19 @@
 
 
 import { useState } from "react";
-import { ProgressBar } from "@/app/lib/components/ProgressBar";
+import { ProgressBar } from "@/app/lib/components/Onboarding/ProgressBar";
 import { EmailStep } from "@/app/lib/components/EmailStep";
-import { CredentialsStep } from "@/app/lib/components/CredentialsStep";
+import { CredentialsStep } from "@/app/lib/components/Onboarding/CredentialsStep";
 import { PersonalInfoStep } from "@/app/lib/components/PersonalInfoStep";
-import { InstitutionStep } from "@/app/lib/components/InstitutionStep";
+import { InstitutionStep } from "@/app/lib/components/Onboarding/InstitutionStep";
 import { DegreesStep } from "@/app/lib/components/DegreesStep";
 import { SubspecialtiesStep } from "@/app/lib/components/SubspecialtiesStep";
 import { BioStep } from "@/app/lib/components/BioStep";
 import type { OnboardingData, OnboardingStep } from "./onboarding";
 import Link from "next/link";
-import {registerUser} from "@/app/lib/api";
-import {useRouter} from "next/navigation";
-import {ResumeUploadStep} from "@/app/lib/components/ResumeUploadStep";
+import { registerUser } from "@/app/lib/api";
+import { useRouter } from "next/navigation";
+import { ResumeUploadStep } from "@/app/lib/components/Onboarding/ResumeUploadStep";
 
 const steps: OnboardingStep[] = [
   "email",
