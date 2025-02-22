@@ -60,15 +60,3 @@ export async function uploadResume(formDataUpload: FormData): Promise<{ fileUrl:
     }
     return res.json();
 }
-export async function getNotifications() {
-    const res = await fetch(`${API_BASE_URL}/api/notifications/getNotif/?userEmail=test@gatech.edu`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    if (!res.ok) {
-        throw new Error("Failed to get notifications");
-    }
-    return res.json();
-}
