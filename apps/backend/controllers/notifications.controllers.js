@@ -7,14 +7,14 @@ export const getNotification = async (req, res) => {
             return res.status(400).json({ message: 'Email is required' });
         }
         const notif = await Notification.find({ userEmail });
-        res.status(200).json({ success: true, data: notif});
+        res.status(200).json(notif);
     } catch (error) {
         console.log("Error", error.message);
         res.status(500).json({ success: false, message: "Server error" });
     }
 }
 
-export const createNotification = async(req, res) => {
+export const createNotification = async (req, res) => {
     try {
         const { notifType, message, userEmail } = req.body;
 
@@ -46,9 +46,9 @@ export const createNotification = async(req, res) => {
     }
 }
 
-export const readNotification = async(req, res) => {
+export const readNotification = async (req, res) => {
     try {
-        const { id } = req.params; 
+        const { id } = req.params;
         const notif = await Notification.findById(id);
 
         if (!notif) {
@@ -57,15 +57,15 @@ export const readNotification = async(req, res) => {
 
         notif.read = true;
         await notif.save();
-        res.status(200).json({ message: 'Notification updated successfully', data: notif});
+        res.status(200).json({ message: 'Notification updated successfully', data: notif });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 }
 
-export const deleteNotification = async(req, res) => {
+export const deleteNotification = async (req, res) => {
     const { id } = req.params;
-    try {    
+    try {
         await Notification.findByIdAndDelete(id);
         res.status(200).json({ success: true, message: "Notification deleted" });
     } catch (error) {

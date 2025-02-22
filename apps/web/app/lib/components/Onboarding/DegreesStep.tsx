@@ -3,7 +3,7 @@ import { Label } from "@repo/ui/components/ui/label"
 import { Button } from "@repo/ui/components/ui/button"
 import { Checkbox } from "@repo/ui/components/ui/checkbox"
 import { GraduationCap, ArrowLeft, ArrowRight } from "lucide-react"
-import type { OnboardingData } from "../../signup/onboarding"
+import type { OnboardingData } from "@/app/signup/onboarding"
 
 interface DegreesStepProps {
   onNext: (data: Partial<OnboardingData>) => void
@@ -57,13 +57,13 @@ export function DegreesStep({ onNext, onBack, formData, setFormData }: DegreesSt
         </div>
       </div>
       <div className="flex justify-between space-x-4">
-      <Button type="button" variant="outline" onClick={onBack}>
-                <ArrowLeft/>
-            </Button>
-            <Button type="submit" className="bg-black text-white hover:bg-gray-800">
-              Next
-              <ArrowRight/>
-            </Button>
+        <Button type="button" variant="outline" onClick={onBack}>
+          <ArrowLeft />
+        </Button>
+        <Button type="submit" className="bg-black text-white hover:bg-gray-800">
+          Next
+          <ArrowRight />
+        </Button>
       </div>
     </form>
   )

@@ -5,7 +5,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
 import { Label } from "@repo/ui/components/ui/label";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import type { OnboardingData } from "../../signup/onboarding";
+import type { OnboardingData } from "../../../signup/onboarding";
 import { uploadResume } from "@/app/lib/api";
 
 interface ResumeUploadStepProps {
@@ -16,11 +16,11 @@ interface ResumeUploadStepProps {
 }
 
 export function ResumeUploadStep({
-                                     onNext,
-                                     onBack,
-                                     formData,
-                                     setFormData,
-                                 }: ResumeUploadStepProps) {
+    onNext,
+    onBack,
+    formData,
+    setFormData,
+}: ResumeUploadStepProps) {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState("");

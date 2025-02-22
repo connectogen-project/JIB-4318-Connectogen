@@ -1,9 +1,9 @@
 'use client'
 
-import { SortOption } from "@/app/lib/components/sort-mentors"
+import { SortOption } from "@/app/lib/components/MentorshipTable/sort-mentors"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/ui/tabs"
-import FilterMentorsSidebar from "@/app/lib/components/filter-mentors-sidebar"
-import SortMentors from "@/app/lib/components/sort-mentors"
+import FilterMentorsSidebar from "@/app/lib/components/MentorshipTable/filter-mentors-sidebar"
+import SortMentors from "@/app/lib/components/MentorshipTable/sort-mentors"
 import MentorList from "./mentor-list"
 import MenteeList from "./mentee-list"
 import { useState } from "react"
@@ -37,7 +37,7 @@ export default function FindMentorshipPage() {
                         <SortMentors sortOption={sortOption} setSortOption={setSortOption} />
                     </div>
                     <TabsContent value="mentors">
-                        <MentorList sortOption={sortOption} filters={filters}/>
+                        <MentorList sortOption={sortOption} filters={filters} />
                     </TabsContent>
                     <TabsContent value="mentees">
                         <MenteeList sortOption={sortOption} />

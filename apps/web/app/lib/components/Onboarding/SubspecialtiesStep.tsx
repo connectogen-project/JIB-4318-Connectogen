@@ -3,7 +3,7 @@ import { Label } from "@repo/ui/components/ui/label";
 import { Button } from "@repo/ui/components/ui/button";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { Stethoscope, ArrowLeft, ArrowRight } from "lucide-react";
-import type { OnboardingData } from "../../signup/onboarding";
+import type { OnboardingData } from "@/app/signup/onboarding";
 
 interface SubspecialtiesStepProps {
   onNext: (data: Partial<OnboardingData>) => void;
@@ -76,7 +76,7 @@ export function SubspecialtiesStep({
         </Button>
         <Button type="submit" className="bg-black text-white hover:bg-gray-800">
           Next
-          <ArrowRight/>
+          <ArrowRight />
         </Button>
       </div>
     </form>

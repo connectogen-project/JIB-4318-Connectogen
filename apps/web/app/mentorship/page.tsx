@@ -1,8 +1,8 @@
-import NavBar from "../lib/components/navbar";
+import NavBar from "../lib/components/NavBar/navbar";
 export default function Mentorship() {
-    return (
-      <div>
-        {/*<NavBar/>*/}
-      </div>
-    );
-  }
+  return (
+    <div>
+      {/*<NavBar/>*/}
+    </div>
+  );
+}

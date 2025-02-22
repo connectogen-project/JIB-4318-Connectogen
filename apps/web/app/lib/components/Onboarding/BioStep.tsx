@@ -3,7 +3,7 @@ import { Label } from "@repo/ui/components/ui/label";
 import { Button } from "@repo/ui/components/ui/button";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 import { FileText, ArrowLeft, ArrowRight } from "lucide-react";
-import type { OnboardingData } from "../../signup/onboarding";
+import type { OnboardingData } from "@/app/signup/onboarding";
 
 interface BioStepProps {
   onNext: (data: { bio: string }) => void;
@@ -53,7 +53,7 @@ export function BioStep({
         </Button>
         <Button type="submit" className="bg-black text-white hover:bg-gray-800">
           Submit
-          <ArrowRight/>
+          <ArrowRight />
         </Button>
       </div>
     </form>

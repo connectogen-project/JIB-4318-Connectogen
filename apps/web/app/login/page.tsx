@@ -11,14 +11,14 @@ import { useRouter } from "next/navigation"
 import { useFormState } from "react-dom"
 import { verifyEmail, verifyEmailState } from "./VerifyEmail"
 import { useState } from "react"
-import {loginUser} from "@/app/lib/api";
-
 
 
 
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,8 +33,20 @@ export default function LoginPage() {
     }
 
     try {
-      const response = await loginUser({ email, password });
-      console.log("Login successful:", response);
+      const res = await fetch(`${API_BASE_URL}/api/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error('Failed to login');
+      }
+      console.log("Login successful:", res);
       router.push("/mentorship/find-mentorship");
     } catch (err: any) {
       console.error("Login failed:", err);
@@ -61,7 +73,7 @@ export default function LoginPage() {
             <Input name="password" type="password" placeholder="Password" className="pl-10" />
           </div>
 
-          <Button 
+          <Button
             type="submit"
             className="w-full bg-black text-white hover:bg-black/90"
           >
