@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import { useState } from "react";
 import { ProgressBar } from "@/app/lib/components/Onboarding/ProgressBar";
 import { EmailStep } from "@/app/lib/components/Onboarding/EmailStep";
