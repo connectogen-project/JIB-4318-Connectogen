@@ -5,7 +5,7 @@ type FilterMentorsSidebarProps = {
     onFilterChange: (filters: {
         institutions: string[];
         fields: string[];
-        positions: string[];
+        position: string[];
         subspecialties: string[];
     }) => void;
 };
@@ -19,25 +19,31 @@ export default function FilterMentorsSidebar({ onFilterChange }: FilterMentorsSi
     ];
 
     const FIELD_OPTIONS: Option[] = [
-        { label: 'nextjs', value: 'Nextjs' },
-        { label: 'React', value: 'react' },
+        { label: 'Anesthesiology', value: 'Anesthesiology' },
+        { label: 'Biochemistry', value: 'Biochemistry' },
+        { label: 'Biomedical Engineering', value: 'Biomedical Engineering' },
+        { label: 'Biomedical Informatics', value: 'Biomedical Informatics' },
+        { label: 'Chemistry', value: 'Chemistry' },
     ];
 
     const POSITIONS_OPTIONS: Option[] = [
-        { label: 'nextjs', value: 'Nextjs' },
-        { label: 'React', value: 'react' },
+        { label: 'Undergraduate Student', value: 'Undergraduate Student' },
+        { label: 'Graduate Student', value: 'Graduate Student' },
+        { label: 'Medical Student', value: 'Medical Student' },
+        { label: 'Resident', value: 'Fellow' },
+        { label: 'Faculty', value: 'Faculty' },
+        { label: 'Researcher', value: 'Researcher' },
+        { label: 'Staff', value: 'Staff' },
     ];
 
     const SUBSPECIALTY_OPTIONS: Option[] = [
-        { label: 'Business', value: 'Business Administration' },
-        { label: 'Math', value: 'Mathematics' },
-        { label: 'Biology', value: 'Biology' },
-        { label: 'Engineering', value: 'Engineering' },
-        { label: 'Autonomic Disorders', value: 'Autonomic Disorders' },
+        { label: 'Abdominal Imaging', value: 'Abdominal Imaging' },
+        { label: 'Adolescent Medicine', value: 'Adolescent Medicine' },
+        { label: 'Brain Injury', value: 'Brain Injury' },
         { label: 'Cardiology', value: 'Cardiology' },
-        { label: 'Dermatology', value: 'Dermatology' },
+        { label: 'Autonomic Disorders', value: 'Autonomic Disorders' },
+        { label: 'Epilepsy', value: 'Epilepsy' },
         { label: 'Oncology', value: 'Oncology' },
-        { label: 'Pediatrics', value: 'Pediatrics' },
     ];
 
     const handleFilterChange = (value: string, selectedOptions: Option[]) => {
@@ -45,7 +51,7 @@ export default function FilterMentorsSidebar({ onFilterChange }: FilterMentorsSi
         onFilterChange({
             institutions: value === 'Institution' ? selectedValues : [],
             fields: value === 'Field' ? selectedValues : [],
-            positions: value === 'Positions' ? selectedValues : [],
+            position: value === 'Positions' ? selectedValues : [],
             subspecialties: value === 'Subspecialty' ? selectedValues : [],
         });
     };

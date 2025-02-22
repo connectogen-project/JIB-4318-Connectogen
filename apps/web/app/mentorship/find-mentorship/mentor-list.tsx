@@ -24,8 +24,8 @@ async function getMentorData(sortOption: SortOption): Promise<Mentor[]> {
     let displayedData: Mentor[] = allMentorData.data.map(user => ({
         name: user.firstName + " " + user.lastName,
         institution: user.institution,
-        // fields: user.fields
-        // position: user.position,
+        fields: user.fields,
+        position: user.position,
         subspecialties: user.subspecialties,
         createdAt: user.createdAt,
     }))
@@ -55,7 +55,7 @@ type MentorListProps = {
     filters: {
         institutions: string[];
         fields: string[];
-        positions: string[];
+        position: string[];
         subspecialties: string[];
     };
 };
@@ -71,10 +71,11 @@ export default function MentorList({ sortOption, filters }: MentorListProps) {
         fetchData();
     }, [sortOption]);
 
-    // Filter mentors based on selected filters
     const filteredMentors = mentors.filter((mentor) => {
         return (
             (filters.institutions.length === 0 || filters.institutions.includes(mentor.institution)) &&
+            (filters.fields.length === 0 || filters.fields.includes(mentor.fields)) &&
+            (filters.position.length === 0 || filters.position.includes(mentor.position)) &&
             (filters.subspecialties.length === 0 || filters.subspecialties.includes(mentor.subspecialties))
         );
     });
