@@ -1,16 +1,19 @@
+'use client'
+
 import MultipleSelector from '@repo/ui/components/ui/multiple-selector';
 import type { Option } from '@repo/ui/components/ui/multiple-selector';
+import { createContext, useState } from 'react';
 
-type FilterMentorsSidebarProps = {
-    onFilterChange: (filters: {
-        institutions: string[];
-        fields: string[];
-        position: string[];
-        subspecialties: string[];
-    }) => void;
-};
+const FilterContext = createContext();
 
-export default function FilterMentorsSidebar({ onFilterChange }: FilterMentorsSidebarProps) {
+export default function FilterMentorsSidebar() {
+    const [filters, setFilters] = useState({
+        institutions: '',
+        fields: '',
+        position: '',
+        subspecialties: '',
+    })
+
     const INSTITUTION_OPTIONS: Option[] = [
         { label: 'Georgia Tech', value: 'Georgia Institute of Technology' },
         { label: 'Emory', value: 'Emory University' },
@@ -46,14 +49,16 @@ export default function FilterMentorsSidebar({ onFilterChange }: FilterMentorsSi
         { label: 'Oncology', value: 'Oncology' },
     ];
 
-    const handleFilterChange = (value: string, selectedOptions: Option[]) => {
-        const selectedValues = selectedOptions.map((option) => option.value);
-        onFilterChange({
-            institutions: value === 'Institution' ? selectedValues : [],
-            fields: value === 'Field' ? selectedValues : [],
-            position: value === 'Positions' ? selectedValues : [],
-            subspecialties: value === 'Subspecialty' ? selectedValues : [],
-        });
+    const handleFilterChange = (e) => {
+        const { category, value } = e.target;
+
+        console.log("category: " + category);
+        console.log("value: " + value);
+
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            [category]: value,
+        }));
     };
 
     return (
@@ -76,7 +81,7 @@ export default function FilterMentorsSidebar({ onFilterChange }: FilterMentorsSi
                                 No results found.
                             </p>
                         }
-                        onChange={(selectedOptions) => handleFilterChange(value, selectedOptions)}
+                        onChange={(options) => handleFilterChange(value)}
                     />
                 </div>
             ))}

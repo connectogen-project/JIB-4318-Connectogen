@@ -71,6 +71,8 @@ export default function MentorList({ sortOption, filters }: MentorListProps) {
         fetchData();
     }, [sortOption]);
 
+    console.log("institution filters: " + filters.institutions)
+    console.log("fields filters: " + filters.fields)
     const filteredMentors = mentors.filter((mentor) => {
         return (
             (filters.institutions.length === 0 || filters.institutions.includes(mentor.institution)) &&
