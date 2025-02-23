@@ -52,7 +52,7 @@ export default function NavBar() {
   // const PORT = process.env.PORT || "2999";
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState(mockNotifications);
 
 useEffect(() => {
   async function fetchNotifs() {
@@ -84,13 +84,21 @@ useEffect(() => {
   const handleAcceptRequest = (id: string) => {
     // Add your accept request logic here
     setNotifications((prev) =>
-      prev.filter((notification) => notification !== id)
+      // for backend call
+      // prev.filter((notification) => notification !== id)
+
+      // for mockNotifications
+      prev.filter((notification) => notification.id !== id)
     );
   };
 
   const handleDismissRequest = (id: string) => {
     setNotifications((prev) =>
-      prev.filter((notification) => notification !== id)
+      // for backend call
+      // prev.filter((notification) => notification !== id)
+
+      // for mockNotifications
+      prev.filter((notification) => notification.id !== id)
     );
   };
 
