@@ -1,19 +1,16 @@
-'use client'
-
 import MultipleSelector from '@repo/ui/components/ui/multiple-selector';
 import type { Option } from '@repo/ui/components/ui/multiple-selector';
-import { createContext, useState } from 'react';
 
-const FilterContext = createContext();
+type FilterMentorsSidebarProps = {
+    onFilterChange: (filters: {
+        institutions: string[];
+        fields: string[];
+        position: string[];
+        subspecialties: string[];
+    }) => void;
+};
 
-export default function FilterMentorsSidebar() {
-    const [filters, setFilters] = useState({
-        institutions: '',
-        fields: '',
-        position: '',
-        subspecialties: '',
-    })
-
+export default function FilterMentorsSidebar({ onFilterChange }: FilterMentorsSidebarProps) {
     const INSTITUTION_OPTIONS: Option[] = [
         { label: 'Georgia Tech', value: 'Georgia Institute of Technology' },
         { label: 'Emory', value: 'Emory University' },
@@ -49,16 +46,16 @@ export default function FilterMentorsSidebar() {
         { label: 'Oncology', value: 'Oncology' },
     ];
 
-    const handleFilterChange = (e) => {
-        const { category, value } = e.target;
-
-        console.log("category: " + category);
-        console.log("value: " + value);
-
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            [category]: value,
-        }));
+    const handleFilterChange = (value: string, selectedOptions: Option[]) => {
+        console.log("values: " + value)
+        const selectedValues = selectedOptions.map((option) => option.value);
+        console.log("selectedValues: " + selectedValues)
+        onFilterChange({
+            institutions: value === 'Institution' ? selectedValues : [],
+            fields: value === 'Field' ? selectedValues : [],
+            position: value === 'Positions' ? selectedValues : [],
+            subspecialties: value === 'Subspecialty' ? selectedValues : [],
+        });
     };
 
     return (
@@ -81,7 +78,7 @@ export default function FilterMentorsSidebar() {
                                 No results found.
                             </p>
                         }
-                        onChange={(options) => handleFilterChange(value)}
+                        onChange={(selectedOptions) => handleFilterChange(value, selectedOptions)}
                     />
                 </div>
             ))}
