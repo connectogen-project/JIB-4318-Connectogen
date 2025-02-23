@@ -56,9 +56,16 @@ export default function LoginPage() {
             <Input name="email" type="email" placeholder="Email" className="pl-10" />
           </div>
 
-          <div className="relative">
-            <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-            <Input name="password" type="password" placeholder="Password" className="pl-10" />
+          <div className="space-y-1">
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+              <Input name="password" type="password" placeholder="Password" className="pl-10" />
+            </div>
+            <div>
+              <Link href="/login/reset-password" className="text-sm text-gray-500 hover:text-gray-800">
+                Forgot password?
+              </Link>
+            </div>
           </div>
 
           <Button 
@@ -69,17 +76,11 @@ export default function LoginPage() {
           </Button>
         </form>
 
-        <div className="space-y-4 text-center text-sm">
-          <Link href="/login/reset-password" className="text-gray-500 hover:text-gray-800">
-            Forgot password
+        <div className="text-center text-sm text-gray-500">
+          Don&apos;t have an account?{" "}
+          <Link href="/signup" className="text-black hover:underline">
+            Sign up
           </Link>
-
-          <div className="text-gray-500">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-black hover:underline">
-              Sign up
-            </Link>
-          </div>
         </div>
       </div>
     </div>
