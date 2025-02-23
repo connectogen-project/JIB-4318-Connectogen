@@ -13,12 +13,12 @@ export default function FindMentorshipPage() {
     const [filters, setFilters] = useState<{
         institutions: string[];
         fields: string[];
-        positions: string[];
+        position: string[];
         subspecialties: string[];
     }>({
         institutions: [],
         fields: [],
-        positions: [],
+        position: [],
         subspecialties: [],
     });
 
@@ -37,10 +37,10 @@ export default function FindMentorshipPage() {
                         <SortMentors sortOption={sortOption} setSortOption={setSortOption} />
                     </div>
                     <TabsContent value="mentors">
-                        <MentorList sortOption={sortOption} filters={filters}/>
+                        <MentorList sortOption={sortOption} filters={filters} />
                     </TabsContent>
                     <TabsContent value="mentees">
-                        <MenteeList sortOption={sortOption} />
+                        <MenteeList sortOption={sortOption} filters={filters} />
                     </TabsContent>
                 </Tabs>
 
