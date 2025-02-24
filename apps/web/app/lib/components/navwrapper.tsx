@@ -9,9 +9,6 @@ export default function NavbarWrapper() {
     const pathname = usePathname();
     const { isLoggedIn } = useAuth();
 
-    console.log("NavbarWrapper Rendered - Path:", pathname);
-    console.log("User Logged In:", isLoggedIn);
-
     // Paths that should always show WelcomeBar
     const showWelcomeBar = ["/", "/login", "/signup"].includes(pathname);
 
