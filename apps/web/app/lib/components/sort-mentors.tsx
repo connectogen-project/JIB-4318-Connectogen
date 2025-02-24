@@ -63,8 +63,8 @@ export default function SortMentors({ sortOption }: SortMentorsProps) {
                         </div>
 
                         {[
-                            { value: 'dateAddedDesc', label: 'Date Added (Asc)' },
-                            { value: 'dateAddedAsc', label: 'Date Added (Dsc)' },
+                            { value: 'dateAddedAsc', label: 'Date Added (Asc)' },
+                            { value: 'dateAddedDesc', label: 'Date Added (Desc)' },
                             { value: 'nameAsc', label: 'Name (A-Z)' },
                             { value: 'nameDesc', label: 'Name (Z-A)' },
                         ].map((option) => (
