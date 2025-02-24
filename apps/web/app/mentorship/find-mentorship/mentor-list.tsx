@@ -1,12 +1,9 @@
-'use client'
-
-import { useEffect, useState } from "react";
 import { DataTable } from "./data-table"
 import { SortOption } from "@/app/lib/components/sort-mentors";
 import { Mentor, mentorColumns } from "./mentor-columns";
 import { User } from "@/app/lib/types";
 
-async function getMentorData(sortOption: SortOption): Promise<Mentor[]> {
+async function getMentorData(sortOption: SortOption) {
     // Fetch data from your API here.
 
     const allMentorResponse = await fetch("http://localhost:2999/api/mentors/getMentors", {
@@ -53,32 +50,22 @@ async function getMentorData(sortOption: SortOption): Promise<Mentor[]> {
 type MentorListProps = {
     sortOption: SortOption;
     filters: {
-        institutions: string[];
-        fields: string[];
-        position: string[];
-        subspecialties: string[];
+        institutions?: string[];
+        fields?: string[];
+        position?: string[];
+        subspecialties?: string[];
     };
 };
 
-export default function MentorList({ sortOption, filters }: MentorListProps) {
-    const [mentors, setMentors] = useState<Mentor[]>([]);
+export default async function MentorList({ sortOption, filters }: MentorListProps) {
+    const mentors = await getMentorData(sortOption);
 
-    useEffect(() => {
-        async function fetchData() {
-            const sortedMentors = await getMentorData(sortOption);
-            setMentors(sortedMentors);
-        }
-        fetchData();
-    }, [sortOption]);
-
-    console.log("institution filters: " + filters.institutions)
-    console.log("fields filters: " + filters.fields)
     const filteredMentors = mentors.filter((mentor) => {
         return (
-            (filters.institutions.length === 0 || filters.institutions.includes(mentor.institution)) &&
-            (filters.fields.length === 0 || filters.fields.includes(mentor.fields)) &&
-            (filters.position.length === 0 || filters.position.includes(mentor.position)) &&
-            (filters.subspecialties.length === 0 || filters.subspecialties.includes(mentor.subspecialties))
+            (!filters.institutions || filters.institutions?.includes(mentor.institution?.replaceAll(' ', ''))) &&
+            (!filters.fields || filters.fields?.includes(mentor.fields?.replaceAll(' ', ''))) &&
+            (!filters.position || filters.position?.includes(mentor.position?.replaceAll(' ', ''))) &&
+            (!filters.subspecialties || filters.subspecialties?.includes(mentor.subspecialties?.replaceAll(' ', '')))
         );
     });
 
