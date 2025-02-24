@@ -34,13 +34,3 @@ export async function registerUser(userData: {
     }
     return res.json();
 }
-export async function uploadResume(formDataUpload: FormData): Promise<{ fileUrl: string }> {
-    const res = await fetch(`${API_BASE_URL}/api/users/upload-resume`, {
-        method: "POST",
-        body: formDataUpload,
-    });
-    if (!res.ok) {
-        throw new Error("Failed to upload resume");
-    }
-    return res.json();
-}

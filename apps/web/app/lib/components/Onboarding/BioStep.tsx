@@ -26,7 +26,6 @@ export function BioStep({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Bio submitted:", bio);
     onNext({ bio });
   };
 
