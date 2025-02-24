@@ -11,7 +11,7 @@ import { SubspecialtiesStep } from "@/app/lib/components/Onboarding/Subspecialti
 import { BioStep } from "@/app/lib/components/Onboarding/BioStep";
 import type { OnboardingData, OnboardingStep } from "./onboarding";
 import Link from "next/link";
-import { registerUser } from "@/app/lib/api";
+// import { registerUser } from "@/app/lib/api";
 import { useRouter } from "next/navigation";
 import { ResumeUploadStep } from "@/app/lib/components/Onboarding/ResumeUploadStep";
 
@@ -30,6 +30,8 @@ export default function Signup() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Partial<OnboardingData>>({});
   const router = useRouter();
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
+
   const handleNext = async (data: Partial<OnboardingData>) => {
     const newFormData = { ...formData, ...data };
     setFormData(newFormData);
@@ -39,18 +41,29 @@ export default function Signup() {
     } else {
       console.log("Onboarding complete:", newFormData);
       try {
-        const response = await registerUser({
-          firstName: newFormData.firstName!,
-          lastName: newFormData.lastName!,
-          email: newFormData.email!,
-          password: newFormData.password!,
-          gender: newFormData.gender!,
-          institution: newFormData.institution!,
-          degrees: newFormData.degrees || [],
-          bio: newFormData.bio,
-          resume: newFormData.resumeFileUrl,
+        const res = await fetch(`${API_BASE_URL}/api/users/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+            {
+              firstName: newFormData.firstName!,
+              lastName: newFormData.lastName!,
+              email: newFormData.email!,
+              password: newFormData.password!,
+              gender: newFormData.gender!,
+              institution: newFormData.institution!,
+              degrees: newFormData.degrees || [],
+              bio: newFormData.bio,
+              resume: newFormData.resumeFileUrl,
+            }
+          ),
         });
-        console.log("Registration successful:", response);
+        const resText = await res.text(); // Read raw response text before parsing
+        if (!res.ok) {
+          throw new Error(`Failed to register: ${res.status} - ${resText}`);
+        }
         router.push("/login");
       } catch (error) {
         console.error("Registration failed:", error);
