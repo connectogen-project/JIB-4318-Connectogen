@@ -1,8 +1,8 @@
 
-import { SortOption } from "@/app/lib/components/sort-mentors"
+import { SortOption } from "@/app/lib/components/MentorshipTable/sort-mentors"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/ui/tabs"
-import FilterMentorsSidebar from "@/app/lib/components/filter-mentors-sidebar"
-import SortMentors from "@/app/lib/components/sort-mentors"
+import FilterMentorsSidebar from "@/app/lib/components/MentorshipTable/filter-mentors-sidebar"
+import SortMentors from "@/app/lib/components/MentorshipTable/sort-mentors"
 import MentorList from "./mentor-list"
 import MenteeList from "./mentee-list"
 import { Suspense } from "react"

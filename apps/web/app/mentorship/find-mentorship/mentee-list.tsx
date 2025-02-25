@@ -1,5 +1,5 @@
 import { DataTable } from "./data-table"
-import { SortOption } from "@/app/lib/components/sort-mentors";
+import { SortOption } from "@/app/lib/components/MentorshipTable/sort-mentors";
 import { User } from "@/app/lib/types";
 import { Mentee, menteeColumns } from "./mentee-columns";
 

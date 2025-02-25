@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react"
 import { Label } from "@repo/ui/components/ui/label"
 import { Button } from "@repo/ui/components/ui/button"
 import { GraduationCap, ArrowLeft, ArrowRight } from "lucide-react"
-import type { OnboardingData } from "../../signup/onboarding"
-import MultipleSelector, { Option } from "./MultipleSelector"
+import type { OnboardingData } from "@/app/signup/onboarding"
+import MultipleSelector, { Option } from "../MultipleSelector"
 
 interface DegreesStepProps {
   onNext: (data: Partial<OnboardingData>) => void
@@ -43,11 +42,11 @@ export function DegreesStep({ onNext, onBack, formData, setFormData }: DegreesSt
       </div>
       <div className="flex justify-between space-x-4">
         <Button type="button" variant="outline" onClick={onBack}>
-          <ArrowLeft/>
+          <ArrowLeft />
         </Button>
         <Button type="submit" className="bg-black text-white hover:bg-gray-800">
           Next
-          <ArrowRight/>
+          <ArrowRight />
         </Button>
       </div>
     </form>
