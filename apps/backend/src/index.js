@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import { connectDB } from '../config/db.js';
 
@@ -27,6 +28,7 @@ app.use(cors({
   credentials: true,
 }));
 
+app.use(cookieParser());
 app.use(express.json());
 
 // Register routes
