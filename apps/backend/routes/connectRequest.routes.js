@@ -12,19 +12,19 @@ const authMiddleware = require('../middlewares/auth.middleware.js');
 
 // Protected Routes (Authentication Required)
 
-// Send a friend request
+// Send a connection request
 router.post('/send', authMiddleware, sendConnectionRequest);
 
-// Get friend requests for the authenticated user
+// Get connection requests for the authenticated user
 router.get('/requests/:id', authMiddleware, getConnectionRequests);
 
-// Check if a friend request exists between two users
+// Check if a connection request exists between two users
 router.get('/check', authMiddleware, checkConnectionRequest);
 
-// Accept a friend request
+// Accept a connection request
 router.post('/accept', authMiddleware, acceptConnectionRequest);
 
-// Reject a friend request
+// Reject a connection request
 router.post('/reject', authMiddleware, rejectConnectionRequest);
 
 // Unfriend a user
