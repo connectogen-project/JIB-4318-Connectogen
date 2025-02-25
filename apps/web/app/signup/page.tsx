@@ -1,21 +1,19 @@
 "use client";
 
-
-
 import { useState } from "react";
-import { ProgressBar } from "@/app/lib/components/ProgressBar";
-import { EmailStep } from "@/app/lib/components/EmailStep";
-import { CredentialsStep } from "@/app/lib/components/CredentialsStep";
-import { PersonalInfoStep } from "@/app/lib/components/PersonalInfoStep";
-import { InstitutionStep } from "@/app/lib/components/InstitutionStep";
-import { DegreesStep } from "@/app/lib/components/DegreesStep";
-import { SubspecialtiesStep } from "@/app/lib/components/SubspecialtiesStep";
-import { BioStep } from "@/app/lib/components/BioStep";
+import { ProgressBar } from "@/app/lib/components/Onboarding/ProgressBar";
+import { EmailStep } from "@/app/lib/components/Onboarding/EmailStep";
+import { CredentialsStep } from "@/app/lib/components/Onboarding/CredentialsStep";
+import { PersonalInfoStep } from "@/app/lib/components/Onboarding/PersonalInfoStep";
+import { InstitutionStep } from "@/app/lib/components/Onboarding/InstitutionStep";
+import { DegreesStep } from "@/app/lib/components/Onboarding/DegreesStep";
+import { SubspecialtiesStep } from "@/app/lib/components/Onboarding/SubspecialtiesStep";
+import { BioStep } from "@/app/lib/components/Onboarding/BioStep";
 import type { OnboardingData, OnboardingStep } from "./onboarding";
 import Link from "next/link";
-import {registerUser} from "@/app/lib/api";
-import {useRouter} from "next/navigation";
-import {ResumeUploadStep} from "@/app/lib/components/ResumeUploadStep";
+// import { registerUser } from "@/app/lib/api";
+import { useRouter } from "next/navigation";
+import { ResumeUploadStep } from "@/app/lib/components/Onboarding/ResumeUploadStep";
 
 const steps: OnboardingStep[] = [
   "email",
@@ -32,6 +30,8 @@ export default function Signup() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Partial<OnboardingData>>({});
   const router = useRouter();
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
+
   const handleNext = async (data: Partial<OnboardingData>) => {
     const newFormData = { ...formData, ...data };
     setFormData(newFormData);
@@ -41,18 +41,29 @@ export default function Signup() {
     } else {
       console.log("Onboarding complete:", newFormData);
       try {
-        const response = await registerUser({
-          firstName: newFormData.firstName!,
-          lastName: newFormData.lastName!,
-          email: newFormData.email!,
-          password: newFormData.password!,  // Make sure this field is captured in one of your steps
-          gender: newFormData.gender!,
-          institution: newFormData.institution!,
-          degrees: newFormData.degrees || [],
-          bio: newFormData.bio,
-          resume: newFormData.resumeFileUrl,
+        const res = await fetch(`${API_BASE_URL}/api/users/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+            {
+              firstName: newFormData.firstName!,
+              lastName: newFormData.lastName!,
+              email: newFormData.email!,
+              password: newFormData.password!,
+              gender: newFormData.gender!,
+              institution: newFormData.institution!,
+              degrees: newFormData.degrees || [],
+              bio: newFormData.bio,
+              resume: newFormData.resumeFileUrl,
+            }
+          ),
         });
-        console.log("Registration successful:", response);
+        const resText = await res.text(); // Read raw response text before parsing
+        if (!res.ok) {
+          throw new Error(`Failed to register: ${res.status} - ${resText}`);
+        }
         router.push("/login");
       } catch (error) {
         console.error("Registration failed:", error);

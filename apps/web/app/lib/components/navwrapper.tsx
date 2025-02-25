@@ -1,16 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import NavBar from "./navbar";
+import NavBar from "./NavBar/navbar";
 import WelcomeBar from "./welcomebar";
 import { useAuth } from "@/context/AuthContext";
 
 export default function NavbarWrapper() {
     const pathname = usePathname();
-    const { isLoggedIn } = useAuth(); 
-
-    console.log("NavbarWrapper Rendered - Path:", pathname);
-    console.log("User Logged In:", isLoggedIn);
+    const { isLoggedIn } = useAuth();
 
     // Paths that should always show WelcomeBar
     const showWelcomeBar = ["/", "/login", "/signup"].includes(pathname);
