@@ -16,7 +16,7 @@ const authMiddleware = require('../middlewares/auth.middleware.js');
 router.post('/send', authMiddleware, sendConnectionRequest);
 
 // Get connection requests for the authenticated user
-router.get('/requests/:id', authMiddleware, getConnectionRequests);
+router.get('/get/:id', authMiddleware, getConnectionRequests); // Ensure this route is defined
 
 // Check if a connection request exists between two users
 router.get('/check', authMiddleware, checkConnectionRequest);
