@@ -92,6 +92,13 @@ export async function NotificationsList() {
             <div key={notification.notifID} className="flex items-center justify-between gap-4 py-2">
               <div className="flex flex-col gap-1">
                 {/* <span className="font-medium">{notification.username}</span> */}
+                <button
+                  onClick={() => console.log(`Navigate to profile ${notification.notifID}`)}
+                  className="font-medium text-left hover:underline cursor-pointer"
+                >
+                  {notification.userEmail}
+                </button>
+
                 <span className="text-sm text-muted-foreground">{notification.message}</span>
               </div>
               <div className="flex items-center gap-2">

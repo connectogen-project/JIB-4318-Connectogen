@@ -6,6 +6,15 @@ import { SortOption } from "@/app/lib/components/MentorshipTable/sort-mentors";
 import { User } from "@/app/lib/types";
 import { Mentee, menteeColumns } from "./mentee-columns";
 
+type MenteeListProps = {
+    sortOption: SortOption;
+    filters: {
+        institutions: string[];
+        fields: string[];
+        position: string[];
+        subspecialties: string[];
+    };
+};
 
 async function getMenteeData(sortOption: SortOption): Promise<Mentee[]> {
     // Fetch data from your API here.
@@ -25,8 +34,8 @@ async function getMenteeData(sortOption: SortOption): Promise<Mentee[]> {
     let displayedData: Mentee[] = allMenteeData.data.map(user => ({
         name: user.firstName + " " + user.lastName,
         institution: user.institution,
-        // fields: mentor.fields
-        // position: mentor.position,
+        fields: user.fields,
+        position: user.position,
         subspecialties: user.subspecialties,
         createdAt: user.createdAt,
     }))
@@ -50,7 +59,7 @@ async function getMenteeData(sortOption: SortOption): Promise<Mentee[]> {
     return displayedData
 }
 
-export default function MenteeList({ sortOption }: { sortOption: SortOption }) {
+export default function MenteeList({ sortOption, filters }: MenteeListProps) {
     const [mentees, setMentees] = useState<Mentee[]>([]);
 
     useEffect(() => {
@@ -61,5 +70,14 @@ export default function MenteeList({ sortOption }: { sortOption: SortOption }) {
         fetchData();
     }, [sortOption]); // Only refetch when sorting changes
 
-    return <DataTable columns={menteeColumns} data={mentees} />;
+    const filteredMentees = mentees.filter((mentee) => {
+        return (
+            (filters.institutions.length === 0 || filters.institutions.includes(mentee.institution)) &&
+            (filters.fields.length === 0 || filters.fields.includes(mentee.fields)) &&
+            (filters.position.length === 0 || filters.position.includes(mentee.position)) &&
+            (filters.subspecialties.length === 0 || filters.subspecialties.includes(mentee.subspecialties))
+        );
+    });
+
+    return <DataTable columns={menteeColumns} data={filteredMentees} />;
 }

@@ -39,11 +39,9 @@ const mockNotifications = [
 
 export default function NavBar() {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   // const [notifications, setNotifications] = useState(NotificationItem[]);
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
-
-
 
   const handleLogout = async () => {
     try {
@@ -64,8 +62,6 @@ export default function NavBar() {
       console.error("Error during logout:", error);
     }
   };
-
-
 
   return (
     <div className="flex w-full items-center border-b border-border h-[68px] sticky top-0 z-50 bg-white">
