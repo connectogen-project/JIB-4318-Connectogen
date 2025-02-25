@@ -22,14 +22,14 @@ export const menteeColumns: ColumnDef<Mentee>[] = [
     },
     {
         accessorKey: "fields",
-        header: "Fields",
+        header: "Field",
     },
     {
         accessorKey: "position",
         header: "Position",
     },
     {
-        accessorKey: "subspecialty",
+        accessorKey: "subspecialties",
         header: "Subspecialty",
     },
 ]

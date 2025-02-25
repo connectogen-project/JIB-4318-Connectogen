@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowDownUp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { X } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export type SortOption =
     | 'dateAddedAsc'
@@ -13,12 +14,14 @@ export type SortOption =
 
 type SortMentorsProps = {
     sortOption: SortOption;
-    setSortOption: (option: SortOption) => void;
 }
 
-export default function SortMentors({ sortOption, setSortOption }: SortMentorsProps) {
+export default function SortMentors({ sortOption }: SortMentorsProps) {
     const sortRef = useRef<HTMLDivElement | null>(null);
     const [isSortPopupOpen, setIsSortPopupOpen] = useState(false);
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const { replace } = useRouter();
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -60,8 +63,8 @@ export default function SortMentors({ sortOption, setSortOption }: SortMentorsPr
                         </div>
 
                         {[
-                            { value: 'dateAddedDesc', label: 'Date Added (Asc)' },
-                            { value: 'dateAddedAsc', label: 'Date Added (Dsc)' },
+                            { value: 'dateAddedAsc', label: 'Date Added (Asc)' },
+                            { value: 'dateAddedDesc', label: 'Date Added (Desc)' },
                             { value: 'nameAsc', label: 'Name (A-Z)' },
                             { value: 'nameDesc', label: 'Name (Z-A)' },
                         ].map((option) => (
@@ -72,7 +75,9 @@ export default function SortMentors({ sortOption, setSortOption }: SortMentorsPr
                                     value={option.value}
                                     checked={sortOption === option.value}
                                     onChange={(e) => {
-                                        setSortOption(e.target.value as SortOption);
+                                        const params = new URLSearchParams(searchParams);
+                                        params.set("sortOption", e.currentTarget.value);
+                                        replace(`${pathname}?${params.toString()}`);
                                     }}
                                 />
                                 <span className="ml-2">{option.label}</span>
