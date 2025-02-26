@@ -11,14 +11,14 @@ import { useRouter } from "next/navigation"
 import { useFormState } from "react-dom"
 import { verifyEmail, verifyEmailState } from "./VerifyEmail"
 import { useState } from "react"
-import {loginUser} from "@/app/lib/api";
-
 
 
 
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,8 +33,20 @@ export default function LoginPage() {
     }
 
     try {
-      const response = await loginUser({ email, password });
-      console.log("Login successful:", response);
+      const res = await fetch(`${API_BASE_URL}/api/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error('Failed to login');
+      }
+      console.log("Login successful:", res);
       router.push("/mentorship/find-mentorship");
     } catch (err: any) {
       console.error("Login failed:", err);
@@ -56,12 +68,19 @@ export default function LoginPage() {
             <Input name="email" type="email" placeholder="Email" className="pl-10" />
           </div>
 
-          <div className="relative">
-            <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-            <Input name="password" type="password" placeholder="Password" className="pl-10" />
+          <div className="space-y-1">
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+              <Input name="password" type="password" placeholder="Password" className="pl-10" />
+            </div>
+            <div>
+              <Link href="/login/reset-password" className="text-sm text-gray-500 hover:text-gray-800">
+                Forgot password?
+              </Link>
+            </div>
           </div>
 
-          <Button 
+          <Button
             type="submit"
             className="w-full bg-black text-white hover:bg-black/90"
           >
@@ -69,17 +88,11 @@ export default function LoginPage() {
           </Button>
         </form>
 
-        <div className="space-y-4 text-center text-sm">
-          <Link href="/login/reset-password" className="text-gray-500 hover:text-gray-800">
-            Forgot password
+        <div className="text-center text-sm text-gray-500">
+          Don&apos;t have an account?{" "}
+          <Link href="/signup" className="text-black hover:underline">
+            Sign up
           </Link>
-
-          <div className="text-gray-500">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-black hover:underline">
-              Sign up
-            </Link>
-          </div>
         </div>
       </div>
     </div>

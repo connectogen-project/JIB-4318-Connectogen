@@ -32,9 +32,9 @@ const userSchema = new mongoose.Schema({
         default: 'undefined'
     },
     institution: {
-      type: String,
-      enum: ['Emory University', 'Morehouse College', 'Morehouse School of Medicine',
-          'Georgia Institute of Technology'],
+        type: String,
+        enum: ['Emory University', 'Morehouse College', 'Morehouse School of Medicine',
+            'Georgia Institute of Technology'],
         default: null
     },
 
@@ -45,6 +45,14 @@ const userSchema = new mongoose.Schema({
     degrees: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Degree" }],
         default: []
+    },
+    fields: {
+        type: String,
+        default: null,
+    },
+    position: {
+        type: String,
+        default: null,
     },
     profilePicture: {
         type: String, // URL to S3 or cloud storage
@@ -79,7 +87,7 @@ const userSchema = new mongoose.Schema({
             ref: 'User' // Connected mentors/mentees
         }
     ],
-    
+
     interactionLogs: [
         {
             type: mongoose.Schema.Types.ObjectId,

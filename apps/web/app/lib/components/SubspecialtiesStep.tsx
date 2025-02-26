@@ -4,8 +4,8 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Checkbox } from "@repo/ui/components/ui/checkbox";
 import { Stethoscope, ArrowLeft, ArrowRight } from "lucide-react";
 import type { OnboardingData } from "../../signup/onboarding";
-import { API_BASE_URL } from "@/app/lib/api";
 import useSWR from "swr";
+
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -34,7 +34,7 @@ export function SubspecialtiesStep({
   formData,
   setFormData,
 }: SubspecialtiesStepProps) {
-  const { data: subspecialties, error } = useSWR<Subspecialty[]>(`${API_BASE_URL}/api/subspecialties`, fetcher);
+  const { data: subspecialties, error } = useSWR<Subspecialty[]>(`http://localhost:2999/api/subspecialties`, fetcher);
   const [selectedSubspecialties, setSelectedSubspecialties] = useState<
     string[]
   >(formData.subspecialties || []);

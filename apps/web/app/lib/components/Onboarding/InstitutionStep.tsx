@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/select";
-import type { OnboardingData } from "../../signup/onboarding";
+import type { OnboardingData } from "@/app/signup/onboarding";
 
 interface InstitutionStepProps {
   onNext: (data: Partial<OnboardingData>) => void;
@@ -68,7 +68,7 @@ export function InstitutionStep({
         </Button>
         <Button type="submit" className="bg-black text-white hover:bg-gray-800">
           Next
-          <ArrowRight/>
+          <ArrowRight />
         </Button>
       </div>
     </form>

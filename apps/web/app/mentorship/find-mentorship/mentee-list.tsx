@@ -1,13 +1,9 @@
-'use client'
-
-import { useEffect, useState } from "react";
 import { DataTable } from "./data-table"
-import { SortOption } from "@/app/lib/components/sort-mentors";
+import { SortOption } from "@/app/lib/components/MentorshipTable/sort-mentors";
 import { User } from "@/app/lib/types";
 import { Mentee, menteeColumns } from "./mentee-columns";
 
-
-async function getMenteeData(sortOption: SortOption): Promise<Mentee[]> {
+async function getMenteeData(sortOption: SortOption) {
     // Fetch data from your API here.
     const allMenteeResponse = await fetch("http://localhost:2999/api/mentees/getMentees", {
         cache: "no-store",
@@ -20,13 +16,12 @@ async function getMenteeData(sortOption: SortOption): Promise<Mentee[]> {
     const allMenteeData: {
         data: User[],
     } = await allMenteeResponse.json();
-    console.log(allMenteeData)
 
     let displayedData: Mentee[] = allMenteeData.data.map(user => ({
         name: user.firstName + " " + user.lastName,
         institution: user.institution,
-        // fields: mentor.fields
-        // position: mentor.position,
+        fields: user.fields,
+        position: user.position,
         subspecialties: user.subspecialties,
         createdAt: user.createdAt,
     }))
@@ -50,16 +45,28 @@ async function getMenteeData(sortOption: SortOption): Promise<Mentee[]> {
     return displayedData
 }
 
-export default function MenteeList({ sortOption }: { sortOption: SortOption }) {
-    const [mentees, setMentees] = useState<Mentee[]>([]);
+interface MenteeListProps {
+    sortOption: SortOption,
+    filters: {
+        institutions?: string[],
+        fields?: string[],
+        position?: string[],
+        subspecialties?: string[],
 
-    useEffect(() => {
-        async function fetchData() {
-            const sortedMentees = await getMenteeData(sortOption);
-            setMentees(sortedMentees);
-        }
-        fetchData();
-    }, [sortOption]); // Only refetch when sorting changes
+    }
+}
 
-    return <DataTable columns={menteeColumns} data={mentees} />;
+export default async function MenteeList({ sortOption, filters }: MenteeListProps) {
+    const mentees = await getMenteeData(sortOption);
+
+    const filteredMentees = mentees.filter((mentee) => {
+        return (
+            (!filters.institutions || filters.institutions?.includes(mentee.institution?.replaceAll(' ', ''))) &&
+            (!filters.fields || filters.fields?.includes(mentee.fields?.replaceAll(' ', ''))) &&
+            (!filters.position || filters.position?.includes(mentee.position?.replaceAll(' ', ''))) &&
+            (!filters.subspecialties || filters.subspecialties?.includes(mentee.subspecialties?.replaceAll(' ', '')))
+        );
+    });
+
+    return <DataTable columns={menteeColumns} data={filteredMentees} />;
 }

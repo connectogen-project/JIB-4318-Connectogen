@@ -8,6 +8,8 @@ export type User = {
     gender: string,
     institution: string,
     degrees: string[],
+    fields: string,
+    position: string,
     profilePicture: string,
     bio: string,
     isMentor: boolean,

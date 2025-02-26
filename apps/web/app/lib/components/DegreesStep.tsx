@@ -4,7 +4,6 @@ import { Button } from "@repo/ui/components/ui/button"
 import { Checkbox } from "@repo/ui/components/ui/checkbox"
 import { GraduationCap, ArrowLeft, ArrowRight } from "lucide-react"
 import type { OnboardingData } from "../../signup/onboarding"
-import {API_BASE_URL} from "@/app/lib/api";
 import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -29,7 +28,7 @@ interface DegreesStepProps {
 // ]
 
 export function DegreesStep({ onNext, onBack, formData, setFormData }: DegreesStepProps) {
-    const { data: degrees, error } = useSWR<Degree[]>(`${API_BASE_URL}/api/degrees`, fetcher);
+    const { data: degrees, error } = useSWR<Degree[]>(`http://localhost:2999/api/degrees`, fetcher);
     const [selectedDegrees, setSelectedDegrees] = useState<string[]>(formData.degrees || [])
 
   useEffect(() => {

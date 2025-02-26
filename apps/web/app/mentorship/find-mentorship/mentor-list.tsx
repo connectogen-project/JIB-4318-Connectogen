@@ -1,12 +1,9 @@
-'use client'
-
-import { useEffect, useState } from "react";
 import { DataTable } from "./data-table"
-import { SortOption } from "@/app/lib/components/sort-mentors";
+import { SortOption } from "@/app/lib/components/MentorshipTable/sort-mentors";
 import { Mentor, mentorColumns } from "./mentor-columns";
 import { User } from "@/app/lib/types";
 
-async function getMentorData(sortOption: SortOption): Promise<Mentor[]> {
+async function getMentorData(sortOption: SortOption) {
     // Fetch data from your API here.
 
     const allMentorResponse = await fetch("http://localhost:2999/api/mentors/getMentors", {
@@ -24,8 +21,8 @@ async function getMentorData(sortOption: SortOption): Promise<Mentor[]> {
     let displayedData: Mentor[] = allMentorData.data.map(user => ({
         name: user.firstName + " " + user.lastName,
         institution: user.institution,
-        // fields: user.fields
-        // position: user.position,
+        fields: user.fields,
+        position: user.position,
         subspecialties: user.subspecialties,
         createdAt: user.createdAt,
     }))
@@ -53,29 +50,22 @@ async function getMentorData(sortOption: SortOption): Promise<Mentor[]> {
 type MentorListProps = {
     sortOption: SortOption;
     filters: {
-        institutions: string[];
-        fields: string[];
-        positions: string[];
-        subspecialties: string[];
+        institutions?: string[];
+        fields?: string[];
+        position?: string[];
+        subspecialties?: string[];
     };
 };
 
-export default function MentorList({ sortOption, filters }: MentorListProps) {
-    const [mentors, setMentors] = useState<Mentor[]>([]);
+export default async function MentorList({ sortOption, filters }: MentorListProps) {
+    const mentors = await getMentorData(sortOption);
 
-    useEffect(() => {
-        async function fetchData() {
-            const sortedMentors = await getMentorData(sortOption);
-            setMentors(sortedMentors);
-        }
-        fetchData();
-    }, [sortOption]);
-
-    // Filter mentors based on selected filters
     const filteredMentors = mentors.filter((mentor) => {
         return (
-            (filters.institutions.length === 0 || filters.institutions.includes(mentor.institution)) &&
-            (filters.subspecialties.length === 0 || filters.subspecialties.includes(mentor.subspecialties))
+            (!filters.institutions || filters.institutions?.includes(mentor.institution?.replaceAll(' ', ''))) &&
+            (!filters.fields || filters.fields?.includes(mentor.fields?.replaceAll(' ', ''))) &&
+            (!filters.position || filters.position?.includes(mentor.position?.replaceAll(' ', ''))) &&
+            (!filters.subspecialties || filters.subspecialties?.includes(mentor.subspecialties?.replaceAll(' ', '')))
         );
     });
 

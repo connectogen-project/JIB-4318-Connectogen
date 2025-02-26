@@ -1,21 +1,10 @@
 "use client";
-// import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { logoutUser } from "@/app/lib/api";
+
+import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import Logo from "@repo/ui/components/logo";
 import { Button } from "@repo/ui/components/ui/button";
 import { InboxIcon, UserCircle } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@repo/ui/components/ui/sheet";
-import { NotificationsList } from "./notifications-list";
-import { getNotifications } from "@/app/lib/api";
 
 import {
   NavigationMenu,
@@ -27,6 +16,7 @@ import {
   NavigationMenuTrigger,
   // NavigationMenuViewport,
 } from "@repo/ui/components/ui/navigation-menu";
+import { NotificationsList } from "./notifications-list";
 
 // Mock data for connection requests
 const mockNotifications = [
@@ -48,50 +38,29 @@ const mockNotifications = [
 ];
 
 export default function NavBar() {
-  // const pathname = usePathname();
-  // const PORT = process.env.PORT || "2999";
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState([]);
-
-useEffect(() => {
-  async function fetchNotifs() {
-    try {
-      const data = await getNotifications();
-      setNotifications(data.data);
-    } catch (error) {
-      console.error("Unable to fetch notifications at this time:", error);
-    }
-  }
-  fetchNotifs();
-}, []);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [notifications, setNotifications] = useState(NotificationItem[]);
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:2999';
 
   const handleLogout = async () => {
     try {
-      // const response = await fetch('auth/logout/', { method: 'POST' });
-      const response = await logoutUser();
-      if (response) {
+      const res = await fetch(`${API_BASE_URL}/api/users/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res) {
         console.log("Logged out.");
         router.push("/");
       } else {
         console.error("Failed to log out");
+        throw new Error('Failed to logout');
       }
     } catch (error) {
       console.error("Error during logout:", error);
     }
-  };
-
-  const handleAcceptRequest = (id: string) => {
-    // Add your accept request logic here
-    setNotifications((prev) =>
-      prev.filter((notification) => notification !== id)
-    );
-  };
-
-  const handleDismissRequest = (id: string) => {
-    setNotifications((prev) =>
-      prev.filter((notification) => notification !== id)
-    );
   };
 
   return (
@@ -135,38 +104,15 @@ useEffect(() => {
       </div>
 
       <div className="flex mx-6 gap-x-6 items-center">
-
         <Button
           onClick={handleLogout}
           className="bg-foreground text-background px-4 py-2 rounded hover:bg-muted-foreground"
         >
           Logout
         </Button>
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <Button
-              size="icon"
-              className="relative rounded-full bg-black p-2"
-            >
-              <InboxIcon className="h-5 w-5 text-white" />
-              {notifications.length > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                  {notifications.length}
-                </span>
-              )}
-            </Button>
-          </SheetTrigger>
-          <SheetContent className="w-[400px] sm:w-[540px]">
-            <SheetHeader className="pb-6">
-              <SheetTitle>Notifications</SheetTitle>
-            </SheetHeader>
-            <NotificationsList
-              notifications={notifications}
-              onAccept={handleAcceptRequest}
-              onDismiss={handleDismissRequest}
-            />
-          </SheetContent>
-        </Sheet>
+        <Suspense fallback={<InboxIcon />}>
+          <NotificationsList />
+        </Suspense>
         <UserCircle />
       </div>
     </div>

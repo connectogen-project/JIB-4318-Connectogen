@@ -3,7 +3,7 @@ import { Label } from "@repo/ui/components/ui/label";
 import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
 import { Lock, UserPenIcon, ArrowLeft, ArrowRight } from "lucide-react";
-import type { OnboardingData } from "../../signup/onboarding";
+import type { OnboardingData } from "@/app/signup/onboarding";
 
 interface CredentialsStepProps {
   onNext: (data: Partial<OnboardingData>) => void;
@@ -94,7 +94,7 @@ export function CredentialsStep({
         </Button>
         <Button type="submit" className="bg-black text-white hover:bg-gray-800">
           Next
-          <ArrowRight/>
+          <ArrowRight />
         </Button>
       </div>
     </form>
