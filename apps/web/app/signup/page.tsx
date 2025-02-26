@@ -45,10 +45,11 @@ export default function Signup() {
           firstName: newFormData.firstName!,
           lastName: newFormData.lastName!,
           email: newFormData.email!,
-          password: newFormData.password!,  // Make sure this field is captured in one of your steps
+          password: newFormData.password!,
           gender: newFormData.gender!,
           institution: newFormData.institution!,
           degrees: newFormData.degrees || [],
+          subspecialties: newFormData.subspecialties || [],
           bio: newFormData.bio,
           resume: newFormData.resumeFileUrl,
         });

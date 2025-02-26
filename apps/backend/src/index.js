@@ -11,6 +11,8 @@ import mentorRoutes from '../routes/mentor.routes.js';
 import menteeRoutes from '../routes/mentee.routes.js';
 import requestsRoutes from '../routes/connectRequest.routes.js'; // Import connection request routes
 import notificationRoutes from '../routes/notifications.routes.js';
+import subspecialtiesRoutes from "../routes/subspecialties.routes";
+import degreesRoutes from "../routes/degrees.routes";
 
 dotenv.config();
 
@@ -36,6 +38,8 @@ app.use('/api/mentors', mentorRoutes);
 app.use('/api/mentees', menteeRoutes);
 app.use('/api/requests', requestsRoutes); // Add connection request routes
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/degrees', degreesRoutes);
+app.use('/api/subspecialties', subspecialtiesRoutes);
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {

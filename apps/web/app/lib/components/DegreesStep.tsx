@@ -4,7 +4,15 @@ import { Button } from "@repo/ui/components/ui/button"
 import { Checkbox } from "@repo/ui/components/ui/checkbox"
 import { GraduationCap, ArrowLeft, ArrowRight } from "lucide-react"
 import type { OnboardingData } from "../../signup/onboarding"
+import {API_BASE_URL} from "@/app/lib/api";
+import useSWR from "swr";
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+interface Degree {
+    _id: string;
+    name: string;
+}
 interface DegreesStepProps {
   onNext: (data: Partial<OnboardingData>) => void
   onBack: () => void
@@ -12,16 +20,17 @@ interface DegreesStepProps {
   setFormData: React.Dispatch<React.SetStateAction<Partial<OnboardingData>>>
 }
 
-const DEGREES = [
-  { id: "bs", label: "BS - Bachelor of Science" },
-  { id: "ms", label: "MS - Master of Science" },
-  { id: "phd", label: "PhD - Doctor of Philosophy" },
-  { id: "md", label: "MD - Doctor of Medicine" },
-  { id: "np", label: "NP - Nurse Practitioner" },
-]
+// const DEGREES = [
+//   { id: "bs", label: "BS - Bachelor of Science" },
+//   { id: "ms", label: "MS - Master of Science" },
+//   { id: "phd", label: "PhD - Doctor of Philosophy" },
+//   { id: "md", label: "MD - Doctor of Medicine" },
+//   { id: "np", label: "NP - Nurse Practitioner" },
+// ]
 
 export function DegreesStep({ onNext, onBack, formData, setFormData }: DegreesStepProps) {
-  const [selectedDegrees, setSelectedDegrees] = useState<string[]>(formData.degrees || [])
+    const { data: degrees, error } = useSWR<Degree[]>(`${API_BASE_URL}/api/degrees`, fetcher);
+    const [selectedDegrees, setSelectedDegrees] = useState<string[]>(formData.degrees || [])
 
   useEffect(() => {
     setFormData((prev) => ({ ...prev, degrees: selectedDegrees }))
@@ -32,9 +41,14 @@ export function DegreesStep({ onNext, onBack, formData, setFormData }: DegreesSt
     onNext({ degrees: selectedDegrees })
   }
 
-  const toggleDegree = (degree: string) => {
-    setSelectedDegrees((prev) => (prev.includes(degree) ? prev.filter((d) => d !== degree) : [...prev, degree]))
-  }
+    const toggleDegree = (degreeId: string) => {
+        setSelectedDegrees((prev) =>
+            prev.includes(degreeId) ? prev.filter((id) => id !== degreeId) : [...prev, degreeId]
+        );
+    };
+
+    if (error) return <div>Error loading degrees...</div>
+    if (!degrees) return <div>Loading degrees...</div>
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -43,14 +57,14 @@ export function DegreesStep({ onNext, onBack, formData, setFormData }: DegreesSt
         <div className="relative">
           <GraduationCap className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
           <div className="space-y-2 border rounded-md p-3 pl-10">
-            {DEGREES.map((degree) => (
-              <div key={degree.id} className="flex items-center space-x-2">
+            {degrees.map((degree) => (
+              <div key={degree._id} className="flex items-center space-x-2">
                 <Checkbox
-                  id={degree.id}
-                  checked={selectedDegrees.includes(degree.label)}
-                  onCheckedChange={() => toggleDegree(degree.label)}
+                  id={degree._id}
+                  checked={selectedDegrees.includes(degree._id)}
+                  onCheckedChange={() => toggleDegree(degree._id)}
                 />
-                <Label htmlFor={degree.id}>{degree.label}</Label>
+                <Label htmlFor={degree._id}>{degree.name}</Label>
               </div>
             ))}
           </div>
