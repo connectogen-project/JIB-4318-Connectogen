@@ -1,7 +1,7 @@
-import LogsSidebar from "../../lib/components/InteractionLogs/logs-sidebar";
-import NewInteractionForm from "../../lib/components/InteractionLogs/new-interaction-form";
-import InteractionDetails from "../../lib/components/InteractionLogs/interaction-details";
-import LogsContent from "../../lib/components/InteractionLogs/logs-content";
+import LogsSidebar from "@/app/lib/components/InteractionLogs/logs-sidebar";
+import NewInteractionForm from "@/app/lib/components/InteractionLogs/new-interaction-form";
+import InteractionDetails from "@/app/lib/components/InteractionLogs/interaction-details";
+import LogsContent from "@/app/lib/components/InteractionLogs/logs-content";
 
 interface Interaction {
     _id: string;

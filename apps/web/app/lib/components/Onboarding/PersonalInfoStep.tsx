@@ -4,7 +4,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/ui/radio-group";
 import { User, ArrowLeft, ArrowRight } from "lucide-react";
-import type { OnboardingData } from "@/app/signup/onboarding";
+import type { OnboardingData } from "@/app/(unauthenticated)/signup/onboarding";
 
 interface PersonalInfoStepProps {
   onNext: (data: Partial<OnboardingData>) => void;
