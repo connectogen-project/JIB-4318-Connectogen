@@ -16,26 +16,26 @@ import {
   NavigationMenuTrigger,
   // NavigationMenuViewport,
 } from "@repo/ui/components/ui/navigation-menu";
-import { NotificationsList } from "./notifications-list";
+// import { NotificationsList } from "./notifications-list";
 
 // Mock data for connection requests
-const mockNotifications = [
-  {
-    id: "1",
-    name: "Anuradha Trivedi",
-    message: "Sent you a connection request.",
-  },
-  {
-    id: "2",
-    name: "Jacquelyn O'Banion",
-    message: "Sent you a connection request.",
-  },
-  {
-    id: "3",
-    name: "Zofia Lasiecka",
-    message: "Sent you a connection request.",
-  },
-];
+// const mockNotifications = [
+//   {
+//     id: "1",
+//     name: "Anuradha Trivedi",
+//     message: "Sent you a connection request.",
+//   },
+//   {
+//     id: "2",
+//     name: "Jacquelyn O'Banion",
+//     message: "Sent you a connection request.",
+//   },
+//   {
+//     id: "3",
+//     name: "Zofia Lasiecka",
+//     message: "Sent you a connection request.",
+//   },
+// ];
 
 export default function NavBar() {
   const router = useRouter();
@@ -110,9 +110,9 @@ export default function NavBar() {
         >
           Logout
         </Button>
-        <Suspense fallback={<InboxIcon />}>
+        {/* <Suspense fallback={<InboxIcon />}>
           <NotificationsList />
-        </Suspense>
+        </Suspense> */}
         <UserCircle />
       </div>
     </div>

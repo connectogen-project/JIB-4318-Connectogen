@@ -35,6 +35,7 @@ export default function LoginPage() {
     try {
       const res = await fetch(`${API_BASE_URL}/api/users/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -47,6 +48,7 @@ export default function LoginPage() {
         throw new Error('Failed to login');
       }
       console.log("Login successful:", res);
+      console.log()
       router.push("/mentorship/find-mentorship");
     } catch (err: any) {
       console.error("Login failed:", err);

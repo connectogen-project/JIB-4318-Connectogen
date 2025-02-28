@@ -28,8 +28,8 @@ const loginUser = async (req, res) => {
 
         res.cookie('jwt', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'strict',
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
             maxAge: 3600000,
             path: '/' // Ensure it's accessible for all routes
         });
@@ -62,12 +62,12 @@ const logoutUser = async (req, res) => {
 const uploadResume = async (req, res) => {
     try {
         if (!req.file) {
-            return res.status(400).json({message: "No file uploaded" });
+            return res.status(400).json({ message: "No file uploaded" });
         }
         const fileUrl = `http://localhost:${process.env.PORT || 2999}/uploads/${req.file.filename}`;
-        res.status(200).json({fileUrl});
+        res.status(200).json({ fileUrl });
     } catch (error) {
-        res.status(500).json({message: "Error uploading, try again", error: error.message });
+        res.status(500).json({ message: "Error uploading, try again", error: error.message });
     }
 };
 
