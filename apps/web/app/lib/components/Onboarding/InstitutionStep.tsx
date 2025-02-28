@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/select";
-import type { OnboardingData } from "@/app/signup/onboarding";
+import type { OnboardingData } from "@/app/(unauthenticated)/signup/onboarding";
 
 interface InstitutionStepProps {
   onNext: (data: Partial<OnboardingData>) => void;

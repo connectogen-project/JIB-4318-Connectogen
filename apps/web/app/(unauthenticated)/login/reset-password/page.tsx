@@ -1,7 +1,5 @@
-'use client'
-
-import ResetPassword from "@/app/lib/components/reset-password"
-import ForgotPassword from "@/app/lib/components/forgot-password"
+import ResetPassword from "@/app/lib/components/Login/reset-password"
+import ForgotPassword from "@/app/lib/components/Login/forgot-password"
 
 export default function ResetPasswordPage({
     searchParams,

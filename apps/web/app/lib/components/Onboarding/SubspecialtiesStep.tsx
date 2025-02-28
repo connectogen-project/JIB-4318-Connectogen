@@ -1,7 +1,7 @@
 import { Label } from "@repo/ui/components/ui/label";
 import { Button } from "@repo/ui/components/ui/button";
 import { Stethoscope, ArrowLeft, ArrowRight } from "lucide-react";
-import type { OnboardingData } from "@/app/signup/onboarding";
+import type { OnboardingData } from "@/app/(unauthenticated)/signup/onboarding";
 import MultipleSelector, { Option } from "../MultipleSelector";
 
 interface SubspecialtiesStepProps {
