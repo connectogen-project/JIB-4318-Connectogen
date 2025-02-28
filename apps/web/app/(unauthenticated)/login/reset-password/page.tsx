@@ -1,5 +1,3 @@
-'use client'
-
 import ResetPassword from "@/app/lib/components/Login/reset-password"
 import ForgotPassword from "@/app/lib/components/Login/forgot-password"
 
