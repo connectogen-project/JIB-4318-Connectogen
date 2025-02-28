@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import '@repo/ui/globals.css';
 
-import NavbarWrapper from "./lib/components/navwrapper";
 import { Inter } from "next/font/google";
 import { Toaster } from "@repo/ui/components/ui/toaster";
 import { AuthProvider } from "@/context/AuthContext"; // Import AuthProvider
@@ -26,8 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} font-sans`}>
         {/* Ensure the AuthProvider wraps the entire app */}
-        <AuthProvider>  
-          <NavbarWrapper /> {/* This uses useAuth */}
+        <AuthProvider>
           {children} {/* Your app content */}
         </AuthProvider>
         <Toaster />
