@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -29,7 +29,7 @@ export default function InteractionDetails({ title, date, mentorName, descriptio
                 transition={{ duration: 0.14 }}
             >
                 {/* Header Section */}
-                <div className="p-6 max-w-3xl">
+                <div className="flex flex-col p-6">
                     <h2 className="text-2xl font-bold mb-2">{title}</h2>
                     <div className="text-sm mb-6">
                         <span>{formattedDate}</span>

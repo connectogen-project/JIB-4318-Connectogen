@@ -2,6 +2,9 @@ import LogsSidebar from "@/app/lib/components/InteractionLogs/logs-sidebar";
 import NewInteractionForm from "@/app/lib/components/InteractionLogs/new-interaction-form";
 import InteractionDetails from "@/app/lib/components/InteractionLogs/interaction-details";
 import LogsContent from "@/app/lib/components/InteractionLogs/logs-content";
+import EditLog from "@/app/lib/components/InteractionLogs/edit-log";
+import EditButton from "@/app/lib/components/InteractionLogs/edit-button";
+import { DeleteLog } from "@/app/lib/components/InteractionLogs/delete-log";
 
 interface Interaction {
     _id: string;
@@ -17,6 +20,7 @@ export default async function Logs({ searchParams }: { searchParams: Promise<{ [
     if (!searchParams) return null;
     const showForm = (await searchParams)['new'] === 'true';
     const selectedId = (await searchParams)['id'];
+    const editForm = (await searchParams)['edit'];
 
     const allLogsResponse = await fetch("http://localhost:2999/mentorship/logs", {
         cache: "no-store",
@@ -42,15 +46,27 @@ export default async function Logs({ searchParams }: { searchParams: Promise<{ [
                     {showForm ? (
                         <NewInteractionForm />
                     ) : selectedInteraction ? (
-                        // Ensure InteractionDetails fills the available space
                         <div className="h-full">
-                            <InteractionDetails {...selectedInteraction} />
-                        </div>
-                    ) : (
-                        <LogsContent />
-                    )}
+                            {editForm ? (
+                                <EditLog {...selectedInteraction} />
+
+                            ) : (
+                                <div className="flex flex-row">
+                                    <div className="grow">
+                                        <InteractionDetails {...selectedInteraction} />
+                                    </div>
+                                    <div className="flex gap-3 p-6 justify-end">
+                                        <EditButton selectedId={selectedId} />
+                                        <DeleteLog />
+                                    </div>
+                                </div>
+                            )
+                            }</div>)
+                        : (
+                            <LogsContent />
+                        )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
