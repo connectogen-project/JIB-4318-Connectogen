@@ -39,6 +39,7 @@ export const createLog = async (req, res) => {
 };
 
 // Update a log (only if it belongs to the authenticated user)
+// Update a log (only if it belongs to the authenticated user)
 export const logUpdate = async (req, res) => {
     const { id } = req.params;
     const logs = req.body;
@@ -48,28 +49,34 @@ export const logUpdate = async (req, res) => {
     }
 
     try {
-        const log = await LogItem.findOne({ _id: id, userId: req.user._id }); // Ensure the log belongs to the user
+        // Ensure the log belongs to the authenticated user
+        const log = await LogItem.findOne({ _id: id, userId: req.user._id });
         if (!log) {
             return res.status(404).json({ success: false, message: "Log not found or unauthorized" });
         }
 
-        const updateLog = await LogItem.findByIdAndUpdate(id, logs, { new: true });
-        res.status(200).json({ success: true, data: updateLog });
+        // Perform the update
+        const updatedLog = await LogItem.findByIdAndUpdate(id, logs, { new: true });
+        res.status(200).json({ success: true, data: updatedLog });
     } catch (error) {
         res.status(500).json({ success: false, message: "Server Error" });
     }
 };
 
+
+// Delete a log (only if it belongs to the authenticated user)
 // Delete a log (only if it belongs to the authenticated user)
 export const logDelete = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const log = await LogItem.findOne({ _id: id, userId: req.user._id }); // Ensure the log belongs to the user
+        // Ensure the log belongs to the authenticated user
+        const log = await LogItem.findOne({ _id: id, userId: req.user._id });
         if (!log) {
             return res.status(404).json({ success: false, message: "Log not found or unauthorized" });
         }
 
+        // Proceed to delete the log
         await LogItem.findByIdAndDelete(id);
         res.status(200).json({ success: true, message: "Log Deleted" });
     } catch (error) {
