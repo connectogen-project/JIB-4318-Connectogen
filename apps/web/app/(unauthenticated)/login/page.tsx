@@ -42,10 +42,8 @@ export default function LoginPage() {
         throw new Error('Failed to login');
       }
       console.log("Login successful:", res);
-      console.log()
       router.push("/mentorship/find-mentorship");
     } catch (err: any) {
-      console.error("Login failed:", err);
       setError("Login failed. Please check your credentials.");
     }
   };

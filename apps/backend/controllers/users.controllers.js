@@ -28,7 +28,7 @@ const loginUser = async (req, res) => {
 
         res.cookie('jwt', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: false, // will need to be updated
             sameSite: 'lax',
             maxAge: 3600000,
             path: '/' // Ensure it's accessible for all routes
@@ -173,9 +173,6 @@ const forgotPassword = async (req, res) => {
 
     try {
         const { email } = req.body;
-
-        console.log(email)
-
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
