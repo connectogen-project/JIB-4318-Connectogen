@@ -53,7 +53,6 @@ export function ResumeUploadStep({
             //const data = await uploadResume(formDataUpload);
             const res = await fetch(`${API_BASE_URL}/api/users/upload-resume`, {
                 method: "POST",
-                credentials: 'include',
                 body: formDataUpload,
             });
             if (!res.ok) {
