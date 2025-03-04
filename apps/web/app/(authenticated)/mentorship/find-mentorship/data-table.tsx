@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 
+import { useToast } from "@repo/ui/hooks/use-toast"
+import { Switch } from "@repo/ui/components/ui/switch"
 import { Button } from "@repo/ui/components/ui/button"
 import {
   ColumnDef,
@@ -36,10 +38,13 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
   })
 
+  const { toast } = useToast()
+
   // States for connection modal
   const [selectedRow, setSelectedRow] = useState<TData | null>(null)
   const [optionalMessage, setOptionalMessage] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [requestMentorship, setRequestMentorship] = useState(true)
 
   const handleSubmitConnect = () => {
     // Integrate your connection request logic / API call here.
@@ -49,6 +54,12 @@ export function DataTable<TData, TValue>({
       "with message:",
       optionalMessage
     )
+    // Show success toast
+    toast({
+      description: "Connection request sent!",
+      duration: 3000,
+      className: "bg-green-50 border-green-200 text-green-600",
+    })
     // Reset state after submission.
     setOptionalMessage("")
     setIsModalOpen(false)
@@ -160,13 +171,22 @@ export function DataTable<TData, TValue>({
               value={optionalMessage}
               onChange={(e) => setOptionalMessage(e.target.value)}
             />
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={handleCancelConnect}>
-                Cancel
-              </Button>
-              <Button variant="default" onClick={handleSubmitConnect}>
-                Submit
-              </Button>
+            <div className="flex justify-between items-center gap-2">
+              <div className="flex items-center space-x-2">
+                <Switch
+                  checked={requestMentorship}
+                  onCheckedChange={setRequestMentorship}
+                />
+                <span className="text-sm">Request mentorship</span>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" onClick={handleCancelConnect}>
+                  Cancel
+                </Button>
+                <Button variant="default" onClick={handleSubmitConnect}>
+                  Send
+                </Button>
+              </div>
             </div>
           </div>
         </div>
