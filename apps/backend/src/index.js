@@ -22,12 +22,15 @@ const __dirname = path.resolve();
 
 // Enable CORS for Postman testing
 app.use(cors({
-  origin: '*', // Allow requests from any origin
+  origin: 'http://localhost:3000', // Allow requests from any origin
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
   credentials: true,
 }));
 
+// app.use((req, res, next) => {
+//   next();
+// });
 app.use(cookieParser());
 app.use(express.json());
 

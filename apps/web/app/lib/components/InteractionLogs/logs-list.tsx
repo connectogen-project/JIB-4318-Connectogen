@@ -32,7 +32,10 @@ type SortOption =
 
 
 const fetcher = async (url: string): Promise<ApiResponse> => {
-    const res = await fetch(url);
+    const res = await fetch(url, {
+        cache: "no-store",
+        credentials: 'include',
+    });
     if (!res.ok) {
         throw new Error("An error occurred while fetching");
     }
@@ -151,9 +154,6 @@ export default function LogsList() {
     if (error) return <div>Failed to load logs.</div>;
     if (!response) return <div>Loading...</div>;
 
-
-
-    // console.log("response:", response);
     return (
         <div className="flex flex-col h-screen">
             {/* Search Bar and Filter Icon */}

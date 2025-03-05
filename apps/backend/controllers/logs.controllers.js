@@ -6,6 +6,10 @@ export const getLogs = async (req, res) => {
     try {
         const userId = req.user._id; // Get the authenticated user's ID
         const logs = await LogItem.find({ userId }); // Only find logs for this user
+        if (!req.user) {
+            return res.status(401).json({ success: false, message: "Unauthorized - no user" });
+        }
+
         res.status(200).json({ success: true, data: logs });
     } catch (error) {
         console.log("Error", error.message);
