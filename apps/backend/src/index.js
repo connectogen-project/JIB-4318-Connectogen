@@ -14,6 +14,7 @@ import requestsRoutes from '../routes/connectRequest.routes.js'; // Import conne
 import notificationRoutes from '../routes/notifications.routes.js';
 import subspecialtiesRoutes from "../routes/subspecialties.routes";
 import degreesRoutes from "../routes/degrees.routes";
+import mentorshipRequestRoutes from "../routes/mentorshipRequest.routes"
 
 dotenv.config();
 
@@ -45,6 +46,7 @@ app.use('/api/requests', requestsRoutes); // Add connection request routes
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/degrees', degreesRoutes);
 app.use('/api/subspecialties', subspecialtiesRoutes);
+app.use('/api/mentorship-requests', mentorshipRequestRoutes);
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
