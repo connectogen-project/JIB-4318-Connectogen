@@ -88,6 +88,18 @@ const userSchema = new mongoose.Schema({
         }
     ],
 
+    mentors: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User',
+        default: []
+    },
+
+    mentees: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User',
+        default: []
+    },
+
     interactionLogs: [
         {
             type: mongoose.Schema.Types.ObjectId,
