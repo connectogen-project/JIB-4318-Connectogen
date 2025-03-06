@@ -83,7 +83,8 @@ const getUser = async (req, res) => {
         const user = await User.findOne({ email })
             .select('-password')
             .populate('degrees')
-            .populate('subspecialties');
+            .populate('subspecialties')
+            .populate('connectionRequests');
 
 
         if (!user) {
