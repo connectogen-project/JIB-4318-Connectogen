@@ -24,7 +24,7 @@ export type User = {
         position: string;
     },
 
-    isMentee: boolean,
+    isMentee: boolean;
     // expertise: [
     //  We will make this multiple choice for now, select a few things you're experienced in
     // interests: [
