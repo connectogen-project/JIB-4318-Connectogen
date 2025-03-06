@@ -42,11 +42,12 @@ export function DataTable<TData, TValue>({
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleSubmitConnect = async () => {
-    if (!selectedRow) return
+    if (!selectedRow) return;
+    console.log("Selected Row:", selectedRow);
     try {
       const response = await fetch("http://localhost:2999/api/requests/send", {
         method: "POST",
-        credentials: "include", // ensure cookies are sent if using JWT in cookies
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
