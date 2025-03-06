@@ -25,6 +25,7 @@ export default function NewInteractionForm() {
     try {
       const response = await fetch('http://localhost:2999/mentorship/logs', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

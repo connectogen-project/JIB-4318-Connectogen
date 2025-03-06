@@ -1,15 +1,13 @@
-'use client'
+import ResetPassword from "@/app/lib/components/Login/reset-password"
+import ForgotPassword from "@/app/lib/components/Login/forgot-password"
 
-import ResetPassword from "@/app/lib/components/reset-password"
-import ForgotPassword from "@/app/lib/components/forgot-password"
-
-export default function ResetPasswordPage({
+export default async function ResetPasswordPage({
     searchParams,
 }: {
     searchParams: { [key: string]: string | undefined }
 }) {
 
-    const { resetToken } = searchParams
+    const { resetToken } = (await searchParams)
 
     if (resetToken) {
         return (

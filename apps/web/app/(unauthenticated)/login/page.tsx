@@ -1,18 +1,12 @@
 'use client'
 
 import Link from "next/link"
-
 import { Input } from "@repo/ui/components/ui/input"
 import { Button } from "@repo/ui/components/ui/button"
 import { Mail, Lock } from "lucide-react"
 
-
 import { useRouter } from "next/navigation"
-import { useFormState } from "react-dom"
-import { verifyEmail, verifyEmailState } from "./VerifyEmail"
 import { useState } from "react"
-
-
 
 export default function LoginPage() {
   const router = useRouter();
@@ -35,6 +29,7 @@ export default function LoginPage() {
     try {
       const res = await fetch(`${API_BASE_URL}/api/users/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -49,7 +44,6 @@ export default function LoginPage() {
       console.log("Login successful:", res);
       router.push("/mentorship/find-mentorship");
     } catch (err: any) {
-      console.error("Login failed:", err);
       setError("Login failed. Please check your credentials.");
     }
   };
