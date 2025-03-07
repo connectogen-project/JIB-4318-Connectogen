@@ -41,6 +41,7 @@ export default function Signup() {
     } else {
       console.log("Onboarding complete:", newFormData);
       try {
+
         const res = await fetch(`${API_BASE_URL}/api/users/register`, {
           method: 'POST',
           headers: {
@@ -55,10 +56,12 @@ export default function Signup() {
               gender: newFormData.gender!,
               institution: newFormData.institution!,
               degrees: newFormData.degrees || [],
+              subspecialties: newFormData.subspecialties || [],
               bio: newFormData.bio,
               resume: newFormData.resumeFileUrl,
             }
           ),
+
         });
         const resText = await res.text(); // Read raw response text before parsing
         if (!res.ok) {

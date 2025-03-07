@@ -80,7 +80,12 @@ const getUser = async (req, res) => {
             return res.status(400).json({ message: 'Email is required' });
         }
 
-        const user = await User.findOne({ email }).select('-password'); // Exclude password req
+        const user = await User.findOne({ email })
+            .select('-password')
+            .populate('degrees')
+            .populate('subspecialties')
+            .populate('connectionRequests');
+
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -223,6 +228,25 @@ const resetPassword = async (req, res) => {
     }
 };
 
+// Added for a user to fetch their own mentors / mentees
+const getMyMentors = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).populate('mentors', 'firstName lastName email');
+        res.status(200).json({ mentors: user.mentors });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+const getMyMentees = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).populate('mentees', 'firstName lastName email');
+        res.status(200).json({ mentees: user.mentees });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
@@ -232,8 +256,12 @@ module.exports = {
     getUser,
     forgotPassword,
     resetPassword,
-    uploadResume
+    uploadResume,
+    getMyMentors,
+    getMyMentees
 };
+
+
 
 // module.exports.uploadResume = uploadResume; test code
 // Undo deletion

@@ -14,7 +14,7 @@ const { logUpdate, logDelete } = require('../controllers/logs.controllers');
 const authMiddleware = require('../middlewares/auth.middleware.js');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
-const {uploadResume } = require("../controllers/users.controllers");
+const {uploadResume, getMyMentors, getMyMentees} = require("../controllers/users.controllers");
 router.post("/upload-resume", upload.single("resume"), uploadResume);
 
 // Public Routes (No Authentication Required)
@@ -30,6 +30,10 @@ router.post('/reset-password', resetPassword); // Reset password (validate token
 
 // Protected Routes (Authentication Required)
 router.get('/', getUser); // Get user details
+
+// For fetching a user's mentors / mentees
+router.get('/my-mentors', authMiddleware, getMyMentors);
+router.get('/my-mentees', authMiddleware, getMyMentees);
 
 // Only an authenticated user can update their own profile after revalidating password
 router.put('/:id', authMiddleware, async (req, res, next) => {

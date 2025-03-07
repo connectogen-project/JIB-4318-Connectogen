@@ -27,6 +27,9 @@ const sendConnectionRequest = async (req, res) => {
       message 
     });
     const result = await newRequest.save();
+
+    await User.findByIdAndUpdate(recipientId, { $push: { connectionRequests: result._id } });
+
     res.status(201).json(result);
   } catch (error) {
     handleError(res, error);

@@ -21,7 +21,12 @@ const logSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    sharedWith: [
+        { type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            default: []
+        }]
 }, {
     timestamps: true
 });

@@ -19,6 +19,7 @@ async function getMentorData(sortOption: SortOption) {
     } = await allMentorResponse.json();
 
     let displayedData: Mentor[] = allMentorData.data.map(user => ({
+        _id: user._id,
         name: user.firstName + " " + user.lastName,
         institution: user.institution,
         fields: user.fields,
