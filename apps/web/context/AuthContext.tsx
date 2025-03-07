@@ -40,3 +40,5 @@ export function useAuth() {
     }
     return context;
 }
+
+// Accidentally made changes for this branch in CONNECT-177, PR'ing this branch for JIRA
