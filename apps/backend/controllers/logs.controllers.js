@@ -35,6 +35,7 @@ export const createLog = async (req, res) => {
 
     const newLog = new LogItem({
         ...log,
+        date: log.date,
         userId: req.user._id, // Associate the log with the authenticated user
         sharedWith: log.sharedWith || [] // Array of shared users
     });

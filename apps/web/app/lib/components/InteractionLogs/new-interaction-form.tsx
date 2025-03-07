@@ -10,11 +10,20 @@ export default function NewInteractionForm() {
   const router = useRouter();
   const { mutate } = useSWRConfig();
 
+  function getLocalDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   const [formData, setFormData] = useState({
     title: '',
     mentorName: '',
     description: '',
-    date: new Date().toISOString().split('T')[0],
+    // date: new Date().toISOString().split('T')[0],
+    date: getLocalDate(),
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -44,7 +53,7 @@ export default function NewInteractionForm() {
           title: '',
           mentorName: '',
           description: '',
-          date: new Date().toISOString().split('T')[0],
+          date: getLocalDate(),
         });
 
         toast.success('Your interaction was successfully logged!');
@@ -52,7 +61,8 @@ export default function NewInteractionForm() {
         mutate('http://localhost:2999/mentorship/logs');
 
         setTimeout(() => {
-          router.push('/mentorship/logs');
+          // Commented out for unnecessary refresh of the page
+          //router.push('/mentorship/logs');
         }, 6000);
       }
     } catch (error) {

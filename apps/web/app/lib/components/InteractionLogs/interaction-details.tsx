@@ -9,12 +9,29 @@ interface InteractionDetailsProps {
     description: string;
 }
 
+// New helper method for date to fix bug
+function formatCustomDate(dateInput: string): string {
+    // Assume dateInput is in the format "YYYY-MM-DD"
+    const parts = dateInput.split("-");
+    if (parts.length !== 3) return dateInput; // fallback in case of unexpected format
+
+    const [year, month, day] = parts;
+    // Create a local date (month is zero-indexed)
+    const localDate = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
+
+    const weekday = localDate.toLocaleDateString("en-US", { weekday: "short" });
+    const monthStr = localDate.toLocaleDateString("en-US", { month: "short" });
+
+    return `${weekday} - ${monthStr} ${day}, ${year}`;
+}
+
 export default function InteractionDetails({ title, date, mentorName, description }: InteractionDetailsProps) {
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: '2-digit'
-    });
+    // const formattedDate = new Date(date).toLocaleDateString('en-US', {
+    //     month: '2-digit',
+    //     day: '2-digit',
+    //     year: '2-digit'
+    // });
+    const formattedDate = formatCustomDate(date);
 
     const uniqueKey = `${title}-${formattedDate}-${mentorName}-${description}`;
 
