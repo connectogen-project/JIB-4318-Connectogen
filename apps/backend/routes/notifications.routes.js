@@ -1,18 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const {
+import express from 'express';
+import {
     createNotification,
     getNotification,
     readNotification,
     deleteNotification,
-} = require('../controllers/notifications.controllers');
+} from '../controllers/notifications.controllers.js';
+import authMiddleware from '../middlewares/auth.middleware.js'; // Import the auth middleware
 
-router.post('/createNotif', createNotification);
+const router = express.Router();
 
-router.get('/getNotif', getNotification);
-
-router.put('/read/:id', readNotification);
-
-router.delete('/delNotif/:id', deleteNotification);
+// Apply authMiddleware to all routes
+router.post('/createNotif', authMiddleware, createNotification);
+router.get('/getNotif', authMiddleware, getNotification);
+router.put('/read/:id', authMiddleware, readNotification);
+router.delete('/delNotif/:id', authMiddleware, deleteNotification);
 
 export default router;

@@ -1,4 +1,3 @@
-
 import { Suspense } from "react";
 import Logo from "@repo/ui/components/logo";
 import Link from "next/link";
@@ -8,12 +7,10 @@ import LogoutButton from "./log-out";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  // NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  // NavigationMenuViewport,
 } from "@repo/ui/components/ui/navigation-menu";
 import { NotificationsList } from "./notifications-list";
 

@@ -35,7 +35,6 @@ export default function SortMentors({ sortOption }: SortMentorsProps) {
         if (isSortPopupOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
-        console.log(isSortPopupOpen)
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };

@@ -9,21 +9,25 @@ const connectionRequestSchema = new Schema(
       ref: 'User' // Mentor/Mentee requesting connection
     },
     recipient: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
-      },
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    },
     status: {
       type: String,
       enum: ['pending', 'accepted', 'rejected'],
       default: 'pending'
+    },
+    message: { // Add this field
+      type: String,
+      required: false // Optional field
     },
     requestedAt: {
       type: Date,
       default: Date.now
     },
     connectionParticipants: {
-        type: [Schema.Types.ObjectId],
+      type: [Schema.Types.ObjectId],
     }
   },
   { timestamps: true }

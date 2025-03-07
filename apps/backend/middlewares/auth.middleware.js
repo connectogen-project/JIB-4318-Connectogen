@@ -1,7 +1,10 @@
 const jwt = require('jsonwebtoken');
+import User from '../models/users.models.js';
 
 const authMiddleware = (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+    // Assuming your JWT token is stored in a cookie named 'jwt'
+    const token = req.cookies.jwt;
+
     if (!token) {
         return res.status(401).json({ message: 'No token provided, authorization denied' });
     }
@@ -16,4 +19,4 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
-module.exports = authMiddleware; 
+module.exports = authMiddleware;

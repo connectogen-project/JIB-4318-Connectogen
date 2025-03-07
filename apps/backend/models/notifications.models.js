@@ -8,9 +8,7 @@ const notifSchema = new mongoose.Schema({
     },
     notifType: {
         type: String,
-        enum: ['Incoming Connection Request', 'Accepted Connection Request',
-            'Message', 'User Profile Update'
-        ],
+        enum: ['Incoming Connection Request', 'Accepted Connection Request', 'Message', 'User Profile Update'],
         required: true
     },
     message: {
@@ -19,6 +17,11 @@ const notifSchema = new mongoose.Schema({
     },
     userEmail: {
         type: String,
+        required: true
+    },
+    userId: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     time: {
