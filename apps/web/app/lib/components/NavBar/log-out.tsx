@@ -13,6 +13,7 @@ export default function LogoutButton() {
         try {
             const res = await fetch(`${API_BASE_URL}/api/users/logout`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },

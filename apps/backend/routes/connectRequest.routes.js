@@ -7,27 +7,30 @@ const {
   acceptConnectionRequest,
   rejectConnectionRequest,
   unfriendUser,
+  getConnections,
 } = require('../controllers/connectRequest.controllers.js');
 const authMiddleware = require('../middlewares/auth.middleware.js');
 
 // Protected Routes (Authentication Required)
 
-// Send a friend request
+// Send a connection request
 router.post('/send', authMiddleware, sendConnectionRequest);
 
-// Get friend requests for the authenticated user
-router.get('/requests/:id', authMiddleware, getConnectionRequests);
+// Get connection requests for the authenticated user
+router.get('/requests', authMiddleware, getConnectionRequests); // Changed route to be more RESTful
 
-// Check if a friend request exists between two users
+// Check if a connection request exists between two users
 router.get('/check', authMiddleware, checkConnectionRequest);
 
-// Accept a friend request
-router.post('/accept', authMiddleware, acceptConnectionRequest);
+// Accept a connection request
+router.patch('/accept', authMiddleware, acceptConnectionRequest);
 
-// Reject a friend request
-router.post('/reject', authMiddleware, rejectConnectionRequest);
+// Reject a connection request
+router.patch('/reject', authMiddleware, rejectConnectionRequest);
 
 // Unfriend a user
 router.post('/unfriend', authMiddleware, unfriendUser);
 
-export default router;
+router.get('/connections', authMiddleware, getConnections);
+
+module.exports = router; // Changed from `export default router` to CommonJS syntax
