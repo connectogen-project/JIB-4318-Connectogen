@@ -14,7 +14,8 @@ import requestsRoutes from '../routes/connectRequest.routes.js'; // Import conne
 import notificationRoutes from '../routes/notifications.routes.js';
 import subspecialtiesRoutes from "../routes/subspecialties.routes";
 import degreesRoutes from "../routes/degrees.routes";
-import mentorshipRequestRoutes from "../routes/mentorshipRequest.routes"
+import mentorshipRequestRoutes from "../routes/mentorshipRequest.routes";
+import logCommentsRoutes from "../routes/logComments.routes";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use(express.json());
 
 // Register routes
 app.use('/mentorship/logs', logRoutes);
+app.use('/mentorship/logComments', logCommentsRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/mentors', mentorRoutes);
 app.use('/api/mentees', menteeRoutes);
