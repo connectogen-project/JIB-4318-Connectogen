@@ -103,13 +103,15 @@ export async function NotificationsList() {
               <div className="flex items-center gap-2">
                 <Button
                   size="sm"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                  className="bg-primary text-primary-foreground hover:bg-primary/80"
                 >
                   Accept
                 </Button>
-                <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
-                  <X className="h-4 w-4" />
-                  <span className="sr-only">Dismiss</span>
+                <Button
+                  size="sm"
+                  className="bg-secondary text-black hover:bg-gray-200"
+                >
+                  Decline
                 </Button>
               </div>
             </div>
