@@ -4,6 +4,7 @@ import {
     getNotification,
     readNotification,
     deleteNotification,
+    getAllNotifications
 } from '../controllers/notifications.controllers.js';
 import authMiddleware from '../middlewares/auth.middleware.js'; // Import the auth middleware
 
@@ -14,5 +15,6 @@ router.post('/createNotif', authMiddleware, createNotification);
 router.get('/getNotif', authMiddleware, getNotification);
 router.put('/read/:id', authMiddleware, readNotification);
 router.delete('/delNotif/:id', authMiddleware, deleteNotification);
+router.get('/getAllNotif', authMiddleware, getAllNotifications);
 
 export default router;

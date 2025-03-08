@@ -1,5 +1,6 @@
 import Notification from "../models/notifications.models.js";
 import mongoose from "mongoose";
+import User from "../models/users.models.js";
 
 // Get notifications for the authenticated user
 export const getNotification = async (req, res) => {
@@ -13,10 +14,21 @@ export const getNotification = async (req, res) => {
     }
 };
 
+export const getAllNotifications = async (req, res) => {
+    try {
+        const notif = await Notification.find({ });
+        res.status(200).json(notif);
+    } catch (error) {
+        console.log("Error", error.message);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
 // Create a notification for the authenticated user
 export const createNotification = async (req, res) => {
     try {
-        const { notifType, message, userEmail } = req.body;
+        const { notifType, message, userId } = req.body;
+        const userEmail = await User.findById(userId).select("email");
 
         let notifID = generateRandomString(10);
         while (true) {
@@ -35,7 +47,7 @@ export const createNotification = async (req, res) => {
             notifType,
             message,
             userEmail,
-            userId: req.user._id, // Associate the notification with the authenticated user
+            userId, // Associate the notification with the authenticated user
             time,
             read: false
         });
