@@ -42,6 +42,9 @@ export default function LoginPage() {
         throw new Error('Failed to login');
       }
       console.log("Login successful:", res);
+      const user = await res.json();
+      localStorage.setItem('firstName', user.firstName);
+      localStorage.setItem('lastName', user.lastName);
       router.push("/mentorship/find-mentorship");
     } catch (err: any) {
       setError("Login failed. Please check your credentials.");

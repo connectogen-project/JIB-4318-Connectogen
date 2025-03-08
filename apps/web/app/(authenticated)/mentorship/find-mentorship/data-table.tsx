@@ -86,15 +86,20 @@ export function DataTable<TData, TValue>({
   const handleSendNotification = async () => {
     if (!selectedRow) return;
     try {
+      const firstName = localStorage.getItem('firstName');
+      const lastName = localStorage.getItem('lastName');
+      const loggedInUserName = `${firstName} ${lastName}`;
       const response = await fetch("http://localhost:2999/api/notifications/createNotif", {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json"
         },
+        // \/ \/ \/ maybe we could add personalized msg later. this may also be a new field in the notification model
+        // \/ \/ \/ this if this is a new field, re-add the new message field here where msg: `user input`
         body: JSON.stringify({
           notifType: `Incoming Connection Request`,
-          message: `First Last sent connection request or maybe personalized message`,
+          message: `${loggedInUserName} sent you a Connection Request`,
           userId: (selectedRow as any)._id,
         }),
       });
