@@ -19,6 +19,6 @@ export default async function Edit({ searchParams }: { searchParams: Promise<{ [
     }
 
     return (
-        <EditLog {...log} />
+        <EditLog {...log} selectedId={selectedId} />
     )
 }
