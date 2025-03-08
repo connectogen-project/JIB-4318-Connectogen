@@ -26,7 +26,7 @@ export default async function Logs({ searchParams }: { searchParams: Promise<{ [
             </div>
             <div className="flex gap-3 p-6 justify-end">
                 <EditButton selectedId={selectedId} />
-                <DeleteLog />
+                <DeleteLog selectedId={selectedId} />
             </div>
         </div>
     )
