@@ -64,6 +64,9 @@ export function DataTable<TData, TValue>({
       }
       const result = await response.json()
       console.log("Connection request sent successfully:", result)
+      if (response.ok) {
+        await handleSendNotification();
+      }
     } catch (error) {
       console.error("Error in connection request:", error)
     } finally {
@@ -78,6 +81,34 @@ export function DataTable<TData, TValue>({
     setOptionalMessage("")
     setIsModalOpen(false)
     setSelectedRow(null)
+  }
+
+  const handleSendNotification = async () => {
+    if (!selectedRow) return;
+    try {
+      const response = await fetch("http://localhost:2999/api/notifications/createNotif", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          notifType: `Incoming Connection Request`,
+          message: `First Last sent connection request or maybe personalized message`,
+          userId: (selectedRow as any)._id,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error creating notification:", errorText);
+        return;
+      }
+      const result = await response.json();
+      console.log("Notification created successfully:", result);
+    } catch (error) {
+      console.error("Error in notification creation:", error);
+    }
   }
 
   return (
