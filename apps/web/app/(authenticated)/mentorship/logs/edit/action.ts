@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
 
@@ -31,8 +30,6 @@ export async function editLog(prevState: any, formData: FormData) {
             errors: validatedFields.error.flatten().fieldErrors,
         }
     }
-
-    console.log(validatedFields.data)
 
     try {
         const response = await fetch(`http://localhost:2999/mentorship/logs/${validatedFields.data.selectedId}`, {
