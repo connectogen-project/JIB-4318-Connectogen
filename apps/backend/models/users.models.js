@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const bcrypt = require('bcryptjs');
 
@@ -37,8 +37,13 @@ const userSchema = new mongoose.Schema({
             'Georgia Institute of Technology'],
         default: null
     },
+
+    /* Changed degrees and sub-specialties to dynamically fetch information from
+       degrees and sub-specialties models - AJ
+     */
+
     degrees: {
-        type: [String],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Degree" }],
         default: []
     },
     fields: {
@@ -62,10 +67,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    // See above comment - AJ
     subspecialties: {
-        type: String, // Single string value
-        enum: ['Cardiology', 'Dermatology', 'Oncology', 'Pediatrics', 'Autonomic Disorders', 'Engineering', 'Mathematics', 'Biology'],
-        default: null // Default to null
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subspecialty" }],
+        default: []
     },
 
     isMentee: {
@@ -82,6 +87,25 @@ const userSchema = new mongoose.Schema({
             ref: 'User' // Connected mentors/mentees
         }
     ],
+
+    connectionRequests: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'ConnectionRequest'
+        }
+    ],
+
+    mentors: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User',
+        default: []
+    },
+
+    mentees: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User',
+        default: []
+    },
 
     interactionLogs: [
         {

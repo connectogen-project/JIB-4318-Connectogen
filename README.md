@@ -8,6 +8,61 @@ Connectogen is a platform designed to enhance collaboration among healthcare and
 
 For the Connectogen rebuild, we have decided to go with the MERN tech stack which consists of MongoDB for databases, Express as a framework, React for frontend, and Node.js for backend. Not only is MERN a very popular tech stack that has plenty of documentation, but MERN fits our needs for the Connectogen rebuild.
 
+## v0.3.0  
+We’re excited to release version **0.3.0** of our mentorship platform! This update enhances user interactions with new features, including mentor/mentee pairing, interaction logging, and improved connection request management. Additionally, we’ve made significant **frontend reworks**, backend improvements, and addressed some usability issues.  
+
+### Features Implemented  
+We’ve introduced new functionalities to streamline mentorship tracking and communication. These enhancements make it easier for users to manage their mentorship connections and log their progress.  
+
+- **Mentor/Mentee Pairing**:  
+  Users can now establish formal mentorship connections through the **Connectogen** system.  
+  - **Backend Enhancements**:  
+    - Added `mentorConnectogen` and `menteeConnectogen` fields to the database.  
+    - Implemented a request system for users to initiate mentorship connections.  
+  - **Frontend Features**:  
+    - Users can request mentorship through a structured UI.  
+    - Confirmation message displayed upon successful connection.  
+    - **Updated Mentor/Mentee Pairings**: Once paired, mentors and mentees are now properly displayed in their respective sections.  
+
+- **Interaction Logging & Management**:  
+  Users can now **log, edit, and delete** their mentorship interactions, providing a detailed record of their progress.  
+  - **Backend Enhancements**:  
+    - Created API endpoints for logging, editing, and deleting interaction records.  
+    - Implemented authentication to ensure secure logging per user.  
+  - **Frontend Features**:  
+    - New **Edit Log** component allows users to modify existing interaction logs.  
+    - Added a **Delete Log** button for removing outdated or irrelevant logs.  
+    - Improved **GUI for logging mentor interactions**.  
+
+- **Search & Filter Interaction Logs**:  
+  Users can now search through their logs to quickly find specific information.  
+  - **Backend Enhancements**:  
+    - Optimized queries for efficient log retrieval.  
+  - **Frontend Features**:  
+    - Integrated **dynamic search functionality** within the interaction log interface.  
+    - Fixed scrollbar issues for better navigation.  
+
+- **Connection Request Management**:  
+  Users can now review and respond to incoming mentorship requests.  
+  - **Backend Enhancements**:  
+    - Fully integrated **endpoints to accept or decline mentorship requests**.  
+  - **Frontend Features**:  
+    - **Functioning Accept/Deny Requests**: Users can now successfully accept or decline mentorship requests.  
+    - Improved **UI for connection request management**.  
+
+### Technical Improvements  
+To enhance performance and security, we introduced several backend and frontend optimizations:  
+- **Frontend Reworks**: Improved **UI for better user experience** across mentorship pairing, connection requests, and interaction logging.  
+- **Authentication Update**: Migrated from **JWT to cookie-based authentication**.  
+- **Data Storage Enhancements**: Institution and degree data are now stored in the **database for improved onboarding**.  
+- **Logging & Monitoring**: Expanded **system monitoring for stability tracking**.  
+
+### Known Issues  
+- **Incorrect Timestamps in Logs**: Some logs display **incorrect dates depending on the viewport**.  
+- **Non-Functional Buttons**: Certain buttons remain **unresponsive in specific scenarios**. These will be addressed in future updates.  
+
+This release significantly enhances mentorship tracking, authentication security, and request management while improving the overall UI experience. Stay tuned for upcoming fixes and refinements! 🚀  
+
 ## v0.2.0  
 We're excited to introduce version **0.2.0** of our mentorship platform! This update brings foundational features that enhance user interactions, including browsing mentors and mentees, filtering and sorting capabilities, sending connection requests, and real-time notifications.  
 

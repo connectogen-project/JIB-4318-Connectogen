@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 export type Mentor = {
+    _id: string
     name: string
     institution: string
     fields: string

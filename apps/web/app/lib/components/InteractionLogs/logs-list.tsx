@@ -32,13 +32,31 @@ type SortOption =
 
 
 const fetcher = async (url: string): Promise<ApiResponse> => {
-    const res = await fetch(url);
+    const res = await fetch(url, {
+        cache: "no-store",
+        credentials: 'include',
+    });
     if (!res.ok) {
         throw new Error("An error occurred while fetching");
     }
     return res.json();
 }
 
+// Same helper method from interaction-details
+function formatCustomDate(dateInput: string): string {
+    // Assume dateInput is in the format "YYYY-MM-DD"
+    const parts = dateInput.split("-");
+    if (parts.length !== 3) return dateInput; // fallback in case of unexpected format
+
+    const [year, month, day] = parts;
+    // Create a local date (month is zero-indexed)
+    const localDate = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
+
+    const weekday = localDate.toLocaleDateString("en-US", { weekday: "short" });
+    const monthStr = localDate.toLocaleDateString("en-US", { month: "short" });
+
+    return `${weekday} - ${monthStr} ${day}, ${year}`;
+}
 
 export default function LogsList() {
     const [sortOption, setSortOption] = useState<SortOption>('dateAddedDesc');
@@ -151,9 +169,6 @@ export default function LogsList() {
     if (error) return <div>Failed to load logs.</div>;
     if (!response) return <div>Loading...</div>;
 
-
-
-    // console.log("response:", response);
     return (
         <div className="flex flex-col h-screen">
             {/* Search Bar and Filter Icon */}
@@ -232,7 +247,7 @@ export default function LogsList() {
                                 <Link href={`/mentorship/logs?id=${log._id}`}>
                                     <div className="py-2 cursor-pointer hover:bg-gray-100">
                                         <p className="text-sm font-medium">{log.title}</p>
-                                        <p className="text-xs text-gray-500">{log.date}</p>
+                                        <p className="text-xs text-gray-500">{formatCustomDate(log.date || log.createdAt)}</p>
                                         <p className="text-xs text-gray-500">{log.mentorName}</p>
                                     </div>
                                 </Link>

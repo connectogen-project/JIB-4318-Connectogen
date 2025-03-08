@@ -1,18 +1,73 @@
-const crypto = require('node:crypto')
-
+const crypto = require('node:crypto');
 const User = require('../models/users.models.js');
 const jwt = require('jsonwebtoken');
-const path = require ("path");
+const path = require('path');
+
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        const payload = {
+            _id: user._id,
+            email: user.email,
+            isMentor: user.isMentor,
+            isMentee: user.isMentee,
+        };
+
+        const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: '1h' });
+
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            secure: false, // will need to be updated
+            sameSite: 'lax',
+            maxAge: 3600000,
+            path: '/' // Ensure it's accessible for all routes
+        });
+
+        res.status(200).json({ message: 'Login successful' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+
+const logoutUser = async (req, res) => {
+    try {
+        // Clear the JWT cookie
+        res.clearCookie('jwt', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            path: '/' // Ensure it matches the cookie path set during login
+        });
+
+        // Respond with success message
+        res.status(200).json({ success: true, message: 'Logged out successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
 
 const uploadResume = async (req, res) => {
     try {
         if (!req.file) {
-            return res.status(400).json({message: "No file uploaded" });
+            return res.status(400).json({ message: "No file uploaded" });
         }
         const fileUrl = `http://localhost:${process.env.PORT || 2999}/uploads/${req.file.filename}`;
-        res.status(200).json({fileUrl});
+        res.status(200).json({ fileUrl });
     } catch (error) {
-        res.status(500).json({message: "Error uploading, try again", error: error.message });
+        res.status(500).json({ message: "Error uploading, try again", error: error.message });
     }
 };
 
@@ -25,7 +80,12 @@ const getUser = async (req, res) => {
             return res.status(400).json({ message: 'Email is required' });
         }
 
-        const user = await User.findOne({ email }).select('-password'); // Exclude password req
+        const user = await User.findOne({ email })
+            .select('-password')
+            .populate('degrees')
+            .populate('subspecialties')
+            .populate('connectionRequests');
+
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -68,48 +128,6 @@ const registerUser = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-};
-
-const loginUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        // Find user by email
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: 'Invalid credentials' });
-        }
-
-        // Validate pwd hash
-        const isMatch = await user.comparePassword(password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
-        }
-
-        const payload = {
-            _id: user._id,
-            email: user.email,
-            isMentor: user.isMentor,
-            isMentee: user.isMentee
-        };
-
-        const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: '1h' });
-
-        // Success results in 400 code
-        res.status(200).json({ message: 'Login successful', token });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
-    }
-};
-
-const logoutUser = async (req, res) => {
-    // try {
-        // res.cookie('jwt', '', { maxAge: 1 });
-    res.clearCookie("token");
-    res.status(200).json({ success: true, message: "Logged out successfully" });
-    // } catch (error) {
-    //     res.status(500).json({ message: 'Server error', error: error.message});
-    // }
 };
 
 const updateUser = async (req, res) => {
@@ -160,9 +178,6 @@ const forgotPassword = async (req, res) => {
 
     try {
         const { email } = req.body;
-
-        console.log(email)
-
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -213,6 +228,25 @@ const resetPassword = async (req, res) => {
     }
 };
 
+// Added for a user to fetch their own mentors / mentees
+const getMyMentors = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).populate('mentors', 'firstName lastName email');
+        res.status(200).json({ mentors: user.mentors });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+const getMyMentees = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).populate('mentees', 'firstName lastName email');
+        res.status(200).json({ mentees: user.mentees });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
@@ -222,8 +256,12 @@ module.exports = {
     getUser,
     forgotPassword,
     resetPassword,
-    uploadResume
+    uploadResume,
+    getMyMentors,
+    getMyMentees
 };
+
+
 
 // module.exports.uploadResume = uploadResume; test code
 // Undo deletion

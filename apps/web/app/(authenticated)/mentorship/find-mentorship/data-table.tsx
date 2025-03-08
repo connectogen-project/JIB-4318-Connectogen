@@ -41,18 +41,37 @@ export function DataTable<TData, TValue>({
   const [optionalMessage, setOptionalMessage] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const handleSubmitConnect = () => {
-    // Integrate your connection request logic / API call here.
-    console.log(
-      "Submitting connection request for",
-      selectedRow,
-      "with message:",
-      optionalMessage
-    )
-    // Reset state after submission.
-    setOptionalMessage("")
-    setIsModalOpen(false)
-    setSelectedRow(null)
+  const handleSubmitConnect = async () => {
+    if (!selectedRow) return;
+    console.log("Selected Row:", selectedRow);
+    try {
+      const response = await fetch("http://localhost:2999/api/requests/send", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          recipientId: (selectedRow as any)._id, // adjust based on your data structure
+          message: optionalMessage || `Hello ${(selectedRow as any).name}! Lets connect!`,
+        }),
+      })
+
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error("Error sending connection request:", errorText)
+        return
+      }
+      const result = await response.json()
+      console.log("Connection request sent successfully:", result)
+    } catch (error) {
+      console.error("Error in connection request:", error)
+    } finally {
+      // Reset state after submission.
+      setOptionalMessage("")
+      setIsModalOpen(false)
+      setSelectedRow(null)
+    }
   }
 
   const handleCancelConnect = () => {
