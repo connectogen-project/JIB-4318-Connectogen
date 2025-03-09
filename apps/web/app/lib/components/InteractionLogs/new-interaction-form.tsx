@@ -1,13 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSWRConfig } from "swr";
 
 export default function NewInteractionForm() {
-  const router = useRouter();
   const { mutate } = useSWRConfig();
 
   function getLocalDate() {
@@ -59,11 +57,6 @@ export default function NewInteractionForm() {
         toast.success('Your interaction was successfully logged!');
 
         mutate('http://localhost:2999/mentorship/logs');
-
-        setTimeout(() => {
-          // Commented out for unnecessary refresh of the page
-          //router.push('/mentorship/logs');
-        }, 6000);
       }
     } catch (error) {
       console.error('Uh oh! Something went wrong, we had an error saving your interaction:', error);
