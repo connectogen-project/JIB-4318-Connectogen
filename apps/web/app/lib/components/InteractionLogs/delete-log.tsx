@@ -1,3 +1,5 @@
+'use client'
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -9,9 +11,42 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { useToast } from "@repo/ui/hooks/use-toast";
+import { ToastAction } from "@repo/ui/components/ui/toast";
 import { Trash2 } from "lucide-react"
+import { Delete } from "@/app/(authenticated)/mentorship/logs/actions";
+import { redirect } from "next/navigation";
 
-export function DeleteLog() {
+export function DeleteLog({ selectedId }: { selectedId: string | undefined }) {
+
+    const { toast } = useToast()
+
+    const handleDelete = async () => {
+        if (!selectedId) {
+            console.error("No selectedId.")
+            return;
+        }
+        const res = await Delete({ selectedId })
+
+        if (!res.success) {
+            console.error("Server error:");
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                action: <ToastAction altText="Try again">Failed to delete log.</ToastAction>,
+            });
+            return;
+        } else {
+            toast({
+                title: "Log deleted",
+                description: "The log was successfully deleted.",
+            });
+            redirect('/mentorship/logs')
+
+        }
+    }
+
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -27,7 +62,7 @@ export function DeleteLog() {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Delete</AlertDialogAction>
+                    <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
