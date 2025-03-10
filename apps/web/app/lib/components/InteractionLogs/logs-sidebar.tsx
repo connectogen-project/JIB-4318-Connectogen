@@ -6,7 +6,7 @@ export default function LogsSidebar() {
     return (
         <div className="flex flex-col py-4 w-64 border-r h-full">
             <div className="flex justify-center py-2 sticky top-0 bg-white z-10">
-                <Link href="/mentorship/logs?new=true">
+                <Link href="/mentorship/logs/create">
                     <Button>Add Interaction</Button>
                 </Link>
             </div>
