@@ -19,6 +19,8 @@ export default function LogoutButton() {
                 },
             });
             if (res) {
+                localStorage.removeItem('firstName');
+                localStorage.removeItem('lastName');
                 console.log("Logged out.");
                 router.push("/");
             } else {
